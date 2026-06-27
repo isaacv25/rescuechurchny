@@ -7,7 +7,32 @@ import { Logo } from "./Logo";
 import { Container } from "./Container";
 import { Button } from "./Button";
 import { LanguageToggle } from "./LanguageToggle";
-import { useT } from "@/lib/i18n/LocaleProvider";
+import { useT, useLocale } from "@/lib/i18n/LocaleProvider";
+
+/**
+ * Language-aware wordmark shown in the header.
+ *
+ * EN: the full horizontal raster logo (church name baked into the image).
+ * ES: the icon-only logo + "Iglesia Rescate" as HTML text — because the
+ *     horizontal image contains the English name and generating new image
+ *     assets is out of scope for this pass. See CHANGES.md for follow-up.
+ */
+function HeaderLogo() {
+  const { locale } = useLocale();
+  const { meta } = useT();
+
+  if (locale === "es") {
+    return (
+      <Link href="/" aria-label={`${meta.siteName} — Inicio`} className="inline-flex items-center gap-3">
+        {/* Icon-only logo (no wrapping link — the parent Link already handles navigation) */}
+        <Logo variant="icon" className="h-10 w-auto" href={undefined} />
+        <span className="font-display text-lg font-semibold text-ink">{meta.siteName}</span>
+      </Link>
+    );
+  }
+
+  return <Logo variant="horizontal" priority className="h-10 w-auto sm:h-12" />;
+}
 
 export function Header() {
   const t = useT();
@@ -40,7 +65,7 @@ export function Header() {
       </div>
 
       <Container className="flex h-20 items-center justify-between">
-        <Logo variant="horizontal" priority className="h-10 w-auto sm:h-12" />
+        <HeaderLogo />
 
         <nav className="hidden items-center gap-7 lg:flex">
           <Link href="/" className="text-sm font-medium text-charcoal hover:text-ink">
