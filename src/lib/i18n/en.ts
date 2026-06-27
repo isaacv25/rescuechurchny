@@ -114,32 +114,24 @@ export const en: Dictionary = {
     { name: "Minister Jacqueline Leakes", role: "Treasury", photoPath: "/leaders/minister-jackie.webp" },
     { name: "Artemia Rivera", role: "Head Usher", photoPath: "/leaders/head-usher-artemia-rivera.webp" },
     { name: "Minister Rolando Martinez", role: "Minister", photoPath: "/leaders/minister-rolando.webp" },
-    { name: "Alondra", role: "Leader of Children's Ministry", photoPath: "/leaders/leader-children-ministry-alondra.webp" },
+    { name: "Alondra", role: "Youth Ministry Leader", photoPath: "/leaders/leader-children-ministry-alondra.webp" },
     { name: "Ashley Tyanne", role: "Worship Leader", photoPath: "/leaders/ashley.jpg" },
   ],
   ministries: {
     eyebrow: "Find Your Place",
     title: "Ministries",
     intro:
-      "Ways to grow, serve, and belong at Rescue Church — for kids, students, families, and the world beyond our walls.",
+      "Ways to grow, serve, and belong at Rescue Church — for students, families, and the world beyond our walls.",
     placeholderLabel: "Details coming soon",
     items: [
       {
         key: "christ-chasers",
         name: "Christ Chasers",
-        tagline: "Our Youth Ministry",
-        description:
-          "Christ Chasers is where students chase after God together — real worship, real friendships, and a faith that's their own. Meets weekly in Staten Island.",
-        meeting: "Wednesdays · 6:00 PM – 7:30 PM",
-        link: { label: "Follow Christ Chasers on Instagram", href: "https://www.instagram.com/rescuechristchasers/" },
-      },
-      {
-        key: "childrens-ministry",
-        name: "Children's Ministry",
         tagline: "Led by Alondra",
         description:
-          "A safe, joyful environment where kids learn who God is through age-appropriate worship, teaching, and play. Program details and class schedules are being finalized — contact us to get your family connected.",
-        placeholder: true,
+          "Christ Chasers is the youth ministry of Rescue Church — where students chase after God together through real worship, real friendships, and a faith that's their own. Meets every Wednesday in Staten Island.",
+        meeting: "Wednesdays · 6:00 PM – 7:30 PM",
+        link: { label: "Follow Christ Chasers on Instagram", href: "https://www.instagram.com/rescuechristchasers/" },
       },
       {
         key: "home-groups",

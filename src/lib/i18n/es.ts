@@ -114,32 +114,24 @@ export const es: Dictionary = {
     { name: "Ministra Jacqueline Leakes", role: "Tesorería", photoPath: "/leaders/minister-jackie.webp" },
     { name: "Artemia Rivera", role: "Ujier Principal", photoPath: "/leaders/head-usher-artemia-rivera.webp" },
     { name: "Ministro Rolando Martínez", role: "Ministro", photoPath: "/leaders/minister-rolando.webp" },
-    { name: "Alondra", role: "Líder del Ministerio Infantil", photoPath: "/leaders/leader-children-ministry-alondra.webp" },
+    { name: "Alondra", role: "Líder del Ministerio de Jóvenes", photoPath: "/leaders/leader-children-ministry-alondra.webp" },
     { name: "Ashley Tyanne", role: "Líder de Adoración", photoPath: "/leaders/ashley.jpg" },
   ],
   ministries: {
     eyebrow: "Encuentra Tu Lugar",
     title: "Ministerios",
     intro:
-      "Formas de crecer, servir y pertenecer en Iglesia Rescate — para niños, jóvenes, familias y el mundo más allá de nuestras paredes.",
+      "Formas de crecer, servir y pertenecer en Iglesia Rescate — para jóvenes, familias y el mundo más allá de nuestras paredes.",
     placeholderLabel: "Detalles próximamente",
     items: [
       {
         key: "christ-chasers",
         name: "Christ Chasers",
-        tagline: "Nuestro Ministerio de Jóvenes",
-        description:
-          "Christ Chasers es donde los jóvenes persiguen a Dios juntos — adoración real, amistades reales y una fe propia. Se reúne semanalmente en Staten Island.",
-        meeting: "Miércoles · 6:00 PM – 7:30 PM",
-        link: { label: "Sigue a Christ Chasers en Instagram", href: "https://www.instagram.com/rescuechristchasers/" },
-      },
-      {
-        key: "childrens-ministry",
-        name: "Ministerio Infantil",
         tagline: "Dirigido por Alondra",
         description:
-          "Un ambiente seguro y alegre donde los niños aprenden quién es Dios a través de adoración, enseñanza y juego apropiados para su edad. Los detalles del programa y los horarios de clases se están finalizando — contáctanos para conectar a tu familia.",
-        placeholder: true,
+          "Christ Chasers es el ministerio de jóvenes de Iglesia Rescate — donde los estudiantes persiguen a Dios juntos a través de adoración real, amistades reales y una fe propia. Se reúne cada miércoles en Staten Island.",
+        meeting: "Miércoles · 6:00 PM – 7:30 PM",
+        link: { label: "Sigue a Christ Chasers en Instagram", href: "https://www.instagram.com/rescuechristchasers/" },
       },
       {
         key: "home-groups",
