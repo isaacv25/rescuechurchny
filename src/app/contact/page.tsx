@@ -26,6 +26,7 @@ export default function ContactPage() {
             <p className="mt-2 text-base text-charcoal">182 Park Avenue, Staten Island, NY 10302</p>
             <p className="mt-1 text-sm text-charcoal/70">Wake Forest, NC (Rescue Church NC)</p>
           </div>
+
           <div>
             <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-coral-dark">
               <Phone size={14} /> {t.contact.phoneLabel}
@@ -34,6 +35,16 @@ export default function ContactPage() {
               (917) 822-0269
             </a>
           </div>
+
+          <div>
+            <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-coral-dark">
+              <Mail size={14} /> {t.contact.emailLabel}
+            </p>
+            <a href="mailto:rescuechurchny@gmail.com" className="mt-2 block text-base text-charcoal hover:text-ink">
+              rescuechurchny@gmail.com
+            </a>
+          </div>
+
           <div>
             <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-coral-dark">
               <Mail size={14} /> {t.contact.socialLabel}

@@ -14,6 +14,7 @@ export const en: Dictionary = {
     vision: "Mission & Vision",
     beliefs: "What We Believe",
     ministries: "Ministries",
+    events: "Events",
     locations: "Locations",
     media: "Media",
     contact: "Contact",
@@ -252,6 +253,7 @@ export const en: Dictionary = {
     formError: "Something went wrong. Please try again, or reach us by phone in the meantime.",
     addressLabel: "Visit Us",
     phoneLabel: "Call Us",
+    emailLabel: "Email Us",
     socialLabel: "Follow Us",
   },
   footer: {
@@ -260,5 +262,15 @@ export const en: Dictionary = {
     connect: "Connect",
     visitUs: "Visit Us",
     rights: "All rights reserved.",
+    readBible: "Read the Bible",
+  },
+  events: {
+    eyebrow: "What's Coming",
+    title: "Upcoming Events",
+    intro: "Special services, outreach nights, and gatherings happening at Rescue Church — check back often.",
+    emptyTitle: "No upcoming events right now",
+    emptyBody: "Check back soon — we always have something in the works. Follow us on social media for the latest announcements.",
+    locationLabel: "Location",
+    flyerAlt: "Event flyer",
   },
 };

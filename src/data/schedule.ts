@@ -121,7 +121,6 @@ export const schedule: ScheduleEntry[] = [
     labelES: "Christ Chasers (Jóvenes)",
     startTime: "6:00 PM",
     endTime: "7:30 PM",
-    leader: "Alondra",
   },
   {
     key: "ny-wednesday-prayer-english",

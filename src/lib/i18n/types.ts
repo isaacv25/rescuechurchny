@@ -57,6 +57,7 @@ export interface Dictionary {
     vision: string;
     beliefs: string;
     ministries: string;
+    events: string;
     locations: string;
     media: string;
     contact: string;
@@ -170,6 +171,7 @@ export interface Dictionary {
     formError: string;
     addressLabel: string;
     phoneLabel: string;
+    emailLabel: string;
     socialLabel: string;
   };
   footer: {
@@ -178,5 +180,15 @@ export interface Dictionary {
     connect: string;
     visitUs: string;
     rights: string;
+    readBible: string;
+  };
+  events: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    emptyTitle: string;
+    emptyBody: string;
+    locationLabel: string;
+    flyerAlt: string;
   };
 }

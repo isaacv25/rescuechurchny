@@ -14,6 +14,7 @@ export const es: Dictionary = {
     vision: "Misión y Visión",
     beliefs: "Lo Que Creemos",
     ministries: "Ministerios",
+    events: "Eventos",
     locations: "Ubicaciones",
     media: "Medios",
     contact: "Contacto",
@@ -252,6 +253,7 @@ export const es: Dictionary = {
     formError: "Algo salió mal. Por favor intenta de nuevo, o comunícate con nosotros por teléfono.",
     addressLabel: "Visítanos",
     phoneLabel: "Llámanos",
+    emailLabel: "Escríbenos",
     socialLabel: "Síguenos",
   },
   footer: {
@@ -260,5 +262,15 @@ export const es: Dictionary = {
     connect: "Conecta",
     visitUs: "Visítanos",
     rights: "Todos los derechos reservados.",
+    readBible: "Lee la Biblia",
+  },
+  events: {
+    eyebrow: "Lo Que Viene",
+    title: "Próximos Eventos",
+    intro: "Servicios especiales, noches de alcance y reuniones en Iglesia Rescate — vuelve a visitarnos seguido.",
+    emptyTitle: "No hay eventos próximos por ahora",
+    emptyBody: "Vuelve pronto — siempre hay algo en preparación. Síguenos en redes sociales para los últimos anuncios.",
+    locationLabel: "Lugar",
+    flyerAlt: "Volante del evento",
   },
 };
