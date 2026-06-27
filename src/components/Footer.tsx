@@ -67,10 +67,6 @@ export function Footer() {
               <MapPin size={16} className="mt-0.5 shrink-0 text-coral" />
               182 Park Avenue, Staten Island, NY 10302
             </p>
-            <p className="flex items-start gap-2 text-white/50">
-              <MapPin size={16} className="mt-0.5 shrink-0 text-coral/70" />
-              Wake Forest, NC
-            </p>
             <a href="tel:+19178220269" className="flex items-center gap-2 hover:text-white">
               <Phone size={16} className="text-coral" /> (917) 822-0269
             </a>

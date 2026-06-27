@@ -114,7 +114,7 @@ export const es: Dictionary = {
     { name: "Artemia Rivera", role: "Ujier Principal", photoPath: "/leaders/head-usher-artemia-rivera.webp" },
     { name: "Ministro Rolando Martínez", role: "Ministro", photoPath: "/leaders/minister-rolando.webp" },
     { name: "Alondra", role: "Líder del Ministerio Infantil", photoPath: "/leaders/leader-children-ministry-alondra.webp" },
-    { name: "Ashley Tyanne", role: "Líder de Adoración", photoPath: "/leaders/worship-leader-ashley-tyanne.webp" },
+    { name: "Ashley Tyanne", role: "Líder de Adoración", photoPath: "/leaders/ashley.jpg" },
   ],
   ministries: {
     eyebrow: "Encuentra Tu Lugar",

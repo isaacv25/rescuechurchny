@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Clock } from "lucide-react";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -108,6 +109,15 @@ export default function LocationsPage() {
             <MapEmbed query={t.locations.ny.mapQuery} label={t.locations.ny.name} />
           </div>
           <div className="space-y-4">
+            <div className="overflow-hidden rounded-2xl border border-ink/8">
+              <Image
+                src="/ncpic1.webp"
+                alt="Rescue Church NC — Alston Massenburg Center, Wake Forest"
+                width={1200}
+                height={500}
+                className="h-48 w-full object-cover"
+              />
+            </div>
             <CampusCard campus={t.locations.nc} mapsCta={t.home.campusesCta} />
             <MapEmbed query={t.locations.nc.mapQuery} label={t.locations.nc.name} />
           </div>
