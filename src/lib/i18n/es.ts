@@ -1,4 +1,5 @@
 import type { Dictionary } from "./types";
+import { getScheduleForCampus, toServiceTime } from "@/data/schedule";
 
 export const es: Dictionary = {
   meta: {
@@ -90,8 +91,12 @@ export const es: Dictionary = {
   pastors: {
     nyTitle: "Staten Island, NY",
     nyName: "Apóstol Yolanda Valentín-Avilés",
-    nyBioPlaceholder:
-      "Pastora Principal de Iglesia Rescate NY. Su biografía completa estará disponible pronto — vuelve a visitarnos, o ven a conocer a la Apóstol Yolanda en persona cualquier domingo.",
+    nyBio: [
+      "La Apóstol Yolanda Valentín-Avilés es esposa del Pastor Daniel Avilés, madre de cinco hijos y abuela de seis. Nacida y criada en Brooklyn, NY, lleva en el corazón un amor profundo y un genuino entendimiento por la gente de la ciudad de Nueva York y sus condados. Aunque ministra alrededor del mundo, hoy llama hogar a Staten Island.",
+      "Con un poderoso testimonio de la gracia de Dios, la Apóstol Yolanda conoció al Señor en 1987 y lo ha servido a Él y a su pueblo por décadas. Comenzó un ministerio en prisiones en 1990, y al año siguiente comenzó a coordinar concentraciones para llevar la Palabra de Dios a vecindarios y parques afectados por las drogas en toda la ciudad de Nueva York. Después de años evangelizando en prisiones y en las calles, abrió Rescue Ministries Inc. en 1996 — su primer comedor comunitario y despensa de alimentos con base en la iglesia, en Brooklyn. En marzo de 1999, Dios la llamó a dar a luz lo que hoy es la Iglesia Rescue Ministries.",
+      "La Apóstol Yolanda y su esposo, el Pastor Daniel Avilés, continúan siguiendo la dirección del Espíritu Santo para el futuro de la iglesia. Comenzando con solo 4 miembros, Rescue Ministries se ha mudado tres veces para mantenerse al ritmo del crecimiento, abriendo múltiples despensas de alimentos y comedores comunitarios a lo largo del camino. Es una evangelista internacional que ha predicado en México, Honduras, Ecuador, Puerto Rico, Guatemala, Argentina, Colombia, Perú y la República Dominicana, entre otros países — y Dios le ha dado el don de levantar líderes que llevan esa misma pasión por el Reino junto a ella.",
+      "Iglesia Rescue Ministries: Alcanzando almas para Jesucristo.",
+    ],
     ncTitle: "Wake Forest, NC",
     ncName: "Pastora Jasmin Valentín-Kelly",
     ncBio: [
@@ -103,18 +108,20 @@ export const es: Dictionary = {
     ncCta: "Acompaña a la Pastora Jasmin cualquier domingo en la mañana en Iglesia Rescate NC.",
   },
   leadership: [
-    { name: "Pastora Milagros “Milly” Báez", role: "Pastora de Jóvenes" },
-    { name: "Pastora Patricia Sandoval", role: "Líder del Ministerio de Oración" },
-    { name: "Ministra Jacqueline Leakes", role: "Tesorería" },
-    { name: "Artemia Rivera", role: "Ujier Principal" },
-    { name: "Ministro Rolando Martínez", role: "Ministro" },
-    { name: "Alondra", role: "Líder del Ministerio Infantil" },
+    { name: "Pastora Milagros “Milly” Báez", role: "Pastora de Jóvenes", photoPath: "/leaders/pastor-milly.jpg" },
+    { name: "Pastora Patricia Sandoval", role: "Líder del Ministerio de Oración", photoPath: "/leaders/pastor-patricia.jpg" },
+    { name: "Ministra Jacqueline Leakes", role: "Tesorería", photoPath: "/leaders/minister-jackie.jpg" },
+    { name: "Artemia Rivera", role: "Ujier Principal", photoPath: "/leaders/head-usher-artemia-rivera.jpg" },
+    { name: "Ministro Rolando Martínez", role: "Ministro", photoPath: "/leaders/minister-rolando.jpg" },
+    { name: "Alondra", role: "Líder del Ministerio Infantil", photoPath: "/leaders/leader-children-ministry-alondra.jpg" },
+    { name: "Ashley Tyanne", role: "Líder de Adoración", photoPath: "/leaders/worship-leader-ashley-tyanne.jpg" },
   ],
   ministries: {
     eyebrow: "Encuentra Tu Lugar",
     title: "Ministerios",
     intro:
       "Formas de crecer, servir y pertenecer en Iglesia Rescate — para niños, jóvenes, familias y el mundo más allá de nuestras paredes.",
+    placeholderLabel: "Detalles próximamente",
     items: [
       {
         key: "christ-chasers",
@@ -122,7 +129,7 @@ export const es: Dictionary = {
         tagline: "Nuestro Ministerio de Jóvenes",
         description:
           "Christ Chasers es donde los jóvenes persiguen a Dios juntos — adoración real, amistades reales y una fe propia. Se reúne semanalmente en Staten Island.",
-        meeting: "Miércoles · 6:00 PM",
+        meeting: "Miércoles · 6:00 PM – 7:30 PM",
         link: { label: "Sigue a Christ Chasers en Instagram", href: "https://www.instagram.com/rescuechristchasers/" },
       },
       {
@@ -148,6 +155,14 @@ export const es: Dictionary = {
         description:
           "Nuestro liderazgo ha llevado el Evangelio en viajes misioneros a México, Colombia, Ecuador y Puerto Rico — viviendo nuestro llamado a alcanzar a los desesperanzados y heridos mucho más allá de nuestro propio vecindario.",
       },
+      {
+        key: "worship-team",
+        name: "Equipo de Adoración",
+        tagline: "Dirigido por Ashley Tyanne",
+        description:
+          "Nuestro Equipo de Adoración dirige a la congregación en adoración cantada en cada servicio, formando un equipo de vocalistas e instrumentistas apasionados por la presencia de Dios. Si tienes un don para la música y un corazón para el Señor, nos encantaría conectar contigo.",
+        placeholder: true,
+      },
     ],
   },
   locations: {
@@ -155,6 +170,7 @@ export const es: Dictionary = {
     title: "Ubicaciones y Horarios de Servicio",
     intro: "Una familia de iglesia, dos campus. Ven a adorar con nosotros en Staten Island o Wake Forest.",
     languageNote: "Ofrecemos servicios en español e inglés — elige tu idioma en la parte superior de esta página.",
+    scheduleTitle: "Horario Semanal Completo",
     ny: {
       name: "Iglesia Rescate NY",
       city: "Staten Island, NY",
@@ -163,13 +179,7 @@ export const es: Dictionary = {
       address: "182 Park Avenue, Staten Island, NY 10302",
       phone: "(917) 822-0269",
       mapQuery: "182 Park Avenue, Staten Island, NY 10302",
-      services: [
-        { day: "Domingo", label: "Servicio en Español", time: "10:00 AM" },
-        { day: "Domingo", label: "Servicio en Inglés", time: "1:00 PM" },
-        { day: "Martes", label: "Servicio de Oración en Español", time: "8:00 PM" },
-        { day: "Miércoles", label: "Christ Chasers (Jóvenes)", time: "6:00 PM" },
-        { day: "Miércoles", label: "Servicio de Oración en Inglés", time: "8:00 PM" },
-      ],
+      services: getScheduleForCampus("ny").map((e) => toServiceTime(e, "es")),
     },
     nc: {
       name: "Iglesia Rescate NC",
@@ -179,11 +189,7 @@ export const es: Dictionary = {
       address: "416 N Taylor Street, Wake Forest, NC 27587",
       addressNote: "Alston Massenburg Center — Servicio de Adoración del Domingo",
       mapQuery: "Alston Massenburg Center, 416 N Taylor Street, Wake Forest, NC 27587",
-      services: [
-        { day: "Domingo", label: "Servicio de Adoración", time: "10:00 AM" },
-        { day: "Martes", label: "Oración y Adoración", time: "7:00 PM" },
-        { day: "Martes", label: "Estudio Bíblico de Hombres (Fireside)", time: "8:00 PM" },
-      ],
+      services: getScheduleForCampus("nc").map((e) => toServiceTime(e, "es")),
     },
   },
   media: {
