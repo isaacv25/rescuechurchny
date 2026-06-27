@@ -19,7 +19,7 @@ export default function MinistriesPage() {
       <Container className="py-16 sm:py-20">
         <div className="grid gap-6 sm:grid-cols-2">
           {t.ministries.items.map((ministry) => (
-            <MinistryCard key={ministry.key} ministry={ministry} />
+            <MinistryCard key={ministry.key} ministry={ministry} placeholderLabel={t.ministries.placeholderLabel} />
           ))}
         </div>
       </Container>
