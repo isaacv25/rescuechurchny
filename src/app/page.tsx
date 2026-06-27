@@ -10,9 +10,32 @@ import { CampusCard } from "@/components/CampusCard";
 import { MinistryCard } from "@/components/MinistryCard";
 import { SocialCard } from "@/components/SocialCard";
 import { useT } from "@/lib/i18n/LocaleProvider";
+import { useLocale } from "@/lib/i18n/LocaleProvider";
+import { getEntryByKey, formatTime } from "@/data/schedule";
 
 export default function Home() {
   const t = useT();
+  const { locale } = useLocale();
+
+  // Featured service times on the homepage strip — referenced by stable key, never by index.
+  // To change which 4 appear here, update the keys below. Edit times in /src/data/schedule.ts.
+  const featuredKeys = [
+    { key: "ny-sunday-spanish", place: "Staten Island, NY" },
+    { key: "ny-sunday-english", place: "Staten Island, NY" },
+    { key: "nc-sunday-worship", place: "Wake Forest, NC" },
+    { key: "ny-wednesday-christ-chasers", place: "Staten Island, NY" },
+  ];
+
+  const featuredTimes = featuredKeys.flatMap(({ key, place }) => {
+    const entry = getEntryByKey(key);
+    if (!entry) return [];
+    return [{
+      day: locale === "es" ? entry.dayES : entry.dayEN,
+      label: locale === "es" ? entry.labelES : entry.labelEN,
+      time: formatTime(entry),
+      place,
+    }];
+  });
 
   return (
     <div>
@@ -58,12 +81,7 @@ export default function Home() {
           </div>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { day: t.locations.ny.services[0].day, label: t.locations.ny.services[0].label, time: t.locations.ny.services[0].time, place: "Staten Island, NY" },
-              { day: t.locations.ny.services[1].day, label: t.locations.ny.services[1].label, time: t.locations.ny.services[1].time, place: "Staten Island, NY" },
-              { day: t.locations.nc.services[0].day, label: t.locations.nc.services[0].label, time: t.locations.nc.services[0].time, place: "Wake Forest, NC" },
-              { day: t.locations.ny.services[3].day, label: t.locations.ny.services[3].label, time: t.locations.ny.services[3].time, place: "Staten Island, NY" },
-            ].map((item, idx) => (
+            {featuredTimes.map((item, idx) => (
               <div key={idx} className="rounded-2xl border border-ink/8 bg-white p-5">
                 <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-charcoal/60">
                   <MapPin size={13} className="text-coral" /> {item.place}
@@ -109,9 +127,9 @@ export default function Home() {
               {t.home.ministriesCta} <ArrowRight size={15} />
             </Link>
           </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {t.ministries.items.map((ministry) => (
-              <MinistryCard key={ministry.key} ministry={ministry} />
+              <MinistryCard key={ministry.key} ministry={ministry} placeholderLabel={t.ministries.placeholderLabel} />
             ))}
           </div>
         </Container>

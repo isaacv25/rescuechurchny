@@ -1,4 +1,5 @@
 import type { Dictionary } from "./types";
+import { getScheduleForCampus, toServiceTime } from "@/data/schedule";
 
 export const en: Dictionary = {
   meta: {
@@ -13,6 +14,7 @@ export const en: Dictionary = {
     vision: "Mission & Vision",
     beliefs: "What We Believe",
     ministries: "Ministries",
+    events: "Events",
     locations: "Locations",
     media: "Media",
     contact: "Contact",
@@ -32,7 +34,7 @@ export const en: Dictionary = {
     welcomeEyebrow: "Hello and Welcome",
     welcomeTitle: "You Have a Home Here",
     welcomeBody: [
-      "Led by Senior Pastor, Apostle Yolanda Valentin-Aviles, Rescue Church NY is a Bible-believing, Holy Spirit-filled church in Staten Island, NY.",
+      "Led by Senior Pastor, Apostle Yolanda Valentín-Avilés, Rescue Church NY is a Bible-believing, Holy Spirit-filled church in Staten Island, NY.",
       "We want to personally invite you to experience a warm and friendly church family. Our services are filled with passion, the messages are relevant, and the atmosphere is amazing — with quality events and programs for you and your whole family.",
     ],
     ministriesEyebrow: "Get Involved",
@@ -89,9 +91,13 @@ export const en: Dictionary = {
   },
   pastors: {
     nyTitle: "Staten Island, NY",
-    nyName: "Apostle Yolanda Valentin-Aviles",
-    nyBioPlaceholder:
-      "Senior Pastor of Rescue Church NY. A full biography is coming soon — check back, or come meet Apostle Yolanda in person on any Sunday.",
+    nyName: "Apostle Yolanda Valentín-Avilés",
+    nyBio: [
+      "Apostle Yolanda Valentín-Avilés is the wife of Pastor Daniel Avilés, mother of five, and grandmother to six. Born and raised in Brooklyn, NY, she carries a deep love and understanding for the people of New York City and its boroughs. While she ministers around the world, she calls Staten Island home today.",
+      "With a powerful testimony of God's grace, Apostle Yolanda met the Lord in 1987 and has served Him and His people for decades. She began a prison ministry in 1990, and the following year started coordinating rallies to bring God's Word into drug-affected neighborhoods and parks throughout New York City. After years of evangelizing in prisons and on the streets, she opened Rescue Ministries Inc. in 1996 — its first church-based soup kitchen and food pantry, in Brooklyn. In March 1999, God called her to give birth to what is now Rescue Ministries Church.",
+      "Apostle Yolanda and her husband, Pastor Daniel Avilés, continue to follow the Holy Spirit's leading for the church's future. Starting with just 4 members, Rescue Ministries has moved three times to keep up with growth, opening multiple food pantries and soup kitchens along the way. She is an international evangelist who has preached across Mexico, Honduras, Ecuador, Puerto Rico, Guatemala, Argentina, Colombia, Peru, and the Dominican Republic, among others — and God has gifted her to raise up leaders who carry that same passion for the Kingdom alongside her.",
+      "Rescue Ministries Church: Reaching souls for Jesus Christ.",
+    ],
     ncTitle: "Wake Forest, NC",
     ncName: "Pastor Jasmin Valentin-Kelly",
     ncBio: [
@@ -103,35 +109,29 @@ export const en: Dictionary = {
     ncCta: "Join Pastor Jasmin any Sunday morning at Rescue Church NC.",
   },
   leadership: [
-    { name: "Pastor Milagros “Milly” Baez", role: "Youth Pastor" },
-    { name: "Pastor Patricia Sandoval", role: "Leader of the Prayer Ministry" },
-    { name: "Minister Jacqueline Leakes", role: "Treasury" },
-    { name: "Artemia Rivera", role: "Head Usher" },
-    { name: "Minister Rolando Martinez", role: "Minister" },
-    { name: "Alondra", role: "Leader of Children's Ministry" },
+    { name: "Pastor Milagros “Milly” Baez", role: "Youth Pastor", photoPath: "/leaders/pastor-milly.webp" },
+    { name: "Pastor Patricia Sandoval", role: "Leader of the Prayer Ministry", photoPath: "/leaders/pastor-patricia.webp" },
+    { name: "Minister Jacqueline Leakes", role: "Treasury", photoPath: "/leaders/minister-jackie.webp" },
+    { name: "Artemia Rivera", role: "Head Usher", photoPath: "/leaders/head-usher-artemia-rivera.webp" },
+    { name: "Minister Rolando Martinez", role: "Minister", photoPath: "/leaders/minister-rolando.webp" },
+    { name: "Alondra", role: "Youth Ministry Leader", photoPath: "/leaders/leader-children-ministry-alondra.webp" },
+    { name: "Ashley Tyanne", role: "Worship Leader", photoPath: "/leaders/ashley.jpg" },
   ],
   ministries: {
     eyebrow: "Find Your Place",
     title: "Ministries",
     intro:
-      "Ways to grow, serve, and belong at Rescue Church — for kids, students, families, and the world beyond our walls.",
+      "Ways to grow, serve, and belong at Rescue Church — for students, families, and the world beyond our walls.",
+    placeholderLabel: "Details coming soon",
     items: [
       {
         key: "christ-chasers",
         name: "Christ Chasers",
-        tagline: "Our Youth Ministry",
-        description:
-          "Christ Chasers is where students chase after God together — real worship, real friendships, and a faith that's their own. Meets weekly in Staten Island.",
-        meeting: "Wednesdays · 6:00 PM",
-        link: { label: "Follow Christ Chasers on Instagram", href: "https://www.instagram.com/rescuechristchasers/" },
-      },
-      {
-        key: "childrens-ministry",
-        name: "Children's Ministry",
         tagline: "Led by Alondra",
         description:
-          "A safe, joyful environment where kids learn who God is through age-appropriate worship, teaching, and play. Program details and class schedules are being finalized — contact us to get your family connected.",
-        placeholder: true,
+          "Christ Chasers is the youth ministry of Rescue Church — where students chase after God together through real worship, real friendships, and a faith that's their own. Meets every Wednesday in Staten Island.",
+        meeting: "Wednesdays · 6:00 PM – 7:30 PM",
+        link: { label: "Follow Christ Chasers on Instagram", href: "https://www.instagram.com/rescuechristchasers/" },
       },
       {
         key: "home-groups",
@@ -148,6 +148,14 @@ export const en: Dictionary = {
         description:
           "Our leadership has carried the Gospel on missions trips to Mexico, Colombia, Ecuador, and Puerto Rico — living out our calling to reach the hopeless and hurting far beyond our own neighborhood.",
       },
+      {
+        key: "worship-team",
+        name: "Worship Team",
+        tagline: "Led by Ashley Tyanne",
+        description:
+          "Our Worship Team leads the congregation in sung worship each service, building a team of vocalists and instrumentalists who are passionate about the presence of God. If you have a gift for music and a heart for the Lord, we'd love to connect with you.",
+        placeholder: true,
+      },
     ],
   },
   locations: {
@@ -155,21 +163,16 @@ export const en: Dictionary = {
     title: "Locations & Service Times",
     intro: "One church family, two campuses. Come worship with us in Staten Island or Wake Forest.",
     languageNote: "Spanish and English services offered — choose your language at the top of this page.",
+    scheduleTitle: "Full Weekly Schedule",
     ny: {
       name: "Rescue Church NY",
       city: "Staten Island, NY",
       pastorLabel: "Senior Pastor",
-      pastorName: "Apostle Yolanda Valentin-Aviles",
+      pastorName: "Apostle Yolanda Valentín-Avilés",
       address: "182 Park Avenue, Staten Island, NY 10302",
       phone: "(917) 822-0269",
       mapQuery: "182 Park Avenue, Staten Island, NY 10302",
-      services: [
-        { day: "Sunday", label: "Spanish Service", time: "10:00 AM" },
-        { day: "Sunday", label: "English Service", time: "1:00 PM" },
-        { day: "Tuesday", label: "Spanish Prayer Service", time: "8:00 PM" },
-        { day: "Wednesday", label: "Christ Chasers (Youth)", time: "6:00 PM" },
-        { day: "Wednesday", label: "English Prayer Service", time: "8:00 PM" },
-      ],
+      services: getScheduleForCampus("ny").map((e) => toServiceTime(e, "en")),
     },
     nc: {
       name: "Rescue Church NC",
@@ -179,11 +182,7 @@ export const en: Dictionary = {
       address: "416 N Taylor Street, Wake Forest, NC 27587",
       addressNote: "Alston Massenburg Center — Sunday Worship",
       mapQuery: "Alston Massenburg Center, 416 N Taylor Street, Wake Forest, NC 27587",
-      services: [
-        { day: "Sunday", label: "Worship Service", time: "10:00 AM" },
-        { day: "Tuesday", label: "Prayer & Worship Service", time: "7:00 PM" },
-        { day: "Tuesday", label: "Men's Bible Study (Fireside)", time: "8:00 PM" },
-      ],
+      services: getScheduleForCampus("nc").map((e) => toServiceTime(e, "en")),
     },
   },
   media: {
@@ -246,6 +245,7 @@ export const en: Dictionary = {
     formError: "Something went wrong. Please try again, or reach us by phone in the meantime.",
     addressLabel: "Visit Us",
     phoneLabel: "Call Us",
+    emailLabel: "Email Us",
     socialLabel: "Follow Us",
   },
   footer: {
@@ -254,5 +254,15 @@ export const en: Dictionary = {
     connect: "Connect",
     visitUs: "Visit Us",
     rights: "All rights reserved.",
+    readBible: "Read the Bible",
+  },
+  events: {
+    eyebrow: "What's Coming",
+    title: "Upcoming Events",
+    intro: "Special services, outreach nights, and gatherings happening at Rescue Church — check back often.",
+    emptyTitle: "No upcoming events right now",
+    emptyBody: "Check back soon — we always have something in the works. Follow us on social media for the latest announcements.",
+    locationLabel: "Location",
+    flyerAlt: "Event flyer",
   },
 };

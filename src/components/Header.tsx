@@ -9,6 +9,25 @@ import { Button } from "./Button";
 import { LanguageToggle } from "./LanguageToggle";
 import { useT } from "@/lib/i18n/LocaleProvider";
 
+/**
+ * Consistent wordmark for both languages: icon + church name as styled text.
+ * Both EN ("Rescue Church") and ES ("Iglesia Rescate") render identically in
+ * structure so switching languages never causes a layout jump or style mismatch.
+ * The text uses Jost (font-display) bold to approximate the branded logo treatment.
+ */
+function HeaderLogo() {
+  const { meta } = useT();
+
+  return (
+    <Link href="/" aria-label={`${meta.siteName} — home`} className="inline-flex items-center gap-2.5">
+      <Logo variant="icon" className="h-9 w-auto sm:h-10" href={undefined} priority />
+      <span className="font-display text-[1.2rem] font-bold leading-none tracking-wide text-ink sm:text-[1.35rem]">
+        {meta.siteName}
+      </span>
+    </Link>
+  );
+}
+
 export function Header() {
   const t = useT();
   const [open, setOpen] = useState(false);
@@ -40,7 +59,7 @@ export function Header() {
       </div>
 
       <Container className="flex h-20 items-center justify-between">
-        <Logo variant="horizontal" priority className="h-10 w-auto sm:h-12" />
+        <HeaderLogo />
 
         <nav className="hidden items-center gap-7 lg:flex">
           <Link href="/" className="text-sm font-medium text-charcoal hover:text-ink">

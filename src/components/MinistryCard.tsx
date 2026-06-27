@@ -1,7 +1,13 @@
 import { ArrowUpRight, Clock, Sparkles } from "lucide-react";
 import type { MinistryEntry } from "@/lib/i18n/types";
 
-export function MinistryCard({ ministry }: { ministry: MinistryEntry }) {
+interface MinistryCardProps {
+  ministry: MinistryEntry;
+  /** Translated "coming soon" badge text — pass from the page via t.ministries.placeholderLabel */
+  placeholderLabel?: string;
+}
+
+export function MinistryCard({ ministry, placeholderLabel = "Details coming soon" }: MinistryCardProps) {
   return (
     <div className="flex flex-col rounded-2xl border border-ink/8 bg-white p-6 shadow-sm shadow-ink/5">
       <div className="flex items-center gap-2 text-coral-dark">
@@ -30,7 +36,7 @@ export function MinistryCard({ ministry }: { ministry: MinistryEntry }) {
 
       {ministry.placeholder ? (
         <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-cream px-3 py-1 text-xs font-medium text-charcoal/70">
-          Details coming soon
+          {placeholderLabel}
         </p>
       ) : null}
     </div>

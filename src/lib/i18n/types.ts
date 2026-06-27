@@ -21,6 +21,9 @@ export interface Campus {
 export interface LeaderEntry {
   name: string;
   role: string;
+  /** Optional path under /public — e.g. "/leaders/pastor-milly.jpg".
+   *  If the file is missing at runtime, LeaderCard falls back to the initials avatar. */
+  photoPath?: string;
 }
 
 export interface MinistryEntry {
@@ -54,6 +57,7 @@ export interface Dictionary {
     vision: string;
     beliefs: string;
     ministries: string;
+    events: string;
     locations: string;
     media: string;
     contact: string;
@@ -115,7 +119,8 @@ export interface Dictionary {
   pastors: {
     nyTitle: string;
     nyName: string;
-    nyBioPlaceholder: string;
+    /** Full biography — rendered as one paragraph per array entry. */
+    nyBio: string[];
     ncTitle: string;
     ncName: string;
     ncBio: string[];
@@ -126,6 +131,8 @@ export interface Dictionary {
     eyebrow: string;
     title: string;
     intro: string;
+    /** Label for the "coming soon" badge on placeholder ministry cards. */
+    placeholderLabel: string;
     items: MinistryEntry[];
   };
   locations: {
@@ -135,6 +142,7 @@ export interface Dictionary {
     ny: Campus;
     nc: Campus;
     languageNote: string;
+    scheduleTitle: string;
   };
   media: {
     eyebrow: string;
@@ -163,6 +171,7 @@ export interface Dictionary {
     formError: string;
     addressLabel: string;
     phoneLabel: string;
+    emailLabel: string;
     socialLabel: string;
   };
   footer: {
@@ -171,5 +180,15 @@ export interface Dictionary {
     connect: string;
     visitUs: string;
     rights: string;
+    readBible: string;
+  };
+  events: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    emptyTitle: string;
+    emptyBody: string;
+    locationLabel: string;
+    flyerAlt: string;
   };
 }
