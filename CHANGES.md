@@ -97,14 +97,14 @@ Place your photos at these exact paths (relative to the project root):
 
 | Leader | File path |
 |--------|-----------|
-| Apostle Yolanda Valentín-Avilés | `public/leaders/apostle-yolanda.jpg` |
-| Pastor Milly Baez | `public/leaders/pastor-milly.jpg` |
-| Pastor Patricia Sandoval | `public/leaders/pastor-patricia.jpg` |
-| Minister Jacqueline Leakes | `public/leaders/minister-jackie.jpg` |
-| Artemia Rivera | `public/leaders/head-usher-artemia-rivera.jpg` |
-| Minister Rolando Martinez | `public/leaders/minister-rolando.jpg` |
-| Alondra | `public/leaders/leader-children-ministry-alondra.jpg` |
-| Ashley Tyanne | `public/leaders/worship-leader-ashley-tyanne.jpg` |
+| Apostle Yolanda Valentín-Avilés | `public/leaders/apostle-yolanda.webp` |
+| Pastor Milly Baez | `public/leaders/pastor-milly.webp` |
+| Pastor Patricia Sandoval | `public/leaders/pastor-patricia.webp` |
+| Minister Jacqueline Leakes | `public/leaders/minister-jackie.webp` |
+| Artemia Rivera | `public/leaders/head-usher-artemia-rivera.webp` |
+| Minister Rolando Martinez | `public/leaders/minister-rolando.webp` |
+| Alondra | `public/leaders/leader-children-ministry-alondra.webp` |
+| Ashley Tyanne | `public/leaders/worship-leader-ashley-tyanne.webp` |
 
 Any photo can be dropped in after the fact — the site renders cleanly today with initials avatars in every slot.
 

@@ -49,7 +49,7 @@ export default function PastorsPage() {
         {/* NY — Apostle Yolanda */}
         <div className="grid gap-10 rounded-3xl border border-ink/8 p-8 lg:grid-cols-[0.8fr_1.2fr] lg:p-12">
           <div>
-            <PastorPhoto src="/leaders/apostle-yolanda.jpg" alt={t.pastors.nyName} />
+            <PastorPhoto src="/leaders/apostle-yolanda.webp" alt={t.pastors.nyName} />
             <p className="mt-5 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-coral-dark">
               <MapPin size={14} /> {t.pastors.nyTitle}
             </p>
