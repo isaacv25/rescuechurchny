@@ -1,102 +1,137 @@
 # Rescue Church Website — Change Log
 
 Branch: `feat/update-june-2026`
+Last updated: 2026-06-27
 
 ---
 
-## Section 1 — Ministries Page: Content Changes
+## Overview
 
-**Christ Chasers time updated**
-- Meeting time changed from `Wednesdays · 6:00 PM` to `Wednesdays · 6:00 PM – 7:30 PM` in both EN and ES.
+This branch contains all updates made after the initial build commit. Every
+change is committed atomically with a descriptive message. The branch is fully
+deployed to Vercel (rescuechurchny.vercel.app) and ready to be reviewed and
+merged to `main`.
 
-**No duplicate Christ Chasers**
-- Confirmed: only one Christ Chasers card exists in the data. No change needed.
+---
 
-**Worship Team card added** (new 5th ministry)
+## Section 1 — Ministries Page
+
+**Christ Chasers**
+- Meeting time: `6:00 PM` → `6:00 PM – 7:30 PM` (EN + ES)
+- Tagline: `"Our Youth Ministry"` → `"Led by Alondra"` — consistent with other
+  ministry cards and makes the leader visible at a glance
+- Description updated to explicitly name it as "the youth ministry of Rescue Church"
+  since that label moved from tagline to description body
+
+**Children's Ministry card removed**
+- Previously a separate card with "Led by Alondra" as tagline
+- Removed at owner's direction — Christ Chasers is the single youth/children
+  ministry entry; Alondra is now credited there
+
+**Worship Team card added** (5th ministry)
 - Leader: Ashley Tyanne
-- Tagline: "Led by Ashley Tyanne" → displayed as "LED BY ASHLEY TYANNE" via CSS text-transform.
-- Description written in the same warm plain-language tone as existing cards.
-- Marked `placeholder: true` so "Details coming soon" / "Detalles próximamente" badge displays. No schedule time added (none provided).
-- Added to both EN and ES ministries arrays.
+- Tagline: `"Led by Ashley Tyanne"` → displayed as **LED BY ASHLEY TYANNE**
+- `placeholder: true` — shows "Details coming soon" / "Detalles próximamente" badge
+- No rehearsal time (none provided)
 
-**Discipleship Class added as a schedule entry (NOT a ministry card)**
-- Added to Staten Island campus schedule in `src/data/schedule.ts` as key `ny-monday-discipleship`.
-- Appears in CampusCard on the homepage and locations page, and in the new WeeklySchedule component.
+**Discipleship Class — schedule entry only (not a card)**
+- Added to Staten Island campus schedule as `ny-monday-discipleship`
 - EN: Monday · Discipleship Class · 8:00 PM – 9:00 PM
 - ES: Lunes · Clase de Discipulado · 8:00 PM – 9:00 PM
+- Appears in campus cards, homepage service times, and the weekly schedule view
 
-**How to add a new ministry card going forward:**
-1. Open `src/lib/i18n/en.ts` and add a new object to `ministries.items[]`.
-2. Open `src/lib/i18n/es.ts` and add the Spanish translation at the same array position.
-3. Required fields: `key` (unique, kebab-case), `name`, `tagline`, `description`.
-4. Optional: `meeting` (string), `link` (`{ label, href }`), `placeholder: true` (shows "coming soon" badge).
-5. No other file needs to change — all pages that show ministry cards pull from `t.ministries.items`.
+**How to add a new ministry card:**
+1. Open `src/lib/i18n/en.ts` → `ministries.items[]` → add an object
+2. Open `src/lib/i18n/es.ts` → same position → add the Spanish translation
+3. Required: `key` (unique kebab-case), `name`, `tagline`, `description`
+4. Optional: `meeting` (string), `link` (`{ label, href }`), `placeholder: true`
+5. No other file needs to change
 
 ---
 
-## Section 2 — Header / Branding: Language-Aware Church Name
+## Section 2 — Header: Language-Aware Wordmark
 
-**Implementation: icon + text in Spanish mode**
+Both EN and ES now use **identical structure**: the church icon (`logo-icon.png`)
++ the church name as styled HTML text in Jost bold.
 
-The `logo-horizontal.png` file has "Rescue Church" baked into the raster image — there is no separate text layer and no Spanish-language version of this asset exists in the repository.
+- EN: icon + "Rescue Church"
+- ES: icon + "Iglesia Rescate"
 
-**What was implemented:** A `HeaderLogo` component was added to `Header.tsx`. When locale is `en`, it shows the existing horizontal logo image unchanged. When locale is `es`, it shows the icon-only logo (`logo-icon.png`) plus the text "Iglesia Rescate" as an HTML `<span>`, using the `meta.siteName` translation key so it stays in sync with the dictionary.
+Toggling between languages changes only the text — same font, same size, same
+spacing, no layout shift.
 
-**Follow-up required:** To get a true bilingual horizontal logo (matching the typographic style of the existing image), you need one of:
-- A new vector/PNG asset `logo-horizontal-es.png` with "Iglesia Rescate" in the same typeface.
-- Or a text-based SVG wordmark so both languages can render from the same component.
+**Why not the horizontal logo image for EN?**
+Using icon + text for both languages eliminates the mismatch that existed when EN
+showed a branded raster image and ES showed a plain text span. Consistency was
+chosen over the slightly richer image treatment.
 
-Once the asset exists, add it to `Logo.tsx`'s `sources` map and update `HeaderLogo` to use it.
+**Follow-up:** If a matching `logo-horizontal-es.png` asset is ever created,
+add it to `Logo.tsx`'s `sources` map and restore the image-based approach for
+both languages simultaneously.
 
 ---
 
 ## Section 3 — i18n Architecture
 
-**Decision: single-route, localStorage-based, no locale prefix in URLs.**
+**Decision: single-route, localStorage persistence. No locale-prefixed URLs.**
 
-**Why:** The entire site already uses `"use client"` on every page and component. There is no SSR rendering gap where a cookie would help — the client always reads from context. Adding `/es/` prefix routes would require restructuring all Next.js routes, middleware, and every internal `<Link>` href, with zero UX benefit for this codebase. Cookie-based persistence was evaluated and ruled out as unnecessary overhead.
+The entire site uses `"use client"` on every page. There is no server-side
+rendering gap where a cookie would help. Adding `/es/` URL prefixes would require
+restructuring every route and Link with no user-facing benefit.
 
 **What is already working (no changes needed):**
-- `LocaleProvider` stores locale in `localStorage` under key `rescue-church-locale`.
-- Auto-detects browser language on first visit (sets ES if `navigator.language` starts with `es`).
-- `useLocale()` and `useT()` hooks available everywhere.
-- The EN/ES toggle in the header (and in the mobile menu) is already functional and visually indicates the active language with a filled/unfilled pill style.
-- All 15 routes use `useT()` — no raw translation key strings leak to the UI.
+- `LocaleProvider` stores locale in `localStorage` key `rescue-church-locale`
+- Auto-detects browser language on first visit (sets ES if `navigator.language`
+  starts with `es`)
+- `useLocale()` / `useT()` hooks available everywhere
+- EN/ES toggle in the header and mobile menu is fully functional
+- All 16 routes use `useT()` — no raw translation key strings leak to the UI
 
-**What changed in this PR:**
-- Added `placeholderLabel` to the ministries dictionary (was the only hardcoded EN string remaining in a component).
-- Added `scheduleTitle` to the locations dictionary (new section).
-- All new content (Worship Team, Discipleship Class, Apostle Yolanda bio) has both EN and ES translations.
+**New keys added this branch:**
+- `nav.events` — Events page nav label
+- `contact.emailLabel` — "Email Us" / "Escríbenos"
+- `footer.readBible` — "Read the Bible" / "Lee la Biblia"
+- `ministries.placeholderLabel` — "Details coming soon" / "Detalles próximamente"
+- `locations.scheduleTitle` — "Full Weekly Schedule" / "Horario Semanal Completo"
+- `events.*` — full events page strings (eyebrow, title, intro, empty state, etc.)
 
-**SEO metadata i18n:** The `<title>` and meta description in `layout.tsx` are set at the server level and are not locale-aware in this pass (they always show EN). This is a known limitation of the single-route client-side approach. Recommended follow-up: use Next.js `generateMetadata` with a cookie read in a Server Component, or accept EN-only metadata for now. Flagged — not silently skipped.
+**SEO metadata i18n:** `<title>` and meta description are set server-side and
+remain EN-only. This is a known limitation of the single-route approach. Flagged
+as a follow-up — not silently skipped.
 
 ---
 
 ## Section 4 — Leader Bios & Photos
 
-**Apostle Yolanda's bio expanded**
-- `pastors.nyBioPlaceholder` (single string) replaced by `pastors.nyBio` (string array, matching the `ncBio` pattern).
-- Full 4-paragraph bio added in EN and ES. See `src/lib/i18n/en.ts` and `es.ts`.
-- The pastors page now renders each paragraph with its own `<p>` tag.
+**Apostle Yolanda — full bio**
+- `pastors.nyBioPlaceholder` (single placeholder string) replaced by
+  `pastors.nyBio` (array of paragraphs, matching the NC `ncBio` pattern)
+- 4-paragraph biography in both EN and ES
+- Photo: `public/leaders/apostle-yolanda.webp`
+- **Spanish translation note:** AI-translated — please have a Spanish-fluent
+  member review before publishing, especially the ministry history paragraphs
 
-**Photo support added to LeaderCard**
-- `LeaderEntry` type gains `photoPath?: string`.
-- `LeaderCard` is now a `"use client"` component. It shows `<Image fill>` when `photoPath` is set, and on `onError` (file missing) it falls back to the initials avatar automatically.
-- **Missing images do NOT break the build or layout.** The initials avatar renders for any leader whose photo file has not yet been dropped in.
+**Pastor Jasmin (NC) — photo added**
+- `public/leaders/pastor-jasmine.webp`
 
-**Photo support added to Pastors page**
-- A `PastorPhoto` component in `pastors/page.tsx` wraps the Apostle Yolanda photo. On `onError` it falls back to the existing logo-icon placeholder.
+**LeaderCard photo support**
+- `LeaderEntry` type gains optional `photoPath?: string`
+- `LeaderCard` is now a `"use client"` component: shows the photo if the file
+  exists, falls back to the initials avatar via `onError` if the file is missing
+- Missing photos **never break the build or layout**
 
-**Ashley Tyanne added to the Leadership Team**
-- Added to the end of the `leadership` array in both EN and ES dictionaries.
-- EN role: `"Worship Leader"` / ES role: `"Líder de Adoración"`.
+**Ashley Tyanne added to Leadership Team**
+- EN role: `"Worship Leader"` / ES role: `"Líder de Adoración"`
+- Photo: `public/leaders/ashley.jpg`
 
-**Final image filenames wired up in `/public/leaders/`**
+**Alondra — role updated**
+- Was: `"Leader of Children's Ministry"`
+- Now: `"Youth Ministry Leader"` (reflects her role on Christ Chasers)
 
-Place your photos at these exact paths (relative to the project root):
+**Final image paths wired up in `/public/leaders/`**
 
-| Leader | File path |
-|--------|-----------|
+| Leader | File |
+|--------|------|
 | Apostle Yolanda Valentín-Avilés | `public/leaders/apostle-yolanda.webp` |
 | Pastor Milly Baez | `public/leaders/pastor-milly.webp` |
 | Pastor Patricia Sandoval | `public/leaders/pastor-patricia.webp` |
@@ -104,67 +139,161 @@ Place your photos at these exact paths (relative to the project root):
 | Artemia Rivera | `public/leaders/head-usher-artemia-rivera.webp` |
 | Minister Rolando Martinez | `public/leaders/minister-rolando.webp` |
 | Alondra | `public/leaders/leader-children-ministry-alondra.webp` |
-| Ashley Tyanne | `public/leaders/worship-leader-ashley-tyanne.webp` |
-
-Any photo can be dropped in after the fact — the site renders cleanly today with initials avatars in every slot.
-
-**Spanish translation note:** The Spanish bio for Apostle Yolanda was translated with care but is AI-generated. Please have a Spanish-fluent member of the church review it before publishing, especially the phrasing of the ministry history and "Iglesia Rescue Ministries" naming conventions.
+| Ashley Tyanne | `public/leaders/ashley.jpg` |
+| Pastor Jasmin (pastors page only) | `public/leaders/pastor-jasmine.webp` |
 
 ---
 
 ## Section 5 — Schedule Data File
 
-**Single source of truth: `src/data/schedule.ts`**
+**`src/data/schedule.ts` — single source of truth**
 
-This file is the only place service times should exist in the codebase. It exports:
-- `schedule: ScheduleEntry[]` — the full list of all recurring times across both campuses.
-- `getScheduleForCampus(campus)` — filtered and sorted entries for one campus.
-- `getEntryByKey(key)` — look up a single entry by its stable key.
-- `formatTime(entry)` — formats as `"6:00 PM"` or `"6:00 PM – 7:30 PM"`.
-- `toServiceTime(entry, locale)` — converts to the `ServiceTime` shape that `CampusCard` expects.
+All recurring service and ministry times live here. Every display on the site
+derives from this file. To update a time, change it here — no other file needed.
 
-**How to add or edit a schedule entry:**
+**Utility exports:**
+- `getScheduleForCampus(campus)` — filtered + sorted entries for one campus
+- `getEntryByKey(key)` — look up one entry by its stable key
+- `formatTime(entry)` — `"6:00 PM"` or `"6:00 PM – 7:30 PM"`
+- `toServiceTime(entry, locale)` — converts to `ServiceTime` shape for `CampusCard`
 
+**How to add a schedule entry:**
 ```typescript
-// In src/data/schedule.ts — add a new entry to the schedule array:
 {
-  key: "ny-friday-womens-prayer",   // unique, never change once set
+  key: "ny-friday-womens-prayer",   // unique — never change once set
   campus: "ny",
   dayOfWeek: "Friday",
   dayEN: "Friday",   dayES: "Viernes",
   labelEN: "Women's Prayer Night",
   labelES: "Noche de Oración de Mujeres",
   startTime: "7:00 PM",
-  endTime: "8:30 PM",            // optional — omit if open-ended
+  endTime: "8:30 PM",   // optional
 },
 ```
 
-Save the file. The campus cards, homepage service times strip, and the weekly schedule view all update automatically. No other file needs to change.
+**Refactors:**
+- `en.ts` / `es.ts` campus `services` arrays are now generated from this file
+- Homepage featured-times strip uses stable keys (`"ny-sunday-spanish"` etc.)
+  instead of array indices — no more drift when entries are inserted
 
-**What was refactored:**
-- `en.ts` / `es.ts`: campus `services` arrays are now generated by `getScheduleForCampus` + `toServiceTime` — no hardcoded time data in the dictionaries.
-- `src/app/page.tsx`: homepage featured-times strip now fetches by stable key (`"ny-sunday-spanish"`, etc.) instead of array index. This eliminates the drift bug where inserting a new entry would shift indices and silently break the homepage display.
-- `src/app/locations/page.tsx`: new `WeeklySchedule` component renders the full schedule grouped by day, locale-aware, sourced directly from `schedule.ts`.
-
-**Visual schedule placement:** Added to the Locations page (`/locations`) below the two campus cards, in a `bg-cream` section with one card per campus. A dedicated `/schedule` route was considered but the Locations page is the natural home — it's where users already go for times and directions.
+**Visual schedule on Locations page**
+- `WeeklySchedule` component on `/locations` — full schedule grouped by day,
+  locale-aware, sourced directly from `schedule.ts`
 
 ---
 
-## Section 6 — Quality
+## Section 6 — Events Page
 
-- `npm run build` passes with zero errors and zero TypeScript issues.
-- All 15 routes generate successfully.
-- No missing translation keys — `placeholderLabel` and `scheduleTitle` added to both EN and ES dictionaries.
-- Missing leader photos fall back to initials avatar via `onError` — confirmed in LeaderCard and PastorPhoto components.
-- The schedule data file pattern supports responsive/mobile display via the existing Tailwind grid in WeeklySchedule.
-- No console errors introduced (all new components follow the existing `"use client"` + `useT()` pattern).
+**`src/data/events.ts` — single source of truth for upcoming events**
+
+Add events here; the `/events` page updates automatically.
+
+**How to add an event:**
+```typescript
+{
+  key: "revival-july-2026",
+  titleEN: "Summer Revival",
+  titleES: "Avivamiento de Verano",
+  date: "2026-07-20",             // ISO format YYYY-MM-DD
+  timeEN: "7:00 PM",
+  timeES: "7:00 PM",
+  locationLabel: "182 Park Avenue, Staten Island, NY",
+  descriptionEN: "Three nights of worship and the Word.",
+  descriptionES: "Tres noches de adoración y la Palabra.",
+  flyerPath: "/events/revival-flyer.jpg",  // optional — drop image in public/events/
+},
+```
+
+**How to add a flyer:**
+1. Create `public/events/` folder if it doesn't exist
+2. Drop the image file in (JPG, PNG, or WebP)
+3. Set `flyerPath: "/events/your-filename.jpg"` on the event entry
+
+The page shows a clean empty state when no events are listed.
+
+---
+
+## Section 7 — Contact & Footer
+
+**Email added:** `rescuechurchny@gmail.com`
+- Footer → Visit Us column (below phone number)
+- `/contact` page → dedicated Email section
+
+**Footer changes:**
+- Wake Forest, NC address removed — footer now shows Staten Island only
+- Events added to Quick Links
+- Bible link added to Connect column (locale-aware, opens local PDF)
+
+**Bible PDFs — served locally from `/public/bibles/`**
+- EN: `/bibles/erv.pdf` (Easy-to-Read Version)
+- ES: `/bibles/spanish-reina.pdf` (Reina Valera)
+- Links open the PDF directly in the browser — no external redirect
+
+---
+
+## Section 8 — NC Campus Photo
+
+`public/ncpic1.webp` — photo of the Wake Forest, NC location building.
+Displayed on `/locations` above the NC campus card.
+
+---
+
+## Section 9 — Quality
+
+- `npm run build` passes with zero errors and zero TypeScript issues
+- All 16 routes generate successfully (15 pages + 1 API route)
+- No raw translation keys leak to the UI
+- Missing leader photos fall back to initials avatar via `onError`
+- All new content has both EN and ES translations
+
+---
+
+## File Structure Reference
+
+```
+src/
+  app/
+    events/page.tsx       ← Events page
+    locations/page.tsx    ← Locations + weekly schedule view
+    about/pastors/page.tsx← Full Yolanda bio + photos
+  components/
+    Header.tsx            ← Bilingual wordmark (HeaderLogo)
+    Footer.tsx            ← Email, Bible link, locale-aware
+    LeaderCard.tsx        ← Photo support with initials fallback
+    MinistryCard.tsx      ← Translated placeholder label
+  data/
+    schedule.ts           ← ALL service times (edit here only)
+    events.ts             ← ALL upcoming events (edit here only)
+  lib/i18n/
+    types.ts              ← TypeScript interfaces for all content
+    en.ts                 ← English dictionary
+    es.ts                 ← Spanish dictionary
+    LocaleProvider.tsx    ← React Context, localStorage persistence
+
+public/
+  leaders/                ← Leader & pastor photos (.webp / .jpg)
+  bibles/                 ← erv.pdf, spanish-reina.pdf
+  brand/                  ← Logo variants
+  ncpic1.webp             ← NC campus building photo
+```
 
 ---
 
 ## What I'd Recommend Next
 
-**1. Logo asset for Spanish mode.**
-The current Spanish-mode header shows the icon + "Iglesia Rescate" as HTML text — it works but doesn't have the same polished look as the English horizontal logo. The highest-leverage visual improvement is commissioning (or designing in Figma) a `logo-horizontal-es.png` that matches the existing typeface and layout with "Iglesia Rescate" instead. One asset, no code change needed — just add it to `Logo.tsx`'s `sources` map and update `HeaderLogo`.
+**1. Merge this branch to `main`.**
+Open a PR on GitHub, do a final review, and merge. Your `main` branch is
+currently the empty initial commit — everything is on `feat/update-june-2026`.
 
-**2. Wire the newsletter form to a real Formspree endpoint.**
-`src/app/page.tsx` still posts to `https://formspree.io/f/your-form-id`. Sign up at formspree.io, create a form, and replace the placeholder ID. This is a one-line change and completes the site's two contact touchpoints (the contact form uses `CONTACT_FORM_ENDPOINT` env var — also set that in Vercel).
+**2. Wire the newsletter form.**
+`src/app/page.tsx` still posts to `https://formspree.io/f/your-form-id`.
+Sign up at formspree.io, create a form, replace the placeholder ID. One-line fix.
+
+**3. Set the contact form endpoint.**
+Add `CONTACT_FORM_ENDPOINT` in Vercel → Project Settings → Environment Variables.
+Without it the `/contact` form errors loudly (intentional, not silent failure).
+
+**4. Review the Spanish bio for Apostle Yolanda.**
+The text in `es.ts` under `pastors.nyBio` is AI-translated. Have a
+Spanish-fluent church member read it before making the site fully public,
+especially the historical ministry narrative.
