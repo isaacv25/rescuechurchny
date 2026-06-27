@@ -13,12 +13,10 @@ const socialIcons = [
   { key: "youtube", Icon: YoutubeIcon, href: "https://www.youtube.com/channel/UCZ_Jhw0DMNw3PXrGF_50ZOA" },
 ];
 
-// Locale-aware Bible links.
-// EN: Easy-to-Read Version (ERV) PDF — free at openbible.com
-// ES: Reina-Valera 1960 (RVR1960) — most widely used Spanish Protestant Bible, free online
+// Locale-aware Bible links — PDFs served from /public/bibles/
 const bibleLinks = {
-  en: { href: "https://openbible.com/pdfs/erv.pdf", label: "Read the Bible (ERV)" },
-  es: { href: "https://www.biblegateway.com/versions/Reina-Valera-1960-RVR1960-Bible/", label: "Lee la Biblia (RVR1960)" },
+  en: { href: "/bibles/erv.pdf", label: "Read the Bible (ERV)" },
+  es: { href: "/bibles/spanish-reina.pdf", label: "Lee la Biblia (Reina Valera)" },
 };
 
 export function Footer() {

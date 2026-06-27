@@ -7,31 +7,25 @@ import { Logo } from "./Logo";
 import { Container } from "./Container";
 import { Button } from "./Button";
 import { LanguageToggle } from "./LanguageToggle";
-import { useT, useLocale } from "@/lib/i18n/LocaleProvider";
+import { useT } from "@/lib/i18n/LocaleProvider";
 
 /**
- * Language-aware wordmark shown in the header.
- *
- * EN: the full horizontal raster logo (church name baked into the image).
- * ES: the icon-only logo + "Iglesia Rescate" as HTML text — because the
- *     horizontal image contains the English name and generating new image
- *     assets is out of scope for this pass. See CHANGES.md for follow-up.
+ * Consistent wordmark for both languages: icon + church name as styled text.
+ * Both EN ("Rescue Church") and ES ("Iglesia Rescate") render identically in
+ * structure so switching languages never causes a layout jump or style mismatch.
+ * The text uses Jost (font-display) bold to approximate the branded logo treatment.
  */
 function HeaderLogo() {
-  const { locale } = useLocale();
   const { meta } = useT();
 
-  if (locale === "es") {
-    return (
-      <Link href="/" aria-label={`${meta.siteName} — Inicio`} className="inline-flex items-center gap-3">
-        {/* Icon-only logo (no wrapping link — the parent Link already handles navigation) */}
-        <Logo variant="icon" className="h-10 w-auto" href={undefined} />
-        <span className="font-display text-lg font-semibold text-ink">{meta.siteName}</span>
-      </Link>
-    );
-  }
-
-  return <Logo variant="horizontal" priority className="h-10 w-auto sm:h-12" />;
+  return (
+    <Link href="/" aria-label={`${meta.siteName} — home`} className="inline-flex items-center gap-2.5">
+      <Logo variant="icon" className="h-9 w-auto sm:h-10" href={undefined} priority />
+      <span className="font-display text-[1.2rem] font-bold leading-none tracking-wide text-ink sm:text-[1.35rem]">
+        {meta.siteName}
+      </span>
+    </Link>
+  );
 }
 
 export function Header() {
