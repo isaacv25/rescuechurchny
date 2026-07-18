@@ -253,5 +253,10 @@ export const es: Dictionary = {
     emptyBody: "Vuelve pronto — siempre hay algo en preparación. Síguenos en redes sociales para los últimos anuncios.",
     locationLabel: "Lugar",
     flyerAlt: "Volante del evento",
+    comingUp: "Próximamente",
+    sidebarEmpty: "No hay eventos próximos. Vuelve pronto o síguenos en Instagram.",
+    pastTitle: "Eventos Pasados",
+    featuredLabel: "Lo Próximo",
+    followLabel: "Síguenos para novedades al instante",
   },
 };

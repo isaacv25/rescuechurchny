@@ -253,5 +253,10 @@ export const en: Dictionary = {
     emptyBody: "Check back soon — we always have something in the works. Follow us on social media for the latest announcements.",
     locationLabel: "Location",
     flyerAlt: "Event flyer",
+    comingUp: "Coming Up",
+    sidebarEmpty: "No upcoming events. Check back soon or follow us on Instagram.",
+    pastTitle: "Past Events",
+    featuredLabel: "Next Up",
+    followLabel: "Follow for real-time updates",
   },
 };

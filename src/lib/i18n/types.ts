@@ -194,5 +194,15 @@ export interface Dictionary {
     emptyBody: string;
     locationLabel: string;
     flyerAlt: string;
+    /** Sticky sidebar heading on the events page. */
+    comingUp: string;
+    /** Sidebar empty-state message when nothing is upcoming. */
+    sidebarEmpty: string;
+    /** Collapsed "Past Events" section heading. */
+    pastTitle: string;
+    /** Badge label next to the featured (nearest) event. */
+    featuredLabel: string;
+    /** Label above the social links at the bottom of the sidebar. */
+    followLabel: string;
   };
 }
