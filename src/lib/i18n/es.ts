@@ -114,8 +114,8 @@ export const es: Dictionary = {
     { name: "Ministra Jacqueline Leakes", role: "Tesorería", photoPath: "/leaders/minister-jackie.webp" },
     { name: "Artemia Rivera", role: "Ujier Principal", photoPath: "/leaders/head-usher-artemia-rivera.webp" },
     { name: "Ministro Rolando Martínez", role: "Ministro", photoPath: "/leaders/minister-rolando.webp" },
-    { name: "Alondra", role: "Líder del Ministerio de Jóvenes", photoPath: "/leaders/leader-children-ministry-alondra.webp" },
-    { name: "Ashley Tyanne", role: "Líder de Adoración", photoPath: "/leaders/ashley.jpg" },
+    { name: "Ministro Adam", role: "Líder del Ministerio de Jóvenes", photoPath: "/leaders/youth-leader-minister-adam.jpg" },
+    { name: "Tiffany Perry", role: "Líder de Adoración", photoPath: "/leaders/worship-leader-tiffany-perry.jpg" },
   ],
   ministries: {
     eyebrow: "Encuentra Tu Lugar",
@@ -127,7 +127,7 @@ export const es: Dictionary = {
       {
         key: "christ-chasers",
         name: "Christ Chasers",
-        tagline: "Dirigido por Alondra",
+        tagline: "Dirigido por el Ministro Adam",
         description:
           "Christ Chasers es el ministerio de jóvenes de Iglesia Rescate — donde los estudiantes persiguen a Dios juntos a través de adoración real, amistades reales y una fe propia. Se reúne cada miércoles en Staten Island.",
         meeting: "Miércoles · 6:00 PM – 7:30 PM",
@@ -151,7 +151,7 @@ export const es: Dictionary = {
       {
         key: "worship-team",
         name: "Equipo de Adoración",
-        tagline: "Dirigido por Ashley Tyanne",
+        tagline: "Dirigido por Tiffany Perry",
         description:
           "Nuestro Equipo de Adoración dirige a la congregación en adoración cantada en cada servicio, formando un equipo de vocalistas e instrumentistas apasionados por la presencia de Dios. Si tienes un don para la música y un corazón para el Señor, nos encantaría conectar contigo.",
         placeholder: true,

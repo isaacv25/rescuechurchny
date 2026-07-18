@@ -114,8 +114,8 @@ export const en: Dictionary = {
     { name: "Minister Jacqueline Leakes", role: "Treasury", photoPath: "/leaders/minister-jackie.webp" },
     { name: "Artemia Rivera", role: "Head Usher", photoPath: "/leaders/head-usher-artemia-rivera.webp" },
     { name: "Minister Rolando Martinez", role: "Minister", photoPath: "/leaders/minister-rolando.webp" },
-    { name: "Alondra", role: "Youth Ministry Leader", photoPath: "/leaders/leader-children-ministry-alondra.webp" },
-    { name: "Ashley Tyanne", role: "Worship Leader", photoPath: "/leaders/ashley.jpg" },
+    { name: "Minister Adam", role: "Youth Ministry Leader", photoPath: "/leaders/youth-leader-minister-adam.jpg" },
+    { name: "Tiffany Perry", role: "Worship Leader", photoPath: "/leaders/worship-leader-tiffany-perry.jpg" },
   ],
   ministries: {
     eyebrow: "Find Your Place",
@@ -127,7 +127,7 @@ export const en: Dictionary = {
       {
         key: "christ-chasers",
         name: "Christ Chasers",
-        tagline: "Led by Alondra",
+        tagline: "Led by Minister Adam",
         description:
           "Christ Chasers is the youth ministry of Rescue Church — where students chase after God together through real worship, real friendships, and a faith that's their own. Meets every Wednesday in Staten Island.",
         meeting: "Wednesdays · 6:00 PM – 7:30 PM",
@@ -151,7 +151,7 @@ export const en: Dictionary = {
       {
         key: "worship-team",
         name: "Worship Team",
-        tagline: "Led by Ashley Tyanne",
+        tagline: "Led by Tiffany Perry",
         description:
           "Our Worship Team leads the congregation in sung worship each service, building a team of vocalists and instrumentalists who are passionate about the presence of God. If you have a gift for music and a heart for the Lord, we'd love to connect with you.",
         placeholder: true,
