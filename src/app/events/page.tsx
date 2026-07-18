@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Calendar, ChevronDown, Clock, MapPin } from "lucide-react";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
+import { Stagger, StaggerItem } from "@/components/Motion";
 import { InstagramIcon, FacebookIcon } from "@/components/SocialIcons";
 import { useT, useLocale } from "@/lib/i18n/LocaleProvider";
 import {
@@ -184,9 +185,9 @@ function ComingUpSidebar({ upcoming, locale, heading, emptyText, followLabel }: 
         {upcoming.length === 0 ? (
           <p className="mt-5 text-sm leading-relaxed text-charcoal">{emptyText}</p>
         ) : (
-          <ol className="mt-5 space-y-1">
+          <Stagger stagger={0.06} className="mt-5 space-y-1">
             {upcoming.map((event) => (
-              <li key={event.id}>
+              <StaggerItem key={event.id}>
                 <a
                   href={`#${event.id}`}
                   className="group flex items-start gap-4 rounded-xl px-2 py-2.5 transition-colors hover:bg-cream"
@@ -206,9 +207,9 @@ function ComingUpSidebar({ upcoming, locale, heading, emptyText, followLabel }: 
                     </span>
                   </span>
                 </a>
-              </li>
+              </StaggerItem>
             ))}
-          </ol>
+          </Stagger>
         )}
 
         <div className="mt-6 border-t border-ink/5 pt-5">
@@ -259,9 +260,11 @@ export default function EventsPage() {
       <Container className="py-16 sm:py-20">
         <div className="grid gap-10 lg:grid-cols-[1fr_0.55fr]">
           {/* Left panel — featured + upcoming + past */}
-          <div className="space-y-8">
+          <Stagger className="space-y-8">
             {featured ? (
-              <FeaturedEventCard event={featured} locale={locale} featuredLabel={t.events.featuredLabel} flyerAlt={t.events.flyerAlt} />
+              <StaggerItem variant="slideLeft">
+                <FeaturedEventCard event={featured} locale={locale} featuredLabel={t.events.featuredLabel} flyerAlt={t.events.flyerAlt} />
+              </StaggerItem>
             ) : (
               <div className="flex flex-col items-center rounded-3xl border border-ink/8 bg-cream px-8 py-20 text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-coral/10">
@@ -273,11 +276,13 @@ export default function EventsPage() {
             )}
 
             {rest.map((event) => (
-              <EventRowCard key={event.id} event={event} locale={locale} flyerAlt={t.events.flyerAlt} />
+              <StaggerItem key={event.id} variant="slideLeft">
+                <EventRowCard event={event} locale={locale} flyerAlt={t.events.flyerAlt} />
+              </StaggerItem>
             ))}
 
             <PastEvents past={past} locale={locale} title={t.events.pastTitle} flyerAlt={t.events.flyerAlt} />
-          </div>
+          </Stagger>
 
           {/* Right panel — sticky "Coming Up" timeline */}
           <ComingUpSidebar

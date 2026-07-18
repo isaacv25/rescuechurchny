@@ -6,6 +6,7 @@ import "yet-another-react-lightbox/styles.css";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { GalleryTile } from "@/components/GalleryTile";
+import { Stagger, StaggerItem } from "@/components/Motion";
 import { useT } from "@/lib/i18n/LocaleProvider";
 import { galleryPhotos } from "@/data/gallery";
 
@@ -22,18 +23,19 @@ export default function GalleryPage() {
       </section>
 
       <Container className="py-16 sm:py-20">
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <Stagger stagger={0.06} className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           {galleryPhotos.map((photo, idx) => (
-            <GalleryTile
-              key={photo.src}
-              photo={photo}
-              comingSoonLabel={t.gallery.comingSoon}
-              onOpen={() => setLightboxIndex(idx)}
-              className="aspect-square"
-              sizes="(max-width: 1024px) 50vw, 25vw"
-            />
+            <StaggerItem key={photo.src} variant="zoomIn" className="aspect-square">
+              <GalleryTile
+                photo={photo}
+                comingSoonLabel={t.gallery.comingSoon}
+                onOpen={() => setLightboxIndex(idx)}
+                className="h-full w-full"
+                sizes="(max-width: 1024px) 50vw, 25vw"
+              />
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </Container>
 
       <Lightbox

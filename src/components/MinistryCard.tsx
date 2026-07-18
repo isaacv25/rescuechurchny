@@ -9,7 +9,7 @@ interface MinistryCardProps {
 
 export function MinistryCard({ ministry, placeholderLabel = "Details coming soon" }: MinistryCardProps) {
   return (
-    <div className="flex flex-col rounded-2xl border border-ink/8 bg-white p-6 shadow-sm shadow-ink/5">
+    <div className="flex h-full flex-col rounded-2xl border border-ink/8 bg-white p-6 shadow-sm shadow-ink/5 transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-[3px] hover:shadow-md hover:shadow-ink/10">
       <div className="flex items-center gap-2 text-coral-dark">
         <Sparkles size={18} />
         <span className="text-xs font-semibold uppercase tracking-[0.18em]">{ministry.tagline}</span>

@@ -5,6 +5,7 @@ import { BookOpen, Mail, MapPin, Phone } from "lucide-react";
 import { FacebookIcon, InstagramIcon, YoutubeIcon } from "@/components/SocialIcons";
 import { Logo } from "./Logo";
 import { Container } from "./Container";
+import { FadeIn } from "./Motion";
 import { useT, useLocale } from "@/lib/i18n/LocaleProvider";
 
 const socialIcons = [
@@ -37,6 +38,7 @@ export function Footer() {
 
   return (
     <footer className="bg-ink text-white/80">
+      <FadeIn>
       <Container className="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
         {/* Brand */}
         <div className="sm:col-span-2 lg:col-span-1">
@@ -118,6 +120,7 @@ export function Footer() {
           <p>rescuechurchny.net</p>
         </Container>
       </div>
+      </FadeIn>
     </footer>
   );
 }
