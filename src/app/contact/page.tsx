@@ -24,7 +24,6 @@ export default function ContactPage() {
               <MapPin size={14} /> {t.contact.addressLabel}
             </p>
             <p className="mt-2 text-base text-charcoal">182 Park Avenue, Staten Island, NY 10302</p>
-            <p className="mt-1 text-sm text-charcoal/70">Wake Forest, NC (Rescue Church NC)</p>
           </div>
 
           <div>

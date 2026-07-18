@@ -121,10 +121,6 @@ export interface Dictionary {
     nyName: string;
     /** Full biography — rendered as one paragraph per array entry. */
     nyBio: string[];
-    ncTitle: string;
-    ncName: string;
-    ncBio: string[];
-    ncCta: string;
   };
   leadership: LeaderEntry[];
   ministries: {
@@ -140,7 +136,6 @@ export interface Dictionary {
     title: string;
     intro: string;
     ny: Campus;
-    nc: Campus;
     languageNote: string;
     scheduleTitle: string;
   };
@@ -156,7 +151,6 @@ export interface Dictionary {
     title: string;
     body: string[];
     cta: string;
-    ncNote: string;
     secureNote: string;
   };
   contact: {

@@ -22,8 +22,8 @@ export default function Home() {
   const featuredKeys = [
     { key: "ny-sunday-spanish", place: "Staten Island, NY" },
     { key: "ny-sunday-english", place: "Staten Island, NY" },
-    { key: "nc-sunday-worship", place: "Wake Forest, NC" },
     { key: "ny-wednesday-christ-chasers", place: "Staten Island, NY" },
+    { key: "ny-tuesday-prayer-spanish", place: "Staten Island, NY" },
   ];
 
   const featuredTimes = featuredKeys.flatMap(({ key, place }) => {
@@ -139,9 +139,8 @@ export default function Home() {
       <section className="py-20 sm:py-28">
         <Container>
           <SectionHeading eyebrow={t.home.campusesEyebrow} title={t.home.campusesTitle} align="center" />
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          <div className="mx-auto mt-10 max-w-2xl">
             <CampusCard campus={t.locations.ny} mapsCta={t.home.campusesCta} />
-            <CampusCard campus={t.locations.nc} mapsCta={t.home.campusesCta} />
           </div>
         </Container>
       </section>
