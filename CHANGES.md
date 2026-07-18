@@ -1,299 +1,204 @@
 # Rescue Church Website — Change Log
 
-Branch: `feat/update-june-2026`
-Last updated: 2026-06-27
+Branch: `feat/update-july-2026`
+Last updated: 2026-07-18
+
+(For the June 2026 changes — schedule data file, leader photos, events v1,
+Bible PDFs, bilingual wordmark — see the git history of the previous branch,
+`feat/update-june-2026`, already merged to `main`.)
 
 ---
 
 ## Overview
 
-This branch contains all updates made after the initial build commit. Every
-change is committed atomically with a descriptive message. The branch is fully
-deployed to Vercel (rescuechurchny.vercel.app) and ready to be reviewed and
-merged to `main`.
+Targeted upgrade pass: leader name corrections, complete removal of the
+Wake Forest NC campus, a new photo gallery (homepage section + `/gallery`
+page), a rebuilt two-panel `/events` page, and a sitewide animation layer.
+No redesign — all existing visual conventions kept.
 
 ---
 
-## Section 1 — Ministries Page
+## Section 1 — Leader Name Corrections
 
-**Christ Chasers**
-- Meeting time: `6:00 PM` → `6:00 PM – 7:30 PM` (EN + ES)
-- Tagline: `"Our Youth Ministry"` → `"Led by Alondra"` — consistent with other
-  ministry cards and makes the leader visible at a glance
-- Description updated to explicitly name it as "the youth ministry of Rescue Church"
-  since that label moved from tagline to description body
+**Christ Chasers (Youth Ministry)** — 4 occurrences of Alondra found and
+replaced across `src/lib/i18n/en.ts` and `es.ts`:
+- Leadership entry → `Minister Adam` / `Ministro Adam`, role unchanged
+  ("Youth Ministry Leader" / "Líder del Ministerio de Jóvenes")
+- Christ Chasers tagline → `"Led by Minister Adam"` / `"Dirigido por el Ministro Adam"`
+- Photo path → `/leaders/youth-leader-minister-adam.jpg` (file **not yet
+  uploaded** — the initials-avatar fallback shows until it's dropped in)
 
-**Children's Ministry card removed**
-- Previously a separate card with "Led by Alondra" as tagline
-- Removed at owner's direction — Christ Chasers is the single youth/children
-  ministry entry; Alondra is now credited there
-
-**Worship Team card added** (5th ministry)
-- Leader: Ashley Tyanne
-- Tagline: `"Led by Ashley Tyanne"` → displayed as **LED BY ASHLEY TYANNE**
-- `placeholder: true` — shows "Details coming soon" / "Detalles próximamente" badge
-- No rehearsal time (none provided)
-
-**Discipleship Class — schedule entry only (not a card)**
-- Added to Staten Island campus schedule as `ny-monday-discipleship`
-- EN: Monday · Discipleship Class · 8:00 PM – 9:00 PM
-- ES: Lunes · Clase de Discipulado · 8:00 PM – 9:00 PM
-- Appears in campus cards, homepage service times, and the weekly schedule view
-
-**How to add a new ministry card:**
-1. Open `src/lib/i18n/en.ts` → `ministries.items[]` → add an object
-2. Open `src/lib/i18n/es.ts` → same position → add the Spanish translation
-3. Required: `key` (unique kebab-case), `name`, `tagline`, `description`
-4. Optional: `meeting` (string), `link` (`{ label, href }`), `placeholder: true`
-5. No other file needs to change
+**Worship Team** — 4 occurrences of Ashley Tyanne found and replaced:
+- Leadership entry → `Tiffany Perry`, role unchanged ("Worship Leader" /
+  "Líder de Adoración")
+- Worship Team tagline → `"Led by Tiffany Perry"` / `"Dirigido por Tiffany Perry"`
+- Photo path → `/leaders/worship-leader-tiffany-perry.jpg` (file **not yet
+  uploaded** — initials fallback shows)
 
 ---
 
-## Section 2 — Header: Language-Aware Wordmark
+## Section 2 — NC Campus Removal (Complete Purge)
 
-Both EN and ES now use **identical structure**: the church icon (`logo-icon.png`)
-+ the church name as styled HTML text in Jost bold.
+Every Wake Forest / NC reference removed. Final grep for all spec'd strings
+(`Wake Forest`, `North Carolina`, `, NC`, `ncpic`, `Jasmin`, `416 N Taylor`,
+`Alston Massenburg`, `27587`, `Fireside`, `two campuses`, …) returns **zero
+matches in source**. File-by-file:
 
-- EN: icon + "Rescue Church"
-- ES: icon + "Iglesia Rescate"
+| File | What was removed/changed |
+|---|---|
+| `src/app/layout.tsx` | Title → "Rescue Church \| Staten Island, NY"; meta + og descriptions Staten Island only |
+| `src/data/schedule.ts` | `CampusId` narrowed to `"ny"`; 3 NC schedule entries deleted; comment documents how to re-add a campus |
+| `src/lib/i18n/types.ts` | `pastors.nc*`, `locations.nc`, `give.ncNote` removed from Dictionary |
+| `src/lib/i18n/en.ts` / `es.ts` | heroEyebrow, "Two Campuses, One Family" → "Visit Us" / "Come Worship With Us", pastors intro, full Pastor Jasmin bio + CTA, `locations.nc` object, locations intro, give ncNote |
+| `src/app/page.tsx` | NC featured service time → NY Tuesday Spanish Prayer; NC campus card removed, NY card centered |
+| `src/app/locations/page.tsx` | NC campus card, NC map embed, `ncpic1.webp` image, NC weekly-schedule column removed; single-column centered layout |
+| `src/app/about/pastors/page.tsx` | Entire Pastor Jasmin section removed |
+| `src/app/contact/page.tsx` | "Wake Forest, NC (Rescue Church NC)" line removed |
+| `src/app/give/page.tsx` | NC giving note removed |
 
-Toggling between languages changes only the text — same font, same size, same
-spacing, no layout shift.
-
-**Why not the horizontal logo image for EN?**
-Using icon + text for both languages eliminates the mismatch that existed when EN
-showed a branded raster image and ES showed a plain text span. Consistency was
-chosen over the slightly richer image treatment.
-
-**Follow-up:** If a matching `logo-horizontal-es.png` asset is ever created,
-add it to `Logo.tsx`'s `sources` map and restore the image-based approach for
-both languages simultaneously.
-
----
-
-## Section 3 — i18n Architecture
-
-**Decision: single-route, localStorage persistence. No locale-prefixed URLs.**
-
-The entire site uses `"use client"` on every page. There is no server-side
-rendering gap where a cookie would help. Adding `/es/` URL prefixes would require
-restructuring every route and Link with no user-facing benefit.
-
-**What is already working (no changes needed):**
-- `LocaleProvider` stores locale in `localStorage` key `rescue-church-locale`
-- Auto-detects browser language on first visit (sets ES if `navigator.language`
-  starts with `es`)
-- `useLocale()` / `useT()` hooks available everywhere
-- EN/ES toggle in the header and mobile menu is fully functional
-- All 16 routes use `useT()` — no raw translation key strings leak to the UI
-
-**New keys added this branch:**
-- `nav.events` — Events page nav label
-- `contact.emailLabel` — "Email Us" / "Escríbenos"
-- `footer.readBible` — "Read the Bible" / "Lee la Biblia"
-- `ministries.placeholderLabel` — "Details coming soon" / "Detalles próximamente"
-- `locations.scheduleTitle` — "Full Weekly Schedule" / "Horario Semanal Completo"
-- `events.*` — full events page strings (eyebrow, title, intro, empty state, etc.)
-
-**SEO metadata i18n:** `<title>` and meta description are set server-side and
-remain EN-only. This is a known limitation of the single-route approach. Flagged
-as a follow-up — not silently skipped.
+`next.config.ts` had no NC-related config.
 
 ---
 
-## Section 4 — Leader Bios & Photos
+## Section 3 — Photo Gallery
 
-**Apostle Yolanda — full bio**
-- `pastors.nyBioPlaceholder` (single placeholder string) replaced by
-  `pastors.nyBio` (array of paragraphs, matching the NC `ncBio` pattern)
-- 4-paragraph biography in both EN and ES
-- Photo: `public/leaders/apostle-yolanda.webp`
-- **Spanish translation note:** AI-translated — please have a Spanish-fluent
-  member review before publishing, especially the ministry history paragraphs
+**Data file: `src/data/gallery.ts`** — 8 placeholder entries
+(`/gallery/photo-01.jpg` … `photo-08.jpg`). Images don't exist yet; the
+`GalleryTile` component shows a branded placeholder (ink gradient + logo +
+"Photo coming soon" / "Foto próximamente") for missing files.
 
-**Pastor Jasmin (NC) — photo added**
-- `public/leaders/pastor-jasmine.webp`
-
-**LeaderCard photo support**
-- `LeaderEntry` type gains optional `photoPath?: string`
-- `LeaderCard` is now a `"use client"` component: shows the photo if the file
-  exists, falls back to the initials avatar via `onError` if the file is missing
-- Missing photos **never break the build or layout**
-
-**Ashley Tyanne added to Leadership Team**
-- EN role: `"Worship Leader"` / ES role: `"Líder de Adoración"`
-- Photo: `public/leaders/ashley.jpg`
-
-**Alondra — role updated**
-- Was: `"Leader of Children's Ministry"`
-- Now: `"Youth Ministry Leader"` (reflects her role on Christ Chasers)
-
-**Final image paths wired up in `/public/leaders/`**
-
-| Leader | File |
-|--------|------|
-| Apostle Yolanda Valentín-Avilés | `public/leaders/apostle-yolanda.webp` |
-| Pastor Milly Baez | `public/leaders/pastor-milly.webp` |
-| Pastor Patricia Sandoval | `public/leaders/pastor-patricia.webp` |
-| Minister Jacqueline Leakes | `public/leaders/minister-jackie.webp` |
-| Artemia Rivera | `public/leaders/head-usher-artemia-rivera.webp` |
-| Minister Rolando Martinez | `public/leaders/minister-rolando.webp` |
-| Alondra | `public/leaders/leader-children-ministry-alondra.webp` |
-| Ashley Tyanne | `public/leaders/ashley.jpg` |
-| Pastor Jasmin (pastors page only) | `public/leaders/pastor-jasmine.webp` |
-
----
-
-## Section 5 — Schedule Data File
-
-**`src/data/schedule.ts` — single source of truth**
-
-All recurring service and ministry times live here. Every display on the site
-derives from this file. To update a time, change it here — no other file needed.
-
-**Utility exports:**
-- `getScheduleForCampus(campus)` — filtered + sorted entries for one campus
-- `getEntryByKey(key)` — look up one entry by its stable key
-- `formatTime(entry)` — `"6:00 PM"` or `"6:00 PM – 7:30 PM"`
-- `toServiceTime(entry, locale)` — converts to `ServiceTime` shape for `CampusCard`
-
-**How to add a schedule entry:**
-```typescript
-{
-  key: "ny-friday-womens-prayer",   // unique — never change once set
-  campus: "ny",
-  dayOfWeek: "Friday",
-  dayEN: "Friday",   dayES: "Viernes",
-  labelEN: "Women's Prayer Night",
-  labelES: "Noche de Oración de Mujeres",
-  startTime: "7:00 PM",
-  endTime: "8:30 PM",   // optional
-},
+**How to add a gallery photo:**
+```
+1. Add the image file to /public/gallery/ (e.g. photo-09.jpg)
+2. Open src/data/gallery.ts
+3. Add: { src: "/gallery/photo-09.jpg", alt: "Description of the photo" }
+4. Save — the image appears on the homepage gallery and /gallery page automatically.
 ```
 
-**Refactors:**
-- `en.ts` / `es.ts` campus `services` arrays are now generated from this file
-- Homepage featured-times strip uses stable keys (`"ny-sunday-spanish"` etc.)
-  instead of array indices — no more drift when entries are inserted
-
-**Visual schedule on Locations page**
-- `WeeklySchedule` component on `/locations` — full schedule grouped by day,
-  locale-aware, sourced directly from `schedule.ts`
+- **Homepage section** "Our Community / Life at Rescue Church" after the
+  Welcome section — first 6 photos, asymmetric grid (first tile spans 2 rows
+  on desktop), 1.02 hover zoom, "View Full Gallery →" link. (Spec suggested
+  above the service-times strip; kept the strip directly under the hero
+  because the hero's Plan-Your-Visit CTA anchors to it.)
+- **`/gallery` page** — all photos, 2-col mobile / 4-col desktop, lightbox
+  on click via `yet-another-react-lightbox` (new dependency, MIT).
+  Placeholder tiles don't open the lightbox.
+- **Nav**: "Gallery" added as a top-level link (nav is flat outside About);
+  also added to footer Quick Links.
 
 ---
 
-## Section 6 — Events Page
+## Section 4 — Events Page (Two-Panel Rebuild)
 
-**`src/data/events.ts` — single source of truth for upcoming events**
+**Data file: `src/data/events.ts`** — single source of truth. Interface
+follows the spec (`id`, `date`, `time`, `location`, `description`,
+`flyerImage`, `tags`) **with bilingual EN/ES field pairs kept**
+(`titleEN`/`titleES` etc.) because the site is bilingual. Header comment
+documents the workflow.
 
-Add events here; the `/events` page updates automatically.
-
-**How to add an event:**
-```typescript
-{
-  key: "revival-july-2026",
-  titleEN: "Summer Revival",
-  titleES: "Avivamiento de Verano",
-  date: "2026-07-20",             // ISO format YYYY-MM-DD
-  timeEN: "7:00 PM",
-  timeES: "7:00 PM",
-  locationLabel: "182 Park Avenue, Staten Island, NY",
-  descriptionEN: "Three nights of worship and the Word.",
-  descriptionES: "Tres noches de adoración y la Palabra.",
-  flyerPath: "/events/revival-flyer.jpg",  // optional — drop image in public/events/
-},
+**How to add an event + flyer:**
+```
+1. Open src/data/events.ts
+2. Add a new object to the events array (copy an existing entry as a template)
+3. (Optional) Add the flyer image to /public/events/<event-id>.jpg
+4. Set flyerImage: "/events/<event-id>.jpg" in the event object
+5. Save — the event appears on /events automatically, sorted by date.
 ```
 
-**How to add a flyer:**
-1. Create `public/events/` folder if it doesn't exist
-2. Drop the image file in (JPG, PNG, or WebP)
-3. Set `flyerPath: "/events/your-filename.jpg"` on the event entry
+Past events (date < today) automatically move to a collapsed "Past Events"
+accordion — no manual cleanup needed.
 
-The page shows a clean empty state when no events are listed.
+**Seeded placeholder events** (all without flyers, so the branded
+placeholder card shows): Back to School Bash (2026-09-06), Fall Revival
+Night (2026-10-03), Women's Conference (2026-11-15).
 
----
-
-## Section 7 — Contact & Footer
-
-**Email added:** `rescuechurchny@gmail.com`
-- Footer → Visit Us column (below phone number)
-- `/contact` page → dedicated Email section
-
-**Footer changes:**
-- Wake Forest, NC address removed — footer now shows Staten Island only
-- Events added to Quick Links
-- Bible link added to Connect column (locale-aware, opens local PDF)
-
-**Bible PDFs — served locally from `/public/bibles/`**
-- EN: `/bibles/erv.pdf` (Easy-to-Read Version)
-- ES: `/bibles/spanish-reina.pdf` (Reina Valera)
-- Links open the PDF directly in the browser — no external redirect
+**Layout**: left panel (~65%) = featured card for the next event (large
+flyer slot, `object-contain` so portrait flyers never crop; ink-gradient
+placeholder with logo + title + coral border when no flyer) + remaining
+upcoming as horizontal thumbnail cards + collapsed Past Events with count
+badge. Right panel (~35%) = sticky "Coming Up" timeline (short-date chip,
+weekday, title, time; anchors to each card) with Instagram/Facebook links.
+Panels stack on mobile.
 
 ---
 
-## Section 8 — NC Campus Photo
+## Section 5 — Animation Layer
 
-`public/ncpic1.webp` — photo of the Wake Forest, NC location building.
-Displayed on `/locations` above the NC campus card.
+**Library**: `framer-motion` (new dependency).
+**Global config**: `src/components/Motion.tsx` — all primitives live here
+(`Reveal`, `FadeIn`, `Stagger`/`StaggerItem`, `HeroWords`, `HeroFade`).
+`src/app/template.tsx` adds a 0.2s page-transition fade per route change.
 
----
+- Scroll reveals: fade-up 24px → 0, 0.5s easeOut; grids stagger 0.08s
+  (gallery 0.06s zoom-in from 0.95)
+- Hero: word-by-word headline (0.1s/word), subtitle then CTAs fade after
+- Events: left-panel cards slide in from the left; sidebar staggers
+- Footer fades in; card hovers standardized (-3px lift + shadow, 200ms)
+- **Every primitive checks `useReducedMotion()`** and renders static markup
+  when the user prefers reduced motion
+- transform/opacity only — no layout properties animated; no parallax
+- Header frosted/blur nav already existed (sticky + backdrop-blur) — unchanged
 
-## Section 9 — Quality
-
-- `npm run build` passes with zero errors and zero TypeScript issues
-- All 16 routes generate successfully (15 pages + 1 API route)
-- No raw translation keys leak to the UI
-- Missing leader photos fall back to initials avatar via `onError`
-- All new content has both EN and ES translations
-
----
-
-## File Structure Reference
-
-```
-src/
-  app/
-    events/page.tsx       ← Events page
-    locations/page.tsx    ← Locations + weekly schedule view
-    about/pastors/page.tsx← Full Yolanda bio + photos
-  components/
-    Header.tsx            ← Bilingual wordmark (HeaderLogo)
-    Footer.tsx            ← Email, Bible link, locale-aware
-    LeaderCard.tsx        ← Photo support with initials fallback
-    MinistryCard.tsx      ← Translated placeholder label
-  data/
-    schedule.ts           ← ALL service times (edit here only)
-    events.ts             ← ALL upcoming events (edit here only)
-  lib/i18n/
-    types.ts              ← TypeScript interfaces for all content
-    en.ts                 ← English dictionary
-    es.ts                 ← Spanish dictionary
-    LocaleProvider.tsx    ← React Context, localStorage persistence
-
-public/
-  leaders/                ← Leader & pastor photos (.webp / .jpg)
-  bibles/                 ← erv.pdf, spanish-reina.pdf
-  brand/                  ← Logo variants
-  ncpic1.webp             ← NC campus building photo
-```
+**Bug fixed along the way (pre-existing)**: `HeaderLogo` passed
+`href={undefined}` to `Logo`, whose `href = "/"` default re-linked the
+image → nested `<a>` + React hydration error on every page. `Logo` now
+takes `href: string | null`; Header passes `null`. Verified zero nested
+anchors in the live DOM.
 
 ---
 
-## What I'd Recommend Next
+## Section 6 — Quality Gate (all passed)
 
-**1. Merge this branch to `main`.**
-Open a PR on GitHub, do a final review, and merge. Your `main` branch is
-currently the empty initial commit — everything is on `feat/update-june-2026`.
+1. `npm run build` — zero errors, 18 routes (17 pages + 1 API)
+2. NC-string grep — zero matches in source
+3. `Alondra` / `Ashley Tyanne` grep — zero matches
+4. EN + ES verified in-browser (home, events, locations, gallery) — no raw
+   keys, correct translations, locale date formatting works ("6 sept", "sábado")
+5. Gallery renders placeholder tiles — no broken-image icons
+6. Events renders branded placeholder flyer cards
+7. 375px viewport: no horizontal scroll on home/events/gallery; panels stack
+8. Reduced-motion: every motion primitive guarded by `useReducedMotion()`
+9. Console: the one real error found (nested `<a>` hydration) was fixed;
+   no others. Note: animation playback couldn't be watched live in the test
+   browser (backgrounded tab pauses requestAnimationFrame) — initial/whileInView
+   styles verified in the DOM instead. **Lighthouse not run** for the same
+   reason — flagging as a follow-up to check on the Vercel preview.
 
-**2. Wire the newsletter form.**
-`src/app/page.tsx` still posts to `https://formspree.io/f/your-form-id`.
-Sign up at formspree.io, create a form, replace the placeholder ID. One-line fix.
+---
 
-**3. Set the contact form endpoint.**
-Add `CONTACT_FORM_ENDPOINT` in Vercel → Project Settings → Environment Variables.
-Without it the `/contact` form errors loudly (intentional, not silent failure).
+## Leader photo filenames expected in `/public/leaders/`
 
-**4. Review the Spanish bio for Apostle Yolanda.**
-The text in `es.ts` under `pastors.nyBio` is AI-translated. Have a
-Spanish-fluent church member read it before making the site fully public,
-especially the historical ministry narrative.
+| Leader | File | Status |
+|--------|------|--------|
+| Apostle Yolanda Valentín-Avilés | `apostle-yolanda.webp` | ✅ present |
+| Pastor Milagros "Milly" Baez | `pastor-milly.webp` | ✅ present |
+| Pastor Patricia Sandoval | `pastor-patricia.webp` | ✅ present |
+| Minister Jacqueline Leakes | `minister-jackie.webp` | ✅ present |
+| Artemia Rivera | `head-usher-artemia-rivera.webp` | ✅ present |
+| Minister Rolando Martinez | `minister-rolando.webp` | ✅ present |
+| **Minister Adam** | `youth-leader-minister-adam.jpg` | ⬜ **needs upload** |
+| **Tiffany Perry** | `worship-leader-tiffany-perry.jpg` | ⬜ **needs upload** |
+
+Until uploaded, the initials avatar shows automatically — nothing breaks.
+
+---
+
+## Follow-up items flagged
+
+- `public/ncpic1.webp` and `public/leaders/pastor-jasmine.webp` are now
+  **unused but not deleted** (kept per instruction; remove whenever)
+- `public/leaders/leader-children-ministry-alondra.webp` and
+  `public/leaders/ashley.jpg` are also now unreferenced
+- **Spanish review**: new ES strings in this branch (gallery, events
+  sidebar, campus section headings) are AI-translated — have a
+  Spanish-fluent member review, along with the previously flagged
+  Apostle Yolanda bio
+- **SEO**: `<title>`/description remain EN-only (single-route i18n
+  limitation, unchanged); per-page metadata for /gallery and /events not
+  added — deferred
+- **Lighthouse ≥85 check** on the Vercel preview once deployed
+- Newsletter form still posts to placeholder Formspree URL
+  (`src/app/page.tsx`); `CONTACT_FORM_ENDPOINT` env var must be set in
+  Vercel for the contact form
+- npm audit: 2 moderate advisories from Next.js's bundled postcss —
+  pre-existing, fix would downgrade Next; wait for a Next patch release
