@@ -7,11 +7,13 @@ import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CampusCard } from "@/components/CampusCard";
+import { GalleryTile } from "@/components/GalleryTile";
 import { MinistryCard } from "@/components/MinistryCard";
 import { SocialCard } from "@/components/SocialCard";
 import { useT } from "@/lib/i18n/LocaleProvider";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
 import { getEntryByKey, formatTime } from "@/data/schedule";
+import { galleryPhotos } from "@/data/gallery";
 
 export default function Home() {
   const t = useT();
@@ -114,6 +116,28 @@ export default function Home() {
           </div>
           <div className="relative flex items-center justify-center rounded-3xl bg-cream p-10">
             <Image src="/brand/logo-stacked.png" alt="Rescue Church" width={1400} height={1187} className="w-full max-w-xs" />
+          </div>
+        </Container>
+      </section>
+
+      {/* GALLERY — Life at Rescue Church */}
+      <section className="border-t border-ink/5 py-20 sm:py-28">
+        <Container>
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <SectionHeading eyebrow={t.gallery.eyebrow} title={t.gallery.title} subtitle={t.gallery.subtitle} />
+            <Link href="/gallery" className="inline-flex items-center gap-1 text-sm font-semibold text-coral-dark hover:text-coral">
+              {t.gallery.viewFull} <ArrowRight size={15} />
+            </Link>
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {galleryPhotos.slice(0, 6).map((photo, idx) => (
+              <GalleryTile
+                key={photo.src}
+                photo={photo}
+                comingSoonLabel={t.gallery.comingSoon}
+                className={idx === 0 ? "aspect-[4/3] lg:row-span-2 lg:aspect-auto" : "aspect-[4/3]"}
+              />
+            ))}
           </div>
         </Container>
       </section>

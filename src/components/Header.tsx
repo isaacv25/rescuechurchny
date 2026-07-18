@@ -43,6 +43,7 @@ export function Header() {
   const navLinks = [
     { href: "/ministries", label: t.nav.ministries },
     { href: "/locations", label: t.nav.locations },
+    { href: "/gallery", label: t.nav.gallery },
     { href: "/media", label: t.nav.media },
     { href: "/contact", label: t.nav.contact },
   ];

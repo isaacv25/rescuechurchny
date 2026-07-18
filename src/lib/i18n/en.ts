@@ -15,6 +15,7 @@ export const en: Dictionary = {
     beliefs: "What We Believe",
     ministries: "Ministries",
     events: "Events",
+    gallery: "Gallery",
     locations: "Locations",
     media: "Media",
     contact: "Contact",
@@ -202,6 +203,14 @@ export const en: Dictionary = {
       },
     ],
     note: "Can't make it in person? Every platform above carries our services — pick the one you already use.",
+  },
+  gallery: {
+    eyebrow: "Our Community",
+    title: "Life at Rescue Church",
+    subtitle: "A glimpse into worship, fellowship, and everything in between.",
+    viewFull: "View Full Gallery",
+    pageIntro: "Moments from services, events, and the everyday life of our church family.",
+    comingSoon: "Photo coming soon",
   },
   give: {
     eyebrow: "Generosity",

@@ -29,6 +29,7 @@ export function Footer() {
     { href: "/about/vision", label: t.nav.vision },
     { href: "/ministries", label: t.nav.ministries },
     { href: "/events", label: t.nav.events },
+    { href: "/gallery", label: t.nav.gallery },
     { href: "/locations", label: t.nav.locations },
     { href: "/give", label: t.nav.give },
     { href: "/contact", label: t.nav.contact },

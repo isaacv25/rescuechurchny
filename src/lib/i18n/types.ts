@@ -58,6 +58,7 @@ export interface Dictionary {
     beliefs: string;
     ministries: string;
     events: string;
+    gallery: string;
     locations: string;
     media: string;
     contact: string;
@@ -145,6 +146,15 @@ export interface Dictionary {
     intro: string;
     socials: SocialEntry[];
     note: string;
+  };
+  gallery: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    viewFull: string;
+    pageIntro: string;
+    /** Label inside the branded placeholder tile shown for photos not yet uploaded. */
+    comingSoon: string;
   };
   give: {
     eyebrow: string;

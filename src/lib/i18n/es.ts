@@ -15,6 +15,7 @@ export const es: Dictionary = {
     beliefs: "Lo Que Creemos",
     ministries: "Ministerios",
     events: "Eventos",
+    gallery: "Galería",
     locations: "Ubicaciones",
     media: "Medios",
     contact: "Contacto",
@@ -202,6 +203,14 @@ export const es: Dictionary = {
       },
     ],
     note: "¿No puedes asistir en persona? Todas las plataformas anteriores transmiten nuestros servicios — elige la que ya usas.",
+  },
+  gallery: {
+    eyebrow: "Nuestra Comunidad",
+    title: "La Vida en Iglesia Rescate",
+    subtitle: "Un vistazo a la adoración, el compañerismo y todo lo demás.",
+    viewFull: "Ver Galería Completa",
+    pageIntro: "Momentos de los servicios, eventos y la vida diaria de nuestra familia de iglesia.",
+    comingSoon: "Foto próximamente",
   },
   give: {
     eyebrow: "Generosidad",
