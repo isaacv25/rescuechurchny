@@ -3,6 +3,7 @@
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { MinistryCard } from "@/components/MinistryCard";
+import { Stagger, StaggerItem } from "@/components/Motion";
 import { useT } from "@/lib/i18n/LocaleProvider";
 
 export default function MinistriesPage() {
@@ -17,11 +18,13 @@ export default function MinistriesPage() {
       </section>
 
       <Container className="py-16 sm:py-20">
-        <div className="grid gap-6 sm:grid-cols-2">
+        <Stagger className="grid gap-6 sm:grid-cols-2">
           {t.ministries.items.map((ministry) => (
-            <MinistryCard key={ministry.key} ministry={ministry} placeholderLabel={t.ministries.placeholderLabel} />
+            <StaggerItem key={ministry.key} className="h-full">
+              <MinistryCard ministry={ministry} placeholderLabel={t.ministries.placeholderLabel} />
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </Container>
     </div>
   );

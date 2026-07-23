@@ -17,7 +17,7 @@ export function SocialCard({ social }: { social: SocialEntry }) {
       href={social.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col rounded-2xl border border-ink/8 bg-white p-6 shadow-sm shadow-ink/5 transition-transform hover:-translate-y-0.5 hover:shadow-md"
+      className="group flex h-full flex-col rounded-2xl border border-ink/8 bg-white p-6 shadow-sm shadow-ink/5 transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-[3px] hover:shadow-md hover:shadow-ink/10"
     >
       <div className="flex items-center justify-between">
         <div className="flex h-11 w-11 items-center justify-center rounded-full bg-coral/10 text-coral-dark">

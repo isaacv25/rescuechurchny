@@ -28,7 +28,9 @@
  * If you find them elsewhere, migrate here and reference by key.
  */
 
-export type CampusId = "ny" | "nc";
+// Single campus — Staten Island, NY only. If a second campus is added in
+// future, re-introduce a campus id here (e.g. "ny" | "other").
+export type CampusId = "ny";
 
 export type DayOfWeek =
   | "Sunday"
@@ -130,38 +132,6 @@ export const schedule: ScheduleEntry[] = [
     dayES: "Miércoles",
     labelEN: "English Prayer Service",
     labelES: "Servicio de Oración en Inglés",
-    startTime: "8:00 PM",
-  },
-
-  // ── Wake Forest, NC ─────────────────────────────────────────────────────────
-  {
-    key: "nc-sunday-worship",
-    campus: "nc",
-    dayOfWeek: "Sunday",
-    dayEN: "Sunday",
-    dayES: "Domingo",
-    labelEN: "Worship Service",
-    labelES: "Servicio de Adoración",
-    startTime: "10:00 AM",
-  },
-  {
-    key: "nc-tuesday-prayer-worship",
-    campus: "nc",
-    dayOfWeek: "Tuesday",
-    dayEN: "Tuesday",
-    dayES: "Martes",
-    labelEN: "Prayer & Worship Service",
-    labelES: "Oración y Adoración",
-    startTime: "7:00 PM",
-  },
-  {
-    key: "nc-tuesday-mens-bible",
-    campus: "nc",
-    dayOfWeek: "Tuesday",
-    dayEN: "Tuesday",
-    dayES: "Martes",
-    labelEN: "Men's Bible Study (Fireside)",
-    labelES: "Estudio Bíblico de Hombres (Fireside)",
     startTime: "8:00 PM",
   },
 ];

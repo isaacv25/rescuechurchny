@@ -15,6 +15,7 @@ export const es: Dictionary = {
     beliefs: "Lo Que Creemos",
     ministries: "Ministerios",
     events: "Eventos",
+    gallery: "Galería",
     locations: "Ubicaciones",
     media: "Medios",
     contact: "Contacto",
@@ -22,7 +23,7 @@ export const es: Dictionary = {
     planVisit: "Planifica tu Visita",
   },
   home: {
-    heroEyebrow: "Staten Island, NY  •  Wake Forest, NC",
+    heroEyebrow: "Staten Island, NY",
     heroTitle: "Una Familia de Iglesia Cálida y Amigable",
     heroSubtitle:
       "Una iglesia que cree en la Biblia, llena del Espíritu Santo y bilingüe desde el primer día. Ven como eres — la adoración es apasionada, el mensaje es relevante y la bienvenida es real.",
@@ -40,8 +41,8 @@ export const es: Dictionary = {
     ministriesEyebrow: "Involúcrate",
     ministriesTitle: "Ministerios Para Cada Etapa de la Vida",
     ministriesCta: "Explora Todos los Ministerios",
-    campusesEyebrow: "Dos Campus, Una Familia",
-    campusesTitle: "Adora Con Nosotros",
+    campusesEyebrow: "Visítanos",
+    campusesTitle: "Ven a Adorar Con Nosotros",
     campusesCta: "Direcciones y Horarios de Servicio",
     missionEyebrow: "Por Qué Estamos Aquí",
     missionTitle: "Nuestra Misión",
@@ -67,7 +68,7 @@ export const es: Dictionary = {
     pastorsEyebrow: "Liderazgo",
     pastorsTitle: "Pastores Principales",
     pastorsIntro:
-      "Iglesia Rescate está dirigida por pastores llamados a pastorear dos campus con una misión compartida.",
+      "Iglesia Rescate está dirigida por pastores llamados a pastorear nuestra familia de iglesia con una misión compartida.",
     leadershipEyebrow: "Nuestro Equipo",
     leadershipTitle: "Equipo de Liderazgo",
     leadershipIntro:
@@ -98,15 +99,6 @@ export const es: Dictionary = {
       "La Apóstol Yolanda y su esposo, el Pastor Daniel Avilés, continúan siguiendo la dirección del Espíritu Santo para el futuro de la iglesia. Comenzando con solo 4 miembros, Rescue Ministries se ha mudado tres veces para mantenerse al ritmo del crecimiento, abriendo múltiples despensas de alimentos y comedores comunitarios a lo largo del camino. Es una evangelista internacional que ha predicado en México, Honduras, Ecuador, Puerto Rico, Guatemala, Argentina, Colombia, Perú y la República Dominicana, entre otros países — y Dios le ha dado el don de levantar líderes que llevan esa misma pasión por el Reino junto a ella.",
       "Iglesia Rescue Ministries: Alcanzando almas para Jesucristo.",
     ],
-    ncTitle: "Wake Forest, NC",
-    ncName: "Pastora Jasmin Valentín-Kelly",
-    ncBio: [
-      "La Pastora Jasmin ha estado sirviendo al Señor por más de 30 años, y no siempre ha sido informes de alabanza y prosperidad. A temprana edad, Jasmin creció en el sistema de cuidado de crianza, vivió múltiples formas de abuso y recuerda orar sobre alacenas vacías para que apareciera comida. A través de todo, la fe de la Pastora Jasmin en Dios y su compromiso de servir nunca ha vacilado.",
-      "A lo largo de los años, Jasmin ha participado en el ministerio de prisiones, un ministerio de calle sirviendo a personas sin hogar, ha dirigido ministerios de jóvenes, enseñado clases de estudio bíblico, dirigido equipos de medios de la iglesia y el ministerio de danza, y ha participado y/o dirigido equipos de adoración desde 1987. La Pastora Jasmin ha tenido la bendición de usar sus talentos y experiencia en viajes misioneros a México, Colombia, Ecuador y Puerto Rico.",
-      "Mientras completaba su título en Nyack College, Jasmin tuvo una carrera muy exitosa en una de las instituciones financieras más grandes de Wall Street, recibiendo a menudo oportunidades por encima de colegas que ya tenían títulos avanzados. Después de la universidad, Jasmin se casó con Robert Kelly en 2004 y ahora es madre de tres hijos maravillosos — Lucas, Isabella y Gabriella.",
-      "El corazón de la Pastora Jasmin es que las personas lleguen a conocer al Señor. Ella conoce el dolor y los desafíos, pero también sabe que Dios puede transformar la vida de una persona, sanar matrimonios y restaurar familias.",
-    ],
-    ncCta: "Acompaña a la Pastora Jasmin cualquier domingo en la mañana en Iglesia Rescate NC.",
   },
   leadership: [
     { name: "Pastora Milagros “Milly” Báez", role: "Pastora de Jóvenes", photoPath: "/leaders/pastor-milly.webp" },
@@ -114,8 +106,8 @@ export const es: Dictionary = {
     { name: "Ministra Jacqueline Leakes", role: "Tesorería", photoPath: "/leaders/minister-jackie.webp" },
     { name: "Artemia Rivera", role: "Ujier Principal", photoPath: "/leaders/head-usher-artemia-rivera.webp" },
     { name: "Ministro Rolando Martínez", role: "Ministro", photoPath: "/leaders/minister-rolando.webp" },
-    { name: "Alondra", role: "Líder del Ministerio de Jóvenes", photoPath: "/leaders/leader-children-ministry-alondra.webp" },
-    { name: "Ashley Tyanne", role: "Líder de Adoración", photoPath: "/leaders/ashley.jpg" },
+    { name: "Ministro Adam", role: "Líder del Ministerio de Jóvenes", photoPath: "/leaders/youth-leader-minister-adam.jpg" },
+    { name: "Tiffany Perry", role: "Líder de Adoración", photoPath: "/leaders/worship-leader-tiffany-perry.jpg" },
   ],
   ministries: {
     eyebrow: "Encuentra Tu Lugar",
@@ -127,7 +119,7 @@ export const es: Dictionary = {
       {
         key: "christ-chasers",
         name: "Christ Chasers",
-        tagline: "Dirigido por Alondra",
+        tagline: "Dirigido por el Ministro Adam",
         description:
           "Christ Chasers es el ministerio de jóvenes de Iglesia Rescate — donde los estudiantes persiguen a Dios juntos a través de adoración real, amistades reales y una fe propia. Se reúne cada miércoles en Staten Island.",
         meeting: "Miércoles · 6:00 PM – 7:30 PM",
@@ -151,7 +143,7 @@ export const es: Dictionary = {
       {
         key: "worship-team",
         name: "Equipo de Adoración",
-        tagline: "Dirigido por Ashley Tyanne",
+        tagline: "Dirigido por Tiffany Perry",
         description:
           "Nuestro Equipo de Adoración dirige a la congregación en adoración cantada en cada servicio, formando un equipo de vocalistas e instrumentistas apasionados por la presencia de Dios. Si tienes un don para la música y un corazón para el Señor, nos encantaría conectar contigo.",
         placeholder: true,
@@ -159,9 +151,9 @@ export const es: Dictionary = {
     ],
   },
   locations: {
-    eyebrow: "Visita un Campus",
-    title: "Ubicaciones y Horarios de Servicio",
-    intro: "Una familia de iglesia, dos campus. Ven a adorar con nosotros en Staten Island o Wake Forest.",
+    eyebrow: "Planifica tu Visita",
+    title: "Ubicación y Horarios de Servicio",
+    intro: "Ven a adorar con nosotros en Staten Island, NY. Nos encantaría recibirte.",
     languageNote: "Ofrecemos servicios en español e inglés — elige tu idioma en la parte superior de esta página.",
     scheduleTitle: "Horario Semanal Completo",
     ny: {
@@ -173,16 +165,6 @@ export const es: Dictionary = {
       phone: "(917) 822-0269",
       mapQuery: "182 Park Avenue, Staten Island, NY 10302",
       services: getScheduleForCampus("ny").map((e) => toServiceTime(e, "es")),
-    },
-    nc: {
-      name: "Iglesia Rescate NC",
-      city: "Wake Forest, NC",
-      pastorLabel: "Pastora",
-      pastorName: "Pastora Jasmin Valentín-Kelly",
-      address: "416 N Taylor Street, Wake Forest, NC 27587",
-      addressNote: "Alston Massenburg Center — Servicio de Adoración del Domingo",
-      mapQuery: "Alston Massenburg Center, 416 N Taylor Street, Wake Forest, NC 27587",
-      services: getScheduleForCampus("nc").map((e) => toServiceTime(e, "es")),
     },
   },
   media: {
@@ -222,6 +204,14 @@ export const es: Dictionary = {
     ],
     note: "¿No puedes asistir en persona? Todas las plataformas anteriores transmiten nuestros servicios — elige la que ya usas.",
   },
+  gallery: {
+    eyebrow: "Nuestra Comunidad",
+    title: "La Vida en Iglesia Rescate",
+    subtitle: "Un vistazo a la adoración, el compañerismo y todo lo demás.",
+    viewFull: "Ver Galería Completa",
+    pageIntro: "Momentos de los servicios, eventos y la vida diaria de nuestra familia de iglesia.",
+    comingSoon: "Foto próximamente",
+  },
   give: {
     eyebrow: "Generosidad",
     title: "Ofrendar",
@@ -230,7 +220,6 @@ export const es: Dictionary = {
       "La ofrenda en línea a continuación está disponible para nuestro campus de Staten Island, NY a través de Pushpay, nuestro socio seguro de ofrendas.",
     ],
     cta: "Ofrendar a Iglesia Rescate NY",
-    ncNote: "¿Adoras con nosotros en Wake Forest, NC? Pregunta a un líder de Rescate NC sobre las opciones de ofrenda en ese campus — la ofrenda en línea está en camino.",
     secureNote: "Pushpay utiliza encriptación de nivel bancario para mantener tu información segura.",
   },
   contact: {
@@ -264,5 +253,10 @@ export const es: Dictionary = {
     emptyBody: "Vuelve pronto — siempre hay algo en preparación. Síguenos en redes sociales para los últimos anuncios.",
     locationLabel: "Lugar",
     flyerAlt: "Volante del evento",
+    comingUp: "Próximamente",
+    sidebarEmpty: "No hay eventos próximos. Vuelve pronto o síguenos en Instagram.",
+    pastTitle: "Eventos Pasados",
+    featuredLabel: "Lo Próximo",
+    followLabel: "Síguenos para novedades al instante",
   },
 };

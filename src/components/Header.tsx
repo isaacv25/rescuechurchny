@@ -20,7 +20,7 @@ function HeaderLogo() {
 
   return (
     <Link href="/" aria-label={`${meta.siteName} — home`} className="inline-flex items-center gap-2.5">
-      <Logo variant="icon" className="h-9 w-auto sm:h-10" href={undefined} priority />
+      <Logo variant="icon" className="h-9 w-auto sm:h-10" href={null} priority />
       <span className="font-display text-[1.2rem] font-bold leading-none tracking-wide text-ink sm:text-[1.35rem]">
         {meta.siteName}
       </span>
@@ -43,6 +43,7 @@ export function Header() {
   const navLinks = [
     { href: "/ministries", label: t.nav.ministries },
     { href: "/locations", label: t.nav.locations },
+    { href: "/gallery", label: t.nav.gallery },
     { href: "/media", label: t.nav.media },
     { href: "/contact", label: t.nav.contact },
   ];

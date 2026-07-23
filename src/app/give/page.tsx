@@ -32,8 +32,6 @@ export default function GivePage() {
           <p className="mt-4 flex items-center justify-center gap-2 text-xs text-charcoal/70">
             <ShieldCheck size={14} className="text-coral" /> {t.give.secureNote}
           </p>
-
-          <div className="mt-10 rounded-2xl bg-cream p-6 text-sm text-charcoal">{t.give.ncNote}</div>
         </div>
       </Container>
     </div>

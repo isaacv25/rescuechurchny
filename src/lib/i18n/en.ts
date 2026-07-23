@@ -15,6 +15,7 @@ export const en: Dictionary = {
     beliefs: "What We Believe",
     ministries: "Ministries",
     events: "Events",
+    gallery: "Gallery",
     locations: "Locations",
     media: "Media",
     contact: "Contact",
@@ -22,7 +23,7 @@ export const en: Dictionary = {
     planVisit: "Plan Your Visit",
   },
   home: {
-    heroEyebrow: "Staten Island, NY  •  Wake Forest, NC",
+    heroEyebrow: "Staten Island, NY",
     heroTitle: "A Warm and Friendly Church Family",
     heroSubtitle:
       "Bible-believing, Holy Spirit-filled, and bilingual from day one. Come as you are — the worship is passionate, the message is relevant, and the welcome is real.",
@@ -40,8 +41,8 @@ export const en: Dictionary = {
     ministriesEyebrow: "Get Involved",
     ministriesTitle: "Ministries for Every Season of Life",
     ministriesCta: "Explore All Ministries",
-    campusesEyebrow: "Two Campuses, One Family",
-    campusesTitle: "Worship With Us",
+    campusesEyebrow: "Visit Us",
+    campusesTitle: "Come Worship With Us",
     campusesCta: "Get Directions & Service Times",
     missionEyebrow: "Why We're Here",
     missionTitle: "Our Mission",
@@ -67,7 +68,7 @@ export const en: Dictionary = {
     pastorsEyebrow: "Leadership",
     pastorsTitle: "Senior Pastors",
     pastorsIntro:
-      "Rescue Church is led by pastors called to shepherd two campuses with one shared mission.",
+      "Rescue Church is led by pastors called to shepherd our church family with one shared mission.",
     leadershipEyebrow: "Our Team",
     leadershipTitle: "Leadership Team",
     leadershipIntro:
@@ -98,15 +99,6 @@ export const en: Dictionary = {
       "Apostle Yolanda and her husband, Pastor Daniel Avilés, continue to follow the Holy Spirit's leading for the church's future. Starting with just 4 members, Rescue Ministries has moved three times to keep up with growth, opening multiple food pantries and soup kitchens along the way. She is an international evangelist who has preached across Mexico, Honduras, Ecuador, Puerto Rico, Guatemala, Argentina, Colombia, Peru, and the Dominican Republic, among others — and God has gifted her to raise up leaders who carry that same passion for the Kingdom alongside her.",
       "Rescue Ministries Church: Reaching souls for Jesus Christ.",
     ],
-    ncTitle: "Wake Forest, NC",
-    ncName: "Pastor Jasmin Valentin-Kelly",
-    ncBio: [
-      "Pastor Jasmin has been serving the Lord for over 30 years, and it has not always been praise reports and prosperity. At a young age, Jasmin was raised in the foster care system, experienced multiple forms of abuse, and recalls praying over empty cabinets for food to show up. Through it all, Pastor Jasmin's faith in God and commitment to serve has never wavered.",
-      "Over the years, Jasmin has participated in prison ministry, a street ministry serving the homeless, led youth ministries, taught Bible Study classes, led church media teams and the church dance ministry, and has participated in and/or led worship teams since 1987. Pastor Jasmin has been blessed to leverage her talents and experience on missions trips to Mexico, Colombia, Ecuador, and Puerto Rico.",
-      "While completing her degree at Nyack College, Jasmin had a very successful career at one of Wall Street's largest financial institutions, often receiving opportunities over colleagues who already had advanced degrees. After college, Jasmin married Robert Kelly in 2004 and is now the mother of three amazing children — Lucas, Isabella, and Gabriella.",
-      "Pastor Jasmin's heart is for people to come to know the Lord. She knows hurt and challenges, but also knows that God can transform a person's life, heal marriages, and restore families.",
-    ],
-    ncCta: "Join Pastor Jasmin any Sunday morning at Rescue Church NC.",
   },
   leadership: [
     { name: "Pastor Milagros “Milly” Baez", role: "Youth Pastor", photoPath: "/leaders/pastor-milly.webp" },
@@ -114,8 +106,8 @@ export const en: Dictionary = {
     { name: "Minister Jacqueline Leakes", role: "Treasury", photoPath: "/leaders/minister-jackie.webp" },
     { name: "Artemia Rivera", role: "Head Usher", photoPath: "/leaders/head-usher-artemia-rivera.webp" },
     { name: "Minister Rolando Martinez", role: "Minister", photoPath: "/leaders/minister-rolando.webp" },
-    { name: "Alondra", role: "Youth Ministry Leader", photoPath: "/leaders/leader-children-ministry-alondra.webp" },
-    { name: "Ashley Tyanne", role: "Worship Leader", photoPath: "/leaders/ashley.jpg" },
+    { name: "Minister Adam", role: "Youth Ministry Leader", photoPath: "/leaders/youth-leader-minister-adam.jpg" },
+    { name: "Tiffany Perry", role: "Worship Leader", photoPath: "/leaders/worship-leader-tiffany-perry.jpg" },
   ],
   ministries: {
     eyebrow: "Find Your Place",
@@ -127,7 +119,7 @@ export const en: Dictionary = {
       {
         key: "christ-chasers",
         name: "Christ Chasers",
-        tagline: "Led by Alondra",
+        tagline: "Led by Minister Adam",
         description:
           "Christ Chasers is the youth ministry of Rescue Church — where students chase after God together through real worship, real friendships, and a faith that's their own. Meets every Wednesday in Staten Island.",
         meeting: "Wednesdays · 6:00 PM – 7:30 PM",
@@ -151,7 +143,7 @@ export const en: Dictionary = {
       {
         key: "worship-team",
         name: "Worship Team",
-        tagline: "Led by Ashley Tyanne",
+        tagline: "Led by Tiffany Perry",
         description:
           "Our Worship Team leads the congregation in sung worship each service, building a team of vocalists and instrumentalists who are passionate about the presence of God. If you have a gift for music and a heart for the Lord, we'd love to connect with you.",
         placeholder: true,
@@ -159,9 +151,9 @@ export const en: Dictionary = {
     ],
   },
   locations: {
-    eyebrow: "Visit a Campus",
-    title: "Locations & Service Times",
-    intro: "One church family, two campuses. Come worship with us in Staten Island or Wake Forest.",
+    eyebrow: "Plan Your Visit",
+    title: "Location & Service Times",
+    intro: "Come worship with us in Staten Island, NY. We'd love to have you.",
     languageNote: "Spanish and English services offered — choose your language at the top of this page.",
     scheduleTitle: "Full Weekly Schedule",
     ny: {
@@ -173,16 +165,6 @@ export const en: Dictionary = {
       phone: "(917) 822-0269",
       mapQuery: "182 Park Avenue, Staten Island, NY 10302",
       services: getScheduleForCampus("ny").map((e) => toServiceTime(e, "en")),
-    },
-    nc: {
-      name: "Rescue Church NC",
-      city: "Wake Forest, NC",
-      pastorLabel: "Pastor",
-      pastorName: "Pastor Jasmin Valentin-Kelly",
-      address: "416 N Taylor Street, Wake Forest, NC 27587",
-      addressNote: "Alston Massenburg Center — Sunday Worship",
-      mapQuery: "Alston Massenburg Center, 416 N Taylor Street, Wake Forest, NC 27587",
-      services: getScheduleForCampus("nc").map((e) => toServiceTime(e, "en")),
     },
   },
   media: {
@@ -222,6 +204,14 @@ export const en: Dictionary = {
     ],
     note: "Can't make it in person? Every platform above carries our services — pick the one you already use.",
   },
+  gallery: {
+    eyebrow: "Our Community",
+    title: "Life at Rescue Church",
+    subtitle: "A glimpse into worship, fellowship, and everything in between.",
+    viewFull: "View Full Gallery",
+    pageIntro: "Moments from services, events, and the everyday life of our church family.",
+    comingSoon: "Photo coming soon",
+  },
   give: {
     eyebrow: "Generosity",
     title: "Give",
@@ -230,7 +220,6 @@ export const en: Dictionary = {
       "Online giving below is available for our Staten Island, NY campus through Pushpay, our secure giving partner.",
     ],
     cta: "Give to Rescue Church NY",
-    ncNote: "Worshiping with us in Wake Forest, NC? Ask a Rescue NC leader about giving options at that campus — online giving there is on the way.",
     secureNote: "Pushpay uses bank-level encryption to keep your information secure.",
   },
   contact: {
@@ -264,5 +253,10 @@ export const en: Dictionary = {
     emptyBody: "Check back soon — we always have something in the works. Follow us on social media for the latest announcements.",
     locationLabel: "Location",
     flyerAlt: "Event flyer",
+    comingUp: "Coming Up",
+    sidebarEmpty: "No upcoming events. Check back soon or follow us on Instagram.",
+    pastTitle: "Past Events",
+    featuredLabel: "Next Up",
+    followLabel: "Follow for real-time updates",
   },
 };

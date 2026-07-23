@@ -5,7 +5,8 @@ interface LogoProps {
   variant?: "horizontal" | "icon" | "stacked";
   theme?: "light" | "dark";
   className?: string;
-  href?: string;
+  /** Link target. Pass null to render the image with no link (e.g. when a parent is already an <a>). */
+  href?: string | null;
   priority?: boolean;
 }
 

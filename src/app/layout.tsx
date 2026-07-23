@@ -6,16 +6,16 @@ import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: {
-    default: "Rescue Church | Staten Island, NY & Wake Forest, NC",
+    default: "Rescue Church | Staten Island, NY",
     template: "%s | Rescue Church",
   },
   description:
-    "Rescue Church is a Bible-believing, Holy Spirit-filled, bilingual church family in Staten Island, NY and Wake Forest, NC. Plan your visit today.",
+    "Rescue Church is a Bible-believing, Holy Spirit-filled, bilingual church family in Staten Island, NY. Plan your visit today.",
   metadataBase: new URL("https://rescuechurchny.net"),
   openGraph: {
     title: "Rescue Church",
     description:
-      "A warm and friendly church family in Staten Island, NY and Wake Forest, NC.",
+      "A warm and friendly church family in Staten Island, NY.",
     url: "https://rescuechurchny.net",
     siteName: "Rescue Church",
     images: ["/brand/logo-horizontal.png"],

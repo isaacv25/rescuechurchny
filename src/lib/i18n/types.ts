@@ -58,6 +58,7 @@ export interface Dictionary {
     beliefs: string;
     ministries: string;
     events: string;
+    gallery: string;
     locations: string;
     media: string;
     contact: string;
@@ -121,10 +122,6 @@ export interface Dictionary {
     nyName: string;
     /** Full biography — rendered as one paragraph per array entry. */
     nyBio: string[];
-    ncTitle: string;
-    ncName: string;
-    ncBio: string[];
-    ncCta: string;
   };
   leadership: LeaderEntry[];
   ministries: {
@@ -140,7 +137,6 @@ export interface Dictionary {
     title: string;
     intro: string;
     ny: Campus;
-    nc: Campus;
     languageNote: string;
     scheduleTitle: string;
   };
@@ -151,12 +147,20 @@ export interface Dictionary {
     socials: SocialEntry[];
     note: string;
   };
+  gallery: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    viewFull: string;
+    pageIntro: string;
+    /** Label inside the branded placeholder tile shown for photos not yet uploaded. */
+    comingSoon: string;
+  };
   give: {
     eyebrow: string;
     title: string;
     body: string[];
     cta: string;
-    ncNote: string;
     secureNote: string;
   };
   contact: {
@@ -190,5 +194,15 @@ export interface Dictionary {
     emptyBody: string;
     locationLabel: string;
     flyerAlt: string;
+    /** Sticky sidebar heading on the events page. */
+    comingUp: string;
+    /** Sidebar empty-state message when nothing is upcoming. */
+    sidebarEmpty: string;
+    /** Collapsed "Past Events" section heading. */
+    pastTitle: string;
+    /** Badge label next to the featured (nearest) event. */
+    featuredLabel: string;
+    /** Label above the social links at the bottom of the sidebar. */
+    followLabel: string;
   };
 }
