@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import { Logo } from "./Logo";
 import { Container } from "./Container";
@@ -11,9 +12,7 @@ import { useT } from "@/lib/i18n/LocaleProvider";
 
 /**
  * Consistent wordmark for both languages: icon + church name as styled text.
- * Both EN ("Rescue Church") and ES ("Iglesia Rescate") render identically in
- * structure so switching languages never causes a layout jump or style mismatch.
- * The text uses Jost (font-display) bold to approximate the branded logo treatment.
+ * Toggling language changes only the text — same font, size, spacing.
  */
 function HeaderLogo() {
   const { meta } = useT();
@@ -30,22 +29,24 @@ function HeaderLogo() {
 
 export function Header() {
   const t = useT();
+  const reduced = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
 
+  // About ▾ now houses Leadership (merged), Mission & Vision, Ministries, and
+  // What We Believe (kept here — 4 items is not crowded).
   const aboutLinks = [
-    { href: "/about/pastors", label: t.nav.pastors },
     { href: "/about/leadership", label: t.nav.leadership },
     { href: "/about/vision", label: t.nav.vision },
+    { href: "/ministries", label: t.nav.ministries },
     { href: "/about/beliefs", label: t.nav.beliefs },
   ];
 
+  // Top-level links between About and the Give button.
   const navLinks = [
-    { href: "/ministries", label: t.nav.ministries },
-    { href: "/locations", label: t.nav.locations },
     { href: "/gallery", label: t.nav.gallery },
     { href: "/media", label: t.nav.media },
-    { href: "/contact", label: t.nav.contact },
+    { href: "/events", label: t.nav.events },
   ];
 
   return (
@@ -73,23 +74,31 @@ export function Header() {
             onMouseLeave={() => setAboutOpen(false)}
           >
             <button className="flex items-center gap-1 text-sm font-medium text-charcoal hover:text-ink">
-              {t.nav.about} <ChevronDown size={14} />
+              {t.nav.about} <ChevronDown size={14} className={`transition-transform duration-200 ${aboutOpen ? "rotate-180" : ""}`} />
             </button>
-            {aboutOpen ? (
-              <div className="absolute left-1/2 top-full w-60 -translate-x-1/2 pt-2">
-                <div className="rounded-xl border border-ink/5 bg-white p-2 shadow-xl shadow-ink/10">
-                  {aboutLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="block rounded-lg px-3 py-2 text-sm text-charcoal hover:bg-cream hover:text-ink"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ) : null}
+            <AnimatePresence>
+              {aboutOpen ? (
+                <motion.div
+                  className="absolute left-1/2 top-full w-60 -translate-x-1/2 pt-2"
+                  initial={reduced ? undefined : { opacity: 0, y: -6 }}
+                  animate={reduced ? undefined : { opacity: 1, y: 0 }}
+                  exit={reduced ? undefined : { opacity: 0, y: -6 }}
+                  transition={{ duration: 0.18, ease: "easeOut" }}
+                >
+                  <div className="rounded-xl border border-ink/5 bg-white p-2 shadow-xl shadow-ink/10">
+                    {aboutLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="block rounded-lg px-3 py-2 text-sm text-charcoal hover:bg-cream hover:text-ink"
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
           </div>
 
           {navLinks.map((link) => (

@@ -79,7 +79,7 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-coral-dark">{t.home.timesEyebrow}</p>
               <h2 className="mt-2 text-2xl font-semibold text-ink sm:text-3xl">{t.home.timesTitle}</h2>
             </div>
-            <Link href="/locations" className="inline-flex items-center gap-1 text-sm font-semibold text-coral-dark hover:text-coral">
+            <Link href="/events#visit" className="inline-flex items-center gap-1 text-sm font-semibold text-coral-dark hover:text-coral">
               {t.home.timesCta} <ArrowRight size={15} />
             </Link>
           </div>

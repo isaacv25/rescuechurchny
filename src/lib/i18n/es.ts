@@ -9,8 +9,7 @@ export const es: Dictionary = {
   nav: {
     home: "Inicio",
     about: "Nosotros",
-    pastors: "Pastores Principales",
-    leadership: "Equipo de Liderazgo",
+    leadership: "Liderazgo",
     vision: "Misión y Visión",
     beliefs: "Lo Que Creemos",
     ministries: "Ministerios",
@@ -73,6 +72,10 @@ export const es: Dictionary = {
     leadershipTitle: "Equipo de Liderazgo",
     leadershipIntro:
       "Conoce a los ministros y líderes que sirven a la familia de Iglesia Rescate NY semana tras semana.",
+    leadershipPageTitle: "Nuestro Liderazgo",
+    leadershipPageIntro:
+      "Conoce a los pastores y líderes que Dios ha levantado para pastorear a la familia de Iglesia Rescate.",
+    teamTitle: "Equipo de Liderazgo",
     visionEyebrow: "Nuestro Por Qué",
     visionTitle: "Misión y Visión",
     missionLabel: "Nuestra Misión",
@@ -99,6 +102,10 @@ export const es: Dictionary = {
       "La Apóstol Yolanda y su esposo, el Pastor Daniel Avilés, continúan siguiendo la dirección del Espíritu Santo para el futuro de la iglesia. Comenzando con solo 4 miembros, Rescue Ministries se ha mudado tres veces para mantenerse al ritmo del crecimiento, abriendo múltiples despensas de alimentos y comedores comunitarios a lo largo del camino. Es una evangelista internacional que ha predicado en México, Honduras, Ecuador, Puerto Rico, Guatemala, Argentina, Colombia, Perú y la República Dominicana, entre otros países — y Dios le ha dado el don de levantar líderes que llevan esa misma pasión por el Reino junto a ella.",
       "Iglesia Rescue Ministries: Alcanzando almas para Jesucristo.",
     ],
+    danielName: "Pastor Daniel Avilés",
+    danielRole: "Pastor Principal",
+    danielBio:
+      "El Pastor Daniel Avilés sirve junto a su esposa, la Apóstol Yolanda, pastoreando Iglesia Rescate y siguiendo la dirección del Espíritu Santo para su futuro.",
   },
   leadership: [
     { name: "Pastora Milagros “Milly” Báez", role: "Pastora de Jóvenes", photoPath: "/leaders/pastor-milly.webp" },
@@ -273,5 +280,6 @@ export const es: Dictionary = {
     pastTitle: "Eventos Pasados",
     featuredLabel: "Lo Próximo",
     followLabel: "Síguenos para novedades al instante",
+    calendarTitle: "Calendario de Eventos",
   },
 };

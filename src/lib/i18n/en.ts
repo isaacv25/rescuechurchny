@@ -9,8 +9,7 @@ export const en: Dictionary = {
   nav: {
     home: "Home",
     about: "About",
-    pastors: "Senior Pastors",
-    leadership: "Leadership Team",
+    leadership: "Leadership",
     vision: "Mission & Vision",
     beliefs: "What We Believe",
     ministries: "Ministries",
@@ -73,6 +72,10 @@ export const en: Dictionary = {
     leadershipTitle: "Leadership Team",
     leadershipIntro:
       "Meet the ministers and leaders serving the Rescue Church NY family week in and week out.",
+    leadershipPageTitle: "Our Leadership",
+    leadershipPageIntro:
+      "Meet the pastors and leaders God has raised up to shepherd the Rescue Church family.",
+    teamTitle: "Leadership Team",
     visionEyebrow: "Our Why",
     visionTitle: "Mission & Vision",
     missionLabel: "Our Mission",
@@ -99,6 +102,10 @@ export const en: Dictionary = {
       "Apostle Yolanda and her husband, Pastor Daniel Avilés, continue to follow the Holy Spirit's leading for the church's future. Starting with just 4 members, Rescue Ministries has moved three times to keep up with growth, opening multiple food pantries and soup kitchens along the way. She is an international evangelist who has preached across Mexico, Honduras, Ecuador, Puerto Rico, Guatemala, Argentina, Colombia, Peru, and the Dominican Republic, among others — and God has gifted her to raise up leaders who carry that same passion for the Kingdom alongside her.",
       "Rescue Ministries Church: Reaching souls for Jesus Christ.",
     ],
+    danielName: "Pastor Daniel Avilés",
+    danielRole: "Senior Pastor",
+    danielBio:
+      "Pastor Daniel Avilés serves alongside his wife, Apostle Yolanda, shepherding Rescue Church and following the Holy Spirit's leading for its future.",
   },
   leadership: [
     { name: "Pastor Milagros “Milly” Baez", role: "Youth Pastor", photoPath: "/leaders/pastor-milly.webp" },
@@ -273,5 +280,6 @@ export const en: Dictionary = {
     pastTitle: "Past Events",
     featuredLabel: "Next Up",
     followLabel: "Follow for real-time updates",
+    calendarTitle: "Event Calendar",
   },
 };
