@@ -126,6 +126,30 @@ export const en: Dictionary = {
         link: { label: "Follow Christ Chasers on Instagram", href: "https://www.instagram.com/rescuechristchasers/" },
       },
       {
+        key: "worship-team",
+        name: "Worship Team",
+        tagline: "Led by Tiffany Perry",
+        description:
+          "Our Worship Team leads the congregation in sung worship each service, building a team of vocalists and instrumentalists who are passionate about the presence of God. If you have a gift for music and a heart for the Lord, we'd love to connect with you.",
+        placeholder: true,
+      },
+      {
+        key: "mens-ministry",
+        name: "Men's Ministry",
+        tagline: "Led by Mel Tetteh",
+        description:
+          "A place for men to grow together in faith, brotherhood, and accountability. We're building strong men who lead their families well and serve their community with integrity.",
+        placeholder: true,
+      },
+      {
+        key: "evangelism",
+        name: "Evangelism Ministry",
+        tagline: "Reaching the Lost",
+        description:
+          "Taking the Gospel beyond the walls of the church through street outreach, community events, and everyday conversations. It's the heartbeat of our calling — sharing the love of Christ with Staten Island and beyond.",
+        placeholder: true,
+      },
+      {
         key: "home-groups",
         name: "Home Groups",
         tagline: "Community, Up Close",
@@ -139,14 +163,6 @@ export const en: Dictionary = {
         tagline: "Reaching Beyond Staten Island",
         description:
           "Our leadership has carried the Gospel on missions trips to Mexico, Colombia, Ecuador, and Puerto Rico — living out our calling to reach the hopeless and hurting far beyond our own neighborhood.",
-      },
-      {
-        key: "worship-team",
-        name: "Worship Team",
-        tagline: "Led by Tiffany Perry",
-        description:
-          "Our Worship Team leads the congregation in sung worship each service, building a team of vocalists and instrumentalists who are passionate about the presence of God. If you have a gift for music and a heart for the Lord, we'd love to connect with you.",
-        placeholder: true,
       },
     ],
   },

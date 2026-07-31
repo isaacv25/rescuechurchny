@@ -126,6 +126,30 @@ export const es: Dictionary = {
         link: { label: "Sigue a Christ Chasers en Instagram", href: "https://www.instagram.com/rescuechristchasers/" },
       },
       {
+        key: "worship-team",
+        name: "Equipo de Adoración",
+        tagline: "Dirigido por Tiffany Perry",
+        description:
+          "Nuestro Equipo de Adoración dirige a la congregación en adoración cantada en cada servicio, formando un equipo de vocalistas e instrumentistas apasionados por la presencia de Dios. Si tienes un don para la música y un corazón para el Señor, nos encantaría conectar contigo.",
+        placeholder: true,
+      },
+      {
+        key: "mens-ministry",
+        name: "Ministerio de Hombres",
+        tagline: "Dirigido por Mel Tetteh",
+        description:
+          "Un lugar para que los hombres crezcan juntos en la fe, la hermandad y la responsabilidad. Estamos formando hombres fuertes que guían bien a sus familias y sirven a su comunidad con integridad.",
+        placeholder: true,
+      },
+      {
+        key: "evangelism",
+        name: "Ministerio de Evangelismo",
+        tagline: "Alcanzando a los Perdidos",
+        description:
+          "Llevando el Evangelio más allá de las paredes de la iglesia mediante el alcance en las calles, eventos comunitarios y conversaciones cotidianas. Es el corazón de nuestro llamado — compartir el amor de Cristo con Staten Island y más allá.",
+        placeholder: true,
+      },
+      {
         key: "home-groups",
         name: "Grupos en Casa",
         tagline: "Comunidad de Cerca",
@@ -139,14 +163,6 @@ export const es: Dictionary = {
         tagline: "Alcanzando Más Allá de Staten Island",
         description:
           "Nuestro liderazgo ha llevado el Evangelio en viajes misioneros a México, Colombia, Ecuador y Puerto Rico — viviendo nuestro llamado a alcanzar a los desesperanzados y heridos mucho más allá de nuestro propio vecindario.",
-      },
-      {
-        key: "worship-team",
-        name: "Equipo de Adoración",
-        tagline: "Dirigido por Tiffany Perry",
-        description:
-          "Nuestro Equipo de Adoración dirige a la congregación en adoración cantada en cada servicio, formando un equipo de vocalistas e instrumentistas apasionados por la presencia de Dios. Si tienes un don para la música y un corazón para el Señor, nos encantaría conectar contigo.",
-        placeholder: true,
       },
     ],
   },
