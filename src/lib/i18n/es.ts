@@ -9,8 +9,7 @@ export const es: Dictionary = {
   nav: {
     home: "Inicio",
     about: "Nosotros",
-    pastors: "Pastores Principales",
-    leadership: "Equipo de Liderazgo",
+    leadership: "Liderazgo",
     vision: "Misión y Visión",
     beliefs: "Lo Que Creemos",
     ministries: "Ministerios",
@@ -73,6 +72,10 @@ export const es: Dictionary = {
     leadershipTitle: "Equipo de Liderazgo",
     leadershipIntro:
       "Conoce a los ministros y líderes que sirven a la familia de Iglesia Rescate NY semana tras semana.",
+    leadershipPageTitle: "Nuestro Liderazgo",
+    leadershipPageIntro:
+      "Conoce a los pastores y líderes que Dios ha levantado para pastorear a la familia de Iglesia Rescate.",
+    teamTitle: "Equipo de Liderazgo",
     visionEyebrow: "Nuestro Por Qué",
     visionTitle: "Misión y Visión",
     missionLabel: "Nuestra Misión",
@@ -99,6 +102,10 @@ export const es: Dictionary = {
       "La Apóstol Yolanda y su esposo, el Pastor Daniel Avilés, continúan siguiendo la dirección del Espíritu Santo para el futuro de la iglesia. Comenzando con solo 4 miembros, Rescue Ministries se ha mudado tres veces para mantenerse al ritmo del crecimiento, abriendo múltiples despensas de alimentos y comedores comunitarios a lo largo del camino. Es una evangelista internacional que ha predicado en México, Honduras, Ecuador, Puerto Rico, Guatemala, Argentina, Colombia, Perú y la República Dominicana, entre otros países — y Dios le ha dado el don de levantar líderes que llevan esa misma pasión por el Reino junto a ella.",
       "Iglesia Rescue Ministries: Alcanzando almas para Jesucristo.",
     ],
+    danielName: "Pastor Daniel Avilés",
+    danielRole: "Pastor Principal",
+    danielBio:
+      "El Pastor Daniel Avilés sirve junto a su esposa, la Apóstol Yolanda, pastoreando Iglesia Rescate y siguiendo la dirección del Espíritu Santo para su futuro.",
   },
   leadership: [
     { name: "Pastora Milagros “Milly” Báez", role: "Pastora de Jóvenes", photoPath: "/leaders/pastor-milly.webp" },
@@ -126,6 +133,30 @@ export const es: Dictionary = {
         link: { label: "Sigue a Christ Chasers en Instagram", href: "https://www.instagram.com/rescuechristchasers/" },
       },
       {
+        key: "worship-team",
+        name: "Equipo de Adoración",
+        tagline: "Dirigido por Tiffany Perry",
+        description:
+          "Nuestro Equipo de Adoración dirige a la congregación en adoración cantada en cada servicio, formando un equipo de vocalistas e instrumentistas apasionados por la presencia de Dios. Si tienes un don para la música y un corazón para el Señor, nos encantaría conectar contigo.",
+        placeholder: true,
+      },
+      {
+        key: "mens-ministry",
+        name: "Ministerio de Hombres",
+        tagline: "Dirigido por Mel Tetteh",
+        description:
+          "Un lugar para que los hombres crezcan juntos en la fe, la hermandad y la responsabilidad. Estamos formando hombres fuertes que guían bien a sus familias y sirven a su comunidad con integridad.",
+        placeholder: true,
+      },
+      {
+        key: "evangelism",
+        name: "Ministerio de Evangelismo",
+        tagline: "Alcanzando a los Perdidos",
+        description:
+          "Llevando el Evangelio más allá de las paredes de la iglesia mediante el alcance en las calles, eventos comunitarios y conversaciones cotidianas. Es el corazón de nuestro llamado — compartir el amor de Cristo con Staten Island y más allá.",
+        placeholder: true,
+      },
+      {
         key: "home-groups",
         name: "Grupos en Casa",
         tagline: "Comunidad de Cerca",
@@ -139,14 +170,6 @@ export const es: Dictionary = {
         tagline: "Alcanzando Más Allá de Staten Island",
         description:
           "Nuestro liderazgo ha llevado el Evangelio en viajes misioneros a México, Colombia, Ecuador y Puerto Rico — viviendo nuestro llamado a alcanzar a los desesperanzados y heridos mucho más allá de nuestro propio vecindario.",
-      },
-      {
-        key: "worship-team",
-        name: "Equipo de Adoración",
-        tagline: "Dirigido por Tiffany Perry",
-        description:
-          "Nuestro Equipo de Adoración dirige a la congregación en adoración cantada en cada servicio, formando un equipo de vocalistas e instrumentistas apasionados por la presencia de Dios. Si tienes un don para la música y un corazón para el Señor, nos encantaría conectar contigo.",
-        placeholder: true,
       },
     ],
   },
@@ -210,7 +233,6 @@ export const es: Dictionary = {
     subtitle: "Un vistazo a la adoración, el compañerismo y todo lo demás.",
     viewFull: "Ver Galería Completa",
     pageIntro: "Momentos de los servicios, eventos y la vida diaria de nuestra familia de iglesia.",
-    comingSoon: "Foto próximamente",
   },
   give: {
     eyebrow: "Generosidad",
@@ -258,5 +280,6 @@ export const es: Dictionary = {
     pastTitle: "Eventos Pasados",
     featuredLabel: "Lo Próximo",
     followLabel: "Síguenos para novedades al instante",
+    calendarTitle: "Calendario de Eventos",
   },
 };

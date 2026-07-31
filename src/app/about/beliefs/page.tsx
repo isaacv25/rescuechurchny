@@ -19,7 +19,7 @@ export default function BeliefsPage() {
       <Container className="py-16 sm:py-20">
         <div className="mx-auto max-w-2xl rounded-3xl border border-dashed border-coral/40 bg-cream p-10 text-center">
           <p className="text-base leading-relaxed text-charcoal">{t.about.beliefsBody}</p>
-          <Button href="/contact" className="mt-6">
+          <Button href="/media#contact" className="mt-6">
             {t.about.beliefsCta}
           </Button>
         </div>

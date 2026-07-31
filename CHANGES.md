@@ -1,11 +1,154 @@
 # Rescue Church Website — Change Log
 
-Branch: `feat/update-july-2026`
-Last updated: 2026-07-18
+Branch: `feat/update-v3-media-nav`
+Last updated: 2026-07-30
 
-(For the June 2026 changes — schedule data file, leader photos, events v1,
-Bible PDFs, bilingual wordmark — see the git history of the previous branch,
-`feat/update-june-2026`, already merged to `main`.)
+(Earlier history: June 2026 = initial content build; July 2026 = leader
+corrections, NC-campus removal, first gallery + events pages, motion layer —
+both merged to `main`.)
+
+---
+
+## v3 — Media Integration + Nav Restructure (July 30, 2026)
+
+### Section 1 — Hero background video
+- New `src/components/HeroVideo.tsx`: native `<video autoPlay muted loop
+  playsInline preload="metadata" poster="/brand/logo-stacked.png">`. `onError`
+  hides the video so a poster-colored background layer stays (never a black
+  box). `useReducedMotion()` shows the static poster instead of autoplaying.
+- Homepage hero now plays `public/gallery/RV1.mp4` behind a brick-red gradient
+  overlay (`ink/85 → coral-dark/70 → ink/85` + `ink/25`) so the white hero
+  copy stays readable. Eyebrow/title/subtitle/CTAs unchanged, layered on top.
+- **Video file size: 2.58 MB** — well under the ~8–10 MB threshold, so **no
+  compression needed/recommended**. `preload="metadata"` keeps it off the
+  critical path.
+
+### Section 2 — Gallery: real media + masonry
+- `src/data/gallery.ts` regenerated from `public/gallery/`. **Included (15):**
+  RP1, RP3, RP4, RP5, RP6, RP7, RP8, RP9, RP10, RP11, RP12, RP13, RP14, RP15,
+  RP16 (`.jpeg`). **Excluded:** `RV1.mp4` (hero video) and `RP2.jpeg` (per
+  spec). No other video files were present, so nothing else needed flagging.
+  Each entry carries real pixel `width`/`height` (read from the served files)
+  → tiles reserve space → **zero CLS**. Alt text is generic-but-varied
+  (filenames are non-descriptive).
+- **Layout choice: CSS `columns` masonry** (not a fixed mosaic). Reasoning:
+  the set mixes portrait and landscape; `columns` preserves each image's
+  natural aspect ratio like a Pinterest board with **zero dependencies** and
+  no JS layout cost. 2 cols (mobile) → 3 (md) → 4 (lg).
+- New `src/components/MasonryGallery.tsx`: hover (desktop) scales tile to 1.04,
+  raises z-index + shadow, fades in a bottom gradient with the caption sliding
+  up (250ms). Touch devices: tap opens the lightbox (no hover dependency).
+  Staggered zoom-in entrance reuses the existing Motion `Stagger`. Lightbox is
+  `yet-another-react-lightbox` (arrows/swipe/Esc/backdrop).
+- Applied to **both** `/gallery` (all 15) and the homepage preview (first 8).
+- Removed the now-unused `GalleryTile` component and `gallery.comingSoon` key.
+- **How to add a gallery photo:** drop the file in `public/gallery/`, then add
+  `{ src, alt, width, height }` to `src/data/gallery.ts`. (Still a manual data
+  entry — deliberate, so alt text and ordering stay curated. Width/height are
+  required to keep zero layout shift.)
+
+### Section 3 — Two new ministries
+- **Men's Ministry** — "Led by Mel Tetteh", "Details coming soon" badge.
+- **Evangelism Ministry** — "Reaching the Lost" (mission-focused eyebrow; no
+  leader was provided, so none invented), ties to the outreach heritage.
+- Full EN + ES. **Final card order:** Christ Chasers · Worship Team ·
+  Men's Ministry · Evangelism · Home Groups · World Missions (related
+  ministries grouped). Renders on homepage preview + `/ministries`.
+
+### Section 4 — Navigation restructure
+**Before:** Home · About▾(Senior Pastors, Leadership Team, Mission & Vision,
+What We Believe) · Ministries · Locations · Gallery · Media · Contact · Give
+**After:** Home · About▾(Leadership, Mission & Vision, Ministries, What We
+Believe) · Gallery · Media · Events · Give
+
+- **4A Leadership merge:** `/about/pastors` (Senior Pastors) folded into
+  `/about/leadership`. New page: Senior Pastors on top (Apostle Yolanda full
+  bio + Pastor Daniel Avilés as co-senior pastor, hero treatment), full
+  leadership team grid below. **All bios/photos preserved.** Pastor Daniel's
+  short blurb is drawn from facts already in Yolanda's bio (husband +
+  co-pastor) — nothing fabricated; he has **no photo yet**, so the logo
+  fallback shows.
+- **4B What We Believe:** **kept as the 4th item in the About dropdown** (4
+  items isn't crowded; page + content preserved).
+- **4C Ministries:** moved into the About dropdown; route `/ministries`
+  unchanged.
+- **4D Media absorbs Contact:** `/media` = "Watch & Follow" (social/sermon)
+  then a "Get in Touch" section (`#contact`) with address/phone/email/socials
+  + the working `ContactForm` (still POSTs to `/api/contact` → forwards to
+  `CONTACT_FORM_ENDPOINT`, unchanged). `/contact` deleted.
+- **4E/4F Events absorbs Locations + calendar** — **Option A** (one `/events`
+  page): "Upcoming Events" two-panel on top, "Visit Us / Service Times" section
+  (`#visit`) below. New `MiniCalendar` (native `Date`, **no date-fns** — the
+  math is trivial and `events.ts` already uses native Date): days with events
+  get a brick-red dot, today pulses, month nav slides via `AnimatePresence`,
+  clicking an event day smooth-scrolls to its card. New `VisitUs` component
+  (campus card + Google map + full weekly schedule). "Coming Up" sidebar and
+  past-event archiving retained and verified. `/locations` deleted.
+- **4G Plumbing:** `next.config.ts` **redirects (308 permanent):**
+  `/about/pastors` **and** `/about/senior-pastors` → `/about/leadership`,
+  `/contact` → `/media`, `/locations` → `/events`. (Spec named
+  `/about/senior-pastors`; the real route was `/about/pastors` — both
+  redirect.) Header + mobile menu rewritten; About dropdown animates
+  (`AnimatePresence`). Footer Quick Links updated (Contact → `/media#contact`,
+  Locations → `/events#visit`, added Leadership + Media). Internal links fixed:
+  beliefs CTA → `/media#contact`, homepage service-times → `/events#visit`.
+  Removed orphaned `nav.pastors` key.
+
+### Section 5 — Animation & polish
+- Navbar now solidifies with a soft shadow after scrolling past the hero
+  (`transition-shadow`, passive scroll listener; box-shadow only).
+- New sections all animate consistently (hero copy, ministry cards, merged
+  leadership — seniors get their own `Reveal` fade-ups vs the team grid's
+  `Stagger` cascade, a deliberately more prominent entrance — Media contact
+  section, calendar month transitions, animated About dropdown, masonry
+  stagger). Everything `useReducedMotion()`-guarded, transform/opacity only.
+
+### How to add an event + flyer (updated)
+1. Add an object to `src/data/events.ts` (`id`, `date` "YYYY-MM-DD", titles,
+   time, location, descriptions, tags).
+2. (Optional) drop the flyer at `public/events/<id>.jpg` and set
+   `flyerImage: "/events/<id>.jpg"`.
+3. Save — it appears on `/events`, sorts by date, shows on the calendar, and
+   auto-archives to "Past Events" once its date passes.
+
+### How to add / edit a leader (merged Leadership page)
+- **Senior pastors** (Yolanda, Daniel): edit the `pastors.*` keys in
+  `src/lib/i18n/en.ts` / `es.ts` (`nyName`, `nyBio[]`, `danielName`,
+  `danielRole`, `danielBio`).
+- **Leadership team:** edit the `leadership[]` array in the same dictionaries
+  (`{ name, role, photoPath }`).
+
+### Leader photo filenames expected in `/public/leaders/`
+`apostle-yolanda.webp` ✅ · `pastor-milly.webp` ✅ · `pastor-patricia.webp` ✅ ·
+`minister-jackie.webp` ✅ · `head-usher-artemia-rivera.webp` ✅ ·
+`minister-rolando.webp` ✅ · `youth-leader-minister-adam.jpg` ⬜ needs upload ·
+`worship-leader-tiffany-perry.jpg` ⬜ needs upload ·
+`pastor-daniel.webp` ⬜ needs upload (logo fallback shows meanwhile).
+
+### Follow-ups flagged
+- **Spanish review:** new v3 strings (Pastor Daniel bio, both new ministries,
+  calendar title, leadership page intro) are AI-translated — have a
+  Spanish-fluent member review.
+- **Leader photos:** upload Minister Adam, Tiffany Perry, and Pastor Daniel
+  (see list above).
+- **SEO:** per-page metadata still not added for `/gallery`, `/events`,
+  `/media`; titles/description remain EN-only (single-route i18n limitation).
+- **Lighthouse:** couldn't run in the local preview pane. The hero video is
+  small (2.58 MB, `preload="metadata"`) so performance impact should be minor
+  — worth a real Lighthouse pass on the Vercel preview to confirm ≥ 85.
+- **npm audit:** the 2 moderate advisories from Next's bundled postcss persist
+  (a fix would downgrade Next) — wait for a Next patch.
+
+### What I'd recommend next
+1. **Move the contact form + events off files onto a real backend/CMS.** The
+   contact form already depends on `CONTACT_FORM_ENDPOINT`; as event/photo
+   editing frequency grows, a lightweight CMS (or even a Google Sheet/Airtable
+   feeding the build) would let non-developers add events, flyers, and gallery
+   photos without code changes — the single biggest lever for the church
+   maintaining this themselves.
+2. **Serve gallery/hero media through an image/video CDN** (or Vercel's image
+   optimization for the video poster + a compressed/`webm` alt source). Keeps
+   the cinematic hero fast on mobile data as the media library grows.
 
 ---
 

@@ -7,9 +7,10 @@ import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CampusCard } from "@/components/CampusCard";
-import { GalleryTile } from "@/components/GalleryTile";
+import { MasonryGallery } from "@/components/MasonryGallery";
 import { MinistryCard } from "@/components/MinistryCard";
 import { HeroFade, HeroWords, Reveal, Stagger, StaggerItem } from "@/components/Motion";
+import { HeroVideo } from "@/components/HeroVideo";
 import { SocialCard } from "@/components/SocialCard";
 import { useT } from "@/lib/i18n/LocaleProvider";
 import { useLocale } from "@/lib/i18n/LocaleProvider";
@@ -42,17 +43,13 @@ export default function Home() {
 
   return (
     <div>
-      {/* HERO */}
+      {/* HERO — cinematic background video with a brick-red gradient for legibility */}
       <section className="relative overflow-hidden bg-ink">
-        <div className="absolute inset-0 bg-gradient-to-br from-ink via-ink to-[#3a2420]" />
-        <Image
-          src="/brand/logo-icon.png"
-          alt=""
-          width={900}
-          height={1011}
-          aria-hidden
-          className="pointer-events-none absolute -right-32 top-1/2 hidden -translate-y-1/2 opacity-[0.08] sm:block lg:w-[640px]"
-        />
+        <HeroVideo src="/gallery/RV1.mp4" poster="/brand/logo-stacked.png" />
+        {/* Brand-colored gradient overlay ON TOP of the video keeps white text readable.
+            Brick-red (coral) at high opacity, deepening toward the lower-left where the copy sits. */}
+        <div className="absolute inset-0 bg-gradient-to-br from-ink/85 via-coral-dark/70 to-ink/85" />
+        <div className="absolute inset-0 bg-ink/25" />
         <Container className="relative py-24 sm:py-32">
           <HeroFade>
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-coral-light">{t.home.heroEyebrow}</p>
@@ -82,7 +79,7 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-coral-dark">{t.home.timesEyebrow}</p>
               <h2 className="mt-2 text-2xl font-semibold text-ink sm:text-3xl">{t.home.timesTitle}</h2>
             </div>
-            <Link href="/locations" className="inline-flex items-center gap-1 text-sm font-semibold text-coral-dark hover:text-coral">
+            <Link href="/events#visit" className="inline-flex items-center gap-1 text-sm font-semibold text-coral-dark hover:text-coral">
               {t.home.timesCta} <ArrowRight size={15} />
             </Link>
           </div>
@@ -134,21 +131,9 @@ export default function Home() {
               {t.gallery.viewFull} <ArrowRight size={15} />
             </Link>
           </Reveal>
-          <Stagger stagger={0.06} className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {galleryPhotos.slice(0, 6).map((photo, idx) => (
-              <StaggerItem
-                key={photo.src}
-                variant="zoomIn"
-                className={idx === 0 ? "aspect-[4/3] lg:row-span-2 lg:aspect-auto" : "aspect-[4/3]"}
-              >
-                <GalleryTile
-                  photo={photo}
-                  comingSoonLabel={t.gallery.comingSoon}
-                  className="h-full w-full"
-                />
-              </StaggerItem>
-            ))}
-          </Stagger>
+          <div className="mt-10">
+            <MasonryGallery photos={galleryPhotos.slice(0, 8)} />
+          </div>
         </Container>
       </section>
 

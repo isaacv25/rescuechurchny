@@ -6,9 +6,12 @@ import { Calendar, ChevronDown, Clock, MapPin } from "lucide-react";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Stagger, StaggerItem } from "@/components/Motion";
+import { MiniCalendar } from "@/components/MiniCalendar";
+import { VisitUs } from "@/components/VisitUs";
 import { InstagramIcon, FacebookIcon } from "@/components/SocialIcons";
 import { useT, useLocale } from "@/lib/i18n/LocaleProvider";
 import {
+  events as allEvents,
   getUpcomingEvents,
   getPastEvents,
   formatEventDate,
@@ -174,9 +177,11 @@ function PastEvents({ past, locale, title, flyerAlt }: { past: ChurchEvent[]; lo
 
 /* ── Sidebar ───────────────────────────────────────────────────────────────── */
 
-function ComingUpSidebar({ upcoming, locale, heading, emptyText, followLabel }: { upcoming: ChurchEvent[]; locale: Locale; heading: string; emptyText: string; followLabel: string }) {
+function ComingUpSidebar({ upcoming, allEvents, locale, heading, emptyText, followLabel, calendarTitle }: { upcoming: ChurchEvent[]; allEvents: ChurchEvent[]; locale: Locale; heading: string; emptyText: string; followLabel: string; calendarTitle: string }) {
   return (
-    <aside className="lg:sticky lg:top-28 lg:self-start">
+    <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
+      <MiniCalendar events={allEvents} locale={locale} title={calendarTitle} />
+
       <div className="rounded-2xl border border-ink/8 bg-white p-6 shadow-sm shadow-ink/5">
         <h3 className="border-l-4 border-coral pl-3 text-xs font-semibold uppercase tracking-[0.2em] text-coral-dark">
           {heading}
@@ -284,16 +289,21 @@ export default function EventsPage() {
             <PastEvents past={past} locale={locale} title={t.events.pastTitle} flyerAlt={t.events.flyerAlt} />
           </Stagger>
 
-          {/* Right panel — sticky "Coming Up" timeline */}
+          {/* Right panel — sticky calendar + "Coming Up" timeline */}
           <ComingUpSidebar
             upcoming={upcoming}
+            allEvents={allEvents}
             locale={locale}
             heading={t.events.comingUp}
             emptyText={t.events.sidebarEmpty}
             followLabel={t.events.followLabel}
+            calendarTitle={t.events.calendarTitle}
           />
         </div>
       </Container>
+
+      {/* VISIT US / SERVICE TIMES — absorbed from the former /locations page */}
+      <VisitUs />
     </div>
   );
 }

@@ -52,7 +52,6 @@ export interface Dictionary {
   nav: {
     home: string;
     about: string;
-    pastors: string;
     leadership: string;
     vision: string;
     beliefs: string;
@@ -107,6 +106,11 @@ export interface Dictionary {
     leadershipEyebrow: string;
     leadershipTitle: string;
     leadershipIntro: string;
+    /** Merged Leadership page hero. */
+    leadershipPageTitle: string;
+    leadershipPageIntro: string;
+    /** Section heading above the broader team grid on the merged page. */
+    teamTitle: string;
     visionEyebrow: string;
     visionTitle: string;
     missionLabel: string;
@@ -122,6 +126,10 @@ export interface Dictionary {
     nyName: string;
     /** Full biography — rendered as one paragraph per array entry. */
     nyBio: string[];
+    /** Co-senior pastor — featured alongside Apostle Yolanda. */
+    danielName: string;
+    danielRole: string;
+    danielBio: string;
   };
   leadership: LeaderEntry[];
   ministries: {
@@ -153,8 +161,6 @@ export interface Dictionary {
     subtitle: string;
     viewFull: string;
     pageIntro: string;
-    /** Label inside the branded placeholder tile shown for photos not yet uploaded. */
-    comingSoon: string;
   };
   give: {
     eyebrow: string;
@@ -204,5 +210,7 @@ export interface Dictionary {
     featuredLabel: string;
     /** Label above the social links at the bottom of the sidebar. */
     followLabel: string;
+    /** Heading above the mini month calendar. */
+    calendarTitle: string;
   };
 }

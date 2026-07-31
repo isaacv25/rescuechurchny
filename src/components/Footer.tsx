@@ -26,14 +26,16 @@ export function Footer() {
   const year = new Date().getFullYear();
   const bible = bibleLinks[locale];
 
+  // Locations now lives under Events (/events#visit); Contact now under Media (/media#contact).
   const quickLinks = [
+    { href: "/about/leadership", label: t.nav.leadership },
     { href: "/about/vision", label: t.nav.vision },
     { href: "/ministries", label: t.nav.ministries },
     { href: "/events", label: t.nav.events },
     { href: "/gallery", label: t.nav.gallery },
-    { href: "/locations", label: t.nav.locations },
+    { href: "/media", label: t.nav.media },
+    { href: "/events#visit", label: t.nav.locations },
     { href: "/give", label: t.nav.give },
-    { href: "/contact", label: t.nav.contact },
   ];
 
   return (
@@ -95,7 +97,7 @@ export function Footer() {
         <div>
           <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">{t.footer.connect}</h3>
           <div className="mt-4 space-y-3 text-sm">
-            <Link href="/contact" className="flex items-center gap-2 text-white/70 hover:text-white">
+            <Link href="/media#contact" className="flex items-center gap-2 text-white/70 hover:text-white">
               <Mail size={16} className="text-coral" /> {t.nav.contact}
             </Link>
             <Link href="/give" className="flex items-center gap-2 text-white/70 hover:text-white">
