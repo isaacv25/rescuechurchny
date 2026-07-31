@@ -30,12 +30,23 @@ export function HeroVideo({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [failed, setFailed] = useState(false);
 
-  // Pause/never-play under reduced motion; the poster attribute keeps a static frame.
+  // Reliable mobile autoplay: the autoPlay attribute alone is ignored by some
+  // mobile browsers (during scroll, or Low Power Mode). Force muted + call
+  // play() ourselves and swallow the rejection (falls back to the poster).
+  // Under reduced motion we pause instead and let the poster stand.
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
     if (reduced) {
       el.pause();
+      return;
+    }
+    el.muted = true;
+    const attempt = el.play();
+    if (attempt && typeof attempt.catch === "function") {
+      attempt.catch(() => {
+        /* autoplay blocked — poster frame remains, no black box */
+      });
     }
   }, [reduced]);
 

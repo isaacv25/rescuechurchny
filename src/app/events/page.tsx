@@ -177,7 +177,7 @@ function PastEvents({ past, locale, title, flyerAlt }: { past: ChurchEvent[]; lo
 
 /* ── Sidebar ───────────────────────────────────────────────────────────────── */
 
-function ComingUpSidebar({ upcoming, allEvents, locale, heading, emptyText, followLabel, calendarTitle }: { upcoming: ChurchEvent[]; allEvents: ChurchEvent[]; locale: Locale; heading: string; emptyText: string; followLabel: string; calendarTitle: string }) {
+function ComingUpSidebar({ upcoming, allEvents, locale, heading, emptyText, followLabel, calendarTitle, instagramUrl }: { upcoming: ChurchEvent[]; allEvents: ChurchEvent[]; locale: Locale; heading: string; emptyText: string; followLabel: string; calendarTitle: string; instagramUrl: string }) {
   return (
     <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
       <MiniCalendar events={allEvents} locale={locale} title={calendarTitle} />
@@ -221,7 +221,7 @@ function ComingUpSidebar({ upcoming, allEvents, locale, heading, emptyText, foll
           <p className="text-xs font-medium text-charcoal/70">{followLabel}</p>
           <div className="mt-3 flex items-center gap-3">
             <a
-              href="https://www.instagram.com/rescuechurch.nyc/"
+              href={instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -298,6 +298,7 @@ export default function EventsPage() {
             emptyText={t.events.sidebarEmpty}
             followLabel={t.events.followLabel}
             calendarTitle={t.events.calendarTitle}
+            instagramUrl={t.media.instagramUrl}
           />
         </div>
       </Container>

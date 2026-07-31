@@ -70,8 +70,8 @@ export default function MediaPage() {
                   <Mail size={14} /> {t.contact.socialLabel}
                 </p>
                 <div className="mt-2 flex flex-col gap-1 text-sm text-charcoal">
-                  <a href="https://www.instagram.com/rescuechurch.nyc/" target="_blank" rel="noopener noreferrer" className="hover:text-ink">
-                    Instagram — @rescuechurch.nyc
+                  <a href={t.media.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
+                    Instagram — {t.media.instagramHandle}
                   </a>
                   <a href="https://www.facebook.com/rescueny/about/" target="_blank" rel="noopener noreferrer" className="hover:text-ink">
                     Facebook — Rescue Church NY

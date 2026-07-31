@@ -199,8 +199,8 @@ export const es: Dictionary = {
       {
         key: "instagram",
         label: "Instagram",
-        handle: "@rescuechurch.nyc",
-        href: "https://www.instagram.com/rescuechurch.nyc/",
+        handle: "@iglesiaministeriorescate",
+        href: "https://www.instagram.com/iglesiaministeriorescate/",
         description: "Clips de mensajes, resúmenes de eventos y el corazón de Iglesia Rescate NY.",
       },
       {
@@ -226,6 +226,8 @@ export const es: Dictionary = {
       },
     ],
     note: "¿No puedes asistir en persona? Todas las plataformas anteriores transmiten nuestros servicios — elige la que ya usas.",
+    instagramUrl: "https://www.instagram.com/iglesiaministeriorescate/",
+    instagramHandle: "@iglesiaministeriorescate",
   },
   gallery: {
     eyebrow: "Nuestra Comunidad",

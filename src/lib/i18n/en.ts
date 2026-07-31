@@ -226,6 +226,8 @@ export const en: Dictionary = {
       },
     ],
     note: "Can't make it in person? Every platform above carries our services — pick the one you already use.",
+    instagramUrl: "https://www.instagram.com/rescuechurch.nyc/",
+    instagramHandle: "@rescuechurch.nyc",
   },
   gallery: {
     eyebrow: "Our Community",

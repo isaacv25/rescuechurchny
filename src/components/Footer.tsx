@@ -8,8 +8,10 @@ import { Container } from "./Container";
 import { FadeIn } from "./Motion";
 import { useT, useLocale } from "@/lib/i18n/LocaleProvider";
 
+// Instagram href is resolved per-locale in the component (t.media.instagramUrl)
+// since the EN and ES congregations have different Instagram accounts.
 const socialIcons = [
-  { key: "instagram", Icon: InstagramIcon, href: "https://www.instagram.com/rescuechurch.nyc/" },
+  { key: "instagram", Icon: InstagramIcon, href: null },
   { key: "facebook", Icon: FacebookIcon, href: "https://www.facebook.com/rescueny/about/" },
   { key: "youtube", Icon: YoutubeIcon, href: "https://www.youtube.com/channel/UCZ_Jhw0DMNw3PXrGF_50ZOA" },
 ];
@@ -50,7 +52,7 @@ export function Footer() {
             {socialIcons.map(({ key, Icon, href }) => (
               <a
                 key={key}
-                href={href}
+                href={key === "instagram" ? t.media.instagramUrl : href!}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-coral"
