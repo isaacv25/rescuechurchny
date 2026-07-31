@@ -210,7 +210,6 @@ export const es: Dictionary = {
     subtitle: "Un vistazo a la adoración, el compañerismo y todo lo demás.",
     viewFull: "Ver Galería Completa",
     pageIntro: "Momentos de los servicios, eventos y la vida diaria de nuestra familia de iglesia.",
-    comingSoon: "Foto próximamente",
   },
   give: {
     eyebrow: "Generosidad",

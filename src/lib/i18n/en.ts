@@ -210,7 +210,6 @@ export const en: Dictionary = {
     subtitle: "A glimpse into worship, fellowship, and everything in between.",
     viewFull: "View Full Gallery",
     pageIntro: "Moments from services, events, and the everyday life of our church family.",
-    comingSoon: "Photo coming soon",
   },
   give: {
     eyebrow: "Generosity",

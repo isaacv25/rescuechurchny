@@ -7,7 +7,7 @@ import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CampusCard } from "@/components/CampusCard";
-import { GalleryTile } from "@/components/GalleryTile";
+import { MasonryGallery } from "@/components/MasonryGallery";
 import { MinistryCard } from "@/components/MinistryCard";
 import { HeroFade, HeroWords, Reveal, Stagger, StaggerItem } from "@/components/Motion";
 import { HeroVideo } from "@/components/HeroVideo";
@@ -131,21 +131,9 @@ export default function Home() {
               {t.gallery.viewFull} <ArrowRight size={15} />
             </Link>
           </Reveal>
-          <Stagger stagger={0.06} className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {galleryPhotos.slice(0, 6).map((photo, idx) => (
-              <StaggerItem
-                key={photo.src}
-                variant="zoomIn"
-                className={idx === 0 ? "aspect-[4/3] lg:row-span-2 lg:aspect-auto" : "aspect-[4/3]"}
-              >
-                <GalleryTile
-                  photo={photo}
-                  comingSoonLabel={t.gallery.comingSoon}
-                  className="h-full w-full"
-                />
-              </StaggerItem>
-            ))}
-          </Stagger>
+          <div className="mt-10">
+            <MasonryGallery photos={galleryPhotos.slice(0, 8)} />
+          </div>
         </Container>
       </section>
 

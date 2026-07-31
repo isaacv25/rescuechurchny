@@ -153,8 +153,6 @@ export interface Dictionary {
     subtitle: string;
     viewFull: string;
     pageIntro: string;
-    /** Label inside the branded placeholder tile shown for photos not yet uploaded. */
-    comingSoon: string;
   };
   give: {
     eyebrow: string;
