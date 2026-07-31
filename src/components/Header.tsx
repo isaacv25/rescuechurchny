@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronDown, Menu, Phone, X } from "lucide-react";
@@ -32,6 +32,15 @@ export function Header() {
   const reduced = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
+  // Navbar solidifies (stronger shadow) once the user scrolls past the hero.
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // About ▾ now houses Leadership (merged), Mission & Vision, Ministries, and
   // What We Believe (kept here — 4 items is not crowded).
@@ -50,7 +59,11 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-ink/5 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+    <header
+      className={`sticky top-0 z-50 border-b border-ink/5 bg-white/95 backdrop-blur transition-shadow duration-300 supports-[backdrop-filter]:bg-white/80 ${
+        scrolled ? "shadow-md shadow-ink/5" : "shadow-none"
+      }`}
+    >
       <div className="hidden bg-ink text-white sm:block">
         <Container className="flex h-9 items-center justify-between text-xs">
           <a href="tel:+19178220269" className="flex items-center gap-2 text-white/80 hover:text-white">
