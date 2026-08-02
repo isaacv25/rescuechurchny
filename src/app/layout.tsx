@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { LocaleProvider } from "@/lib/i18n/LocaleProvider";
 import { Header } from "@/components/Header";
+import { VerseOfDay } from "@/components/VerseOfDay";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -43,6 +44,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <LocaleProvider>
           <Header />
+          <VerseOfDay />
           <main className="flex-1">{children}</main>
           <Footer />
         </LocaleProvider>

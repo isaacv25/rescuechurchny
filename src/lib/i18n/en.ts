@@ -284,4 +284,9 @@ export const en: Dictionary = {
     followLabel: "Follow for real-time updates",
     calendarTitle: "Event Calendar",
   },
+  verseOfDay: {
+    label: "Verse of the Day",
+    minimizeAria: "Minimize verse of the day",
+    expandAria: "Show verse of the day",
+  },
 };

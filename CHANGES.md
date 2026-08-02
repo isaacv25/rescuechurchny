@@ -1,11 +1,44 @@
 # Rescue Church Website — Change Log
 
-Branch: `fix/mobile-video-es-instagram`
-Last updated: 2026-08-01
+Branch: `feat/verse-of-the-day`
+Last updated: 2026-08-02
 
 (Earlier history: June 2026 = initial content build; July 2026 = leader
 corrections, NC-campus removal, first gallery + events pages, motion layer;
-v3 = media/nav restructure — all merged to `main`.)
+v3 = media/nav restructure; v4 = events system + bilingual flyers + flyer
+lightbox — all merged to `main`.)
+
+---
+
+## Verse of the Day (August 2, 2026)
+
+New full-width strip under the header, on every page and breakpoint.
+
+- **`src/data/verses.ts`** — 118 curated, bilingual, standalone verses (target
+  ~400, append-only — see `VERSES.md` for the full indexed list and the
+  workflow to add more). **King James Version** (English) + **Reina-Valera
+  1909** (Spanish), both public domain. This is a deliberate departure from
+  the site's other Bible resources (ERV / RV1960 PDFs, which are copyrighted
+  and only linked, never reproduced) — quoting scripture as UI chrome on
+  every page needed a translation safe to reproduce in full. Documented in
+  `VERSES.md`.
+- `getVerseOfDay()` picks deterministically: `(dayOfYear + year) %
+  VERSES.length` — same verse all day for everyone, changes at midnight, and
+  won't land on the same verse on the same calendar date two years running.
+- **`VerseOfDay` component**: dark strip, italic verse + coral reference,
+  book icon, fades in on load (not scroll-triggered — it's above the fold).
+  Swaps instantly with the EN/ES toggle. **Minimizes to a small reopenable
+  pill** (not a permanent dismiss) — the choice persists across pages and
+  visits via `localStorage`, mirroring `LocaleProvider`'s own hydration-safe
+  read-after-mount pattern (renders nothing until mounted, to avoid a
+  server/client mismatch on the stored minimized state).
+- Wired into `layout.tsx` directly below `<Header />`, so it's independent of
+  the header's own phone/EN-ES bar (which is desktop-only) — this renders on
+  every breakpoint.
+
+**Follow-ups:** grow the list toward 400; decide whether to eventually source
+licensed ERV/RVR1960 text to match the PDFs exactly; native-Spanish spot
+check on the RV1909 transcriptions.
 
 ---
 
