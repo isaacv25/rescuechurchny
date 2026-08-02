@@ -30,13 +30,40 @@ export function HeroVideo({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [failed, setFailed] = useState(false);
 
-  // Pause/never-play under reduced motion; the poster attribute keeps a static frame.
+  // Reliable mobile autoplay + battery saver:
+  // - The autoPlay attribute alone is ignored by some mobile browsers (during
+  //   scroll, or Low Power Mode), so we force muted + call play() ourselves and
+  //   swallow the rejection (falls back to the poster — never a black box).
+  // - An IntersectionObserver pauses playback whenever the hero scrolls out of
+  //   view and resumes it when it returns — saves battery/data on mobile.
+  // - Under reduced motion we never autoplay; the poster stands.
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
     if (reduced) {
       el.pause();
+      return;
     }
+    el.muted = true;
+    const tryPlay = () => {
+      const attempt = el.play();
+      if (attempt && typeof attempt.catch === "function") {
+        attempt.catch(() => {
+          /* autoplay blocked — poster frame remains */
+        });
+      }
+    };
+    tryPlay();
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) tryPlay();
+        else el.pause();
+      },
+      { threshold: 0.1 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
   }, [reduced]);
 
   // Static poster fallback: reduced motion, or the video errored.

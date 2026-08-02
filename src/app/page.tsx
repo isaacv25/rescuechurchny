@@ -45,7 +45,7 @@ export default function Home() {
     <div>
       {/* HERO — cinematic background video with a brick-red gradient for legibility */}
       <section className="relative overflow-hidden bg-ink">
-        <HeroVideo src="/gallery/RV1.mp4" poster="/brand/logo-stacked.png" />
+        <HeroVideo src="/gallery/RV1.mp4" poster="/brand/logo-stacked-dark.png" />
         {/* Brand-colored gradient overlay ON TOP of the video keeps white text readable.
             Brick-red (coral) at high opacity, deepening toward the lower-left where the copy sits. */}
         <div className="absolute inset-0 bg-gradient-to-br from-ink/85 via-coral-dark/70 to-ink/85" />

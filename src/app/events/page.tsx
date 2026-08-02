@@ -17,6 +17,7 @@ import {
   formatEventDate,
   formatEventDateShort,
   formatEventWeekday,
+  resolveFlyer,
   type ChurchEvent,
 } from "@/data/events";
 import type { Locale } from "@/lib/i18n/types";
@@ -35,12 +36,14 @@ function eventTime(event: ChurchEvent, locale: Locale) {
 
 /* ── Flyer with branded placeholder ────────────────────────────────────────── */
 
-/** Flyer image, or the branded placeholder card (ink gradient + logo + title)
- *  when no flyer has been uploaded. object-contain so portrait flyers never crop. */
-function EventFlyer({ event, title, alt, large = false }: { event: ChurchEvent; title: string; alt: string; large?: boolean }) {
+/** Flyer image (locale-resolved, EN/ES with fallback), or the branded
+ *  placeholder card (ink gradient + logo + title) when the event has no flyer
+ *  at all. object-contain so portrait flyers never crop. */
+function EventFlyer({ event, locale, title, alt, large = false }: { event: ChurchEvent; locale: Locale; title: string; alt: string; large?: boolean }) {
   const [error, setError] = useState(false);
+  const flyer = resolveFlyer(event, locale);
 
-  if (!event.flyerImage || error) {
+  if (!flyer || error) {
     return (
       <div
         className={`relative flex w-full flex-col items-center justify-center gap-3 overflow-hidden rounded-xl border-2 border-coral/40 bg-ink ${large ? "aspect-[4/3]" : "h-full min-h-28"}`}
@@ -56,7 +59,8 @@ function EventFlyer({ event, title, alt, large = false }: { event: ChurchEvent; 
   return (
     <div className={`relative w-full overflow-hidden rounded-xl bg-cream ${large ? "aspect-[4/3]" : "h-full min-h-28"}`}>
       <Image
-        src={event.flyerImage}
+        key={flyer}
+        src={flyer}
         alt={alt}
         fill
         sizes={large ? "(max-width: 1024px) 100vw, 60vw" : "160px"}
@@ -74,7 +78,7 @@ function EventMeta({ event, locale }: { event: ChurchEvent; locale: Locale }) {
   return (
     <div className="mt-3 space-y-1.5 text-sm text-charcoal">
       <p className="flex items-center gap-2">
-        <Calendar size={14} className="shrink-0 text-coral" /> {formatEventDate(event.date, locale)}
+        <Calendar size={14} className="shrink-0 text-coral" /> {formatEventDate(event, locale)}
       </p>
       {time ? (
         <p className="flex items-center gap-2">
@@ -113,7 +117,7 @@ function FeaturedEventCard({ event, locale, featuredLabel, flyerAlt }: { event: 
       <div className="p-6 sm:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-coral-dark">{featuredLabel}</p>
         <div className="mt-4">
-          <EventFlyer event={event} title={title} alt={flyerAlt} large />
+          <EventFlyer event={event} locale={locale} title={title} alt={flyerAlt} large />
         </div>
         <h3 className="mt-6 text-2xl font-semibold text-ink">{title}</h3>
         <EventMeta event={event} locale={locale} />
@@ -131,7 +135,7 @@ function EventRowCard({ event, locale, flyerAlt }: { event: ChurchEvent; locale:
 
   return (
     <div id={event.id} className="scroll-mt-28 grid gap-4 overflow-hidden rounded-2xl border border-ink/8 bg-white p-5 shadow-sm shadow-ink/5 sm:grid-cols-[140px_1fr]">
-      <EventFlyer event={event} title={title} alt={flyerAlt} />
+      <EventFlyer event={event} locale={locale} title={title} alt={flyerAlt} />
       <div>
         <h4 className="text-lg font-semibold text-ink">{title}</h4>
         <EventMeta event={event} locale={locale} />
@@ -177,7 +181,7 @@ function PastEvents({ past, locale, title, flyerAlt }: { past: ChurchEvent[]; lo
 
 /* ── Sidebar ───────────────────────────────────────────────────────────────── */
 
-function ComingUpSidebar({ upcoming, allEvents, locale, heading, emptyText, followLabel, calendarTitle }: { upcoming: ChurchEvent[]; allEvents: ChurchEvent[]; locale: Locale; heading: string; emptyText: string; followLabel: string; calendarTitle: string }) {
+function ComingUpSidebar({ upcoming, allEvents, locale, heading, emptyText, followLabel, calendarTitle, instagramUrl }: { upcoming: ChurchEvent[]; allEvents: ChurchEvent[]; locale: Locale; heading: string; emptyText: string; followLabel: string; calendarTitle: string; instagramUrl: string }) {
   return (
     <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
       <MiniCalendar events={allEvents} locale={locale} title={calendarTitle} />
@@ -199,7 +203,7 @@ function ComingUpSidebar({ upcoming, allEvents, locale, heading, emptyText, foll
                 >
                   <span className="flex w-12 shrink-0 flex-col items-center rounded-lg bg-coral/10 px-1 py-1.5">
                     <span className="text-sm font-bold leading-tight text-coral-dark">
-                      {formatEventDateShort(event.date, locale)}
+                      {formatEventDateShort(event, locale)}
                     </span>
                   </span>
                   <span className="min-w-0">
@@ -207,7 +211,7 @@ function ComingUpSidebar({ upcoming, allEvents, locale, heading, emptyText, foll
                       {eventTitle(event, locale)}
                     </span>
                     <span className="block text-xs capitalize text-charcoal/70">
-                      {formatEventWeekday(event.date, locale)}
+                      {formatEventWeekday(event, locale)}
                       {eventTime(event, locale) ? ` · ${eventTime(event, locale)}` : ""}
                     </span>
                   </span>
@@ -221,7 +225,7 @@ function ComingUpSidebar({ upcoming, allEvents, locale, heading, emptyText, foll
           <p className="text-xs font-medium text-charcoal/70">{followLabel}</p>
           <div className="mt-3 flex items-center gap-3">
             <a
-              href="https://www.instagram.com/rescuechurch.nyc/"
+              href={instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -298,6 +302,7 @@ export default function EventsPage() {
             emptyText={t.events.sidebarEmpty}
             followLabel={t.events.followLabel}
             calendarTitle={t.events.calendarTitle}
+            instagramUrl={t.media.instagramUrl}
           />
         </div>
       </Container>

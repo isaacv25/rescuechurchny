@@ -154,6 +154,9 @@ export interface Dictionary {
     intro: string;
     socials: SocialEntry[];
     note: string;
+    /** Main church Instagram — differs by congregation (EN vs ES). */
+    instagramUrl: string;
+    instagramHandle: string;
   };
   gallery: {
     eyebrow: string;
