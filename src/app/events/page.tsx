@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Calendar, ChevronDown, Clock, MapPin } from "lucide-react";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import { Calendar, ChevronDown, Clock, MapPin, ZoomIn } from "lucide-react";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Stagger, StaggerItem } from "@/components/Motion";
@@ -38,8 +40,24 @@ function eventTime(event: ChurchEvent, locale: Locale) {
 
 /** Flyer image (locale-resolved, EN/ES with fallback), or the branded
  *  placeholder card (ink gradient + logo + title) when the event has no flyer
- *  at all. object-contain so portrait flyers never crop. */
-function EventFlyer({ event, locale, title, alt, large = false }: { event: ChurchEvent; locale: Locale; title: string; alt: string; large?: boolean }) {
+ *  at all. object-contain so portrait flyers never crop. When a flyer exists,
+ *  clicking/tapping it opens a full-size lightbox — row-card thumbnails are
+ *  only 140px wide, so this is how anyone actually reads the fine print. */
+function EventFlyer({
+  event,
+  locale,
+  title,
+  alt,
+  large = false,
+  onOpen,
+}: {
+  event: ChurchEvent;
+  locale: Locale;
+  title: string;
+  alt: string;
+  large?: boolean;
+  onOpen?: (src: string, alt: string) => void;
+}) {
   const [error, setError] = useState(false);
   const flyer = resolveFlyer(event, locale);
 
@@ -57,17 +75,27 @@ function EventFlyer({ event, locale, title, alt, large = false }: { event: Churc
   }
 
   return (
-    <div className={`relative w-full overflow-hidden rounded-xl bg-cream ${large ? "aspect-[4/3]" : "h-full min-h-28"}`}>
+    <button
+      type="button"
+      onClick={() => onOpen?.(flyer, alt)}
+      aria-label={`${alt} — view full flyer`}
+      className={`group relative w-full overflow-hidden rounded-xl bg-cream ${large ? "aspect-[4/3]" : "h-full min-h-28"} ${onOpen ? "cursor-zoom-in" : ""}`}
+    >
       <Image
         key={flyer}
         src={flyer}
         alt={alt}
         fill
         sizes={large ? "(max-width: 1024px) 100vw, 60vw" : "160px"}
-        className="object-contain"
+        className="object-contain transition-transform duration-200 ease-out group-hover:scale-[1.02]"
         onError={() => setError(true)}
       />
-    </div>
+      {onOpen ? (
+        <span className="pointer-events-none absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-ink/60 text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100">
+          <ZoomIn size={14} />
+        </span>
+      ) : null}
+    </button>
   );
 }
 
@@ -108,7 +136,19 @@ function TagChips({ tags }: { tags?: string[] }) {
 }
 
 /** Large featured card — the next upcoming event. */
-function FeaturedEventCard({ event, locale, featuredLabel, flyerAlt }: { event: ChurchEvent; locale: Locale; featuredLabel: string; flyerAlt: string }) {
+function FeaturedEventCard({
+  event,
+  locale,
+  featuredLabel,
+  flyerAlt,
+  onOpenFlyer,
+}: {
+  event: ChurchEvent;
+  locale: Locale;
+  featuredLabel: string;
+  flyerAlt: string;
+  onOpenFlyer: (src: string, alt: string) => void;
+}) {
   const title = eventTitle(event, locale);
   const description = eventDescription(event, locale);
 
@@ -117,7 +157,7 @@ function FeaturedEventCard({ event, locale, featuredLabel, flyerAlt }: { event: 
       <div className="p-6 sm:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-coral-dark">{featuredLabel}</p>
         <div className="mt-4">
-          <EventFlyer event={event} locale={locale} title={title} alt={flyerAlt} large />
+          <EventFlyer event={event} locale={locale} title={title} alt={flyerAlt} large onOpen={onOpenFlyer} />
         </div>
         <h3 className="mt-6 text-2xl font-semibold text-ink">{title}</h3>
         <EventMeta event={event} locale={locale} />
@@ -129,13 +169,23 @@ function FeaturedEventCard({ event, locale, featuredLabel, flyerAlt }: { event: 
 }
 
 /** Smaller horizontal card — flyer thumbnail left, details right. */
-function EventRowCard({ event, locale, flyerAlt }: { event: ChurchEvent; locale: Locale; flyerAlt: string }) {
+function EventRowCard({
+  event,
+  locale,
+  flyerAlt,
+  onOpenFlyer,
+}: {
+  event: ChurchEvent;
+  locale: Locale;
+  flyerAlt: string;
+  onOpenFlyer: (src: string, alt: string) => void;
+}) {
   const title = eventTitle(event, locale);
   const description = eventDescription(event, locale);
 
   return (
     <div id={event.id} className="scroll-mt-28 grid gap-4 overflow-hidden rounded-2xl border border-ink/8 bg-white p-5 shadow-sm shadow-ink/5 sm:grid-cols-[140px_1fr]">
-      <EventFlyer event={event} locale={locale} title={title} alt={flyerAlt} />
+      <EventFlyer event={event} locale={locale} title={title} alt={flyerAlt} onOpen={onOpenFlyer} />
       <div>
         <h4 className="text-lg font-semibold text-ink">{title}</h4>
         <EventMeta event={event} locale={locale} />
@@ -148,7 +198,19 @@ function EventRowCard({ event, locale, flyerAlt }: { event: ChurchEvent; locale:
 
 /* ── Past events (collapsed) ───────────────────────────────────────────────── */
 
-function PastEvents({ past, locale, title, flyerAlt }: { past: ChurchEvent[]; locale: Locale; title: string; flyerAlt: string }) {
+function PastEvents({
+  past,
+  locale,
+  title,
+  flyerAlt,
+  onOpenFlyer,
+}: {
+  past: ChurchEvent[];
+  locale: Locale;
+  title: string;
+  flyerAlt: string;
+  onOpenFlyer: (src: string, alt: string) => void;
+}) {
   const [open, setOpen] = useState(false);
   if (past.length === 0) return null;
 
@@ -171,7 +233,7 @@ function PastEvents({ past, locale, title, flyerAlt }: { past: ChurchEvent[]; lo
       {open ? (
         <div className="space-y-4 px-5 pb-5">
           {past.map((event) => (
-            <EventRowCard key={event.id} event={event} locale={locale} flyerAlt={flyerAlt} />
+            <EventRowCard key={event.id} event={event} locale={locale} flyerAlt={flyerAlt} onOpenFlyer={onOpenFlyer} />
           ))}
         </div>
       ) : null}
@@ -257,6 +319,8 @@ export default function EventsPage() {
   const upcoming = getUpcomingEvents();
   const past = getPastEvents();
   const [featured, ...rest] = upcoming;
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
+  const openFlyer = (src: string, alt: string) => setLightbox({ src, alt });
 
   return (
     <div>
@@ -272,7 +336,7 @@ export default function EventsPage() {
           <Stagger className="space-y-8">
             {featured ? (
               <StaggerItem variant="slideLeft">
-                <FeaturedEventCard event={featured} locale={locale} featuredLabel={t.events.featuredLabel} flyerAlt={t.events.flyerAlt} />
+                <FeaturedEventCard event={featured} locale={locale} featuredLabel={t.events.featuredLabel} flyerAlt={t.events.flyerAlt} onOpenFlyer={openFlyer} />
               </StaggerItem>
             ) : (
               <div className="flex flex-col items-center rounded-3xl border border-ink/8 bg-cream px-8 py-20 text-center">
@@ -286,11 +350,11 @@ export default function EventsPage() {
 
             {rest.map((event) => (
               <StaggerItem key={event.id} variant="slideLeft">
-                <EventRowCard event={event} locale={locale} flyerAlt={t.events.flyerAlt} />
+                <EventRowCard event={event} locale={locale} flyerAlt={t.events.flyerAlt} onOpenFlyer={openFlyer} />
               </StaggerItem>
             ))}
 
-            <PastEvents past={past} locale={locale} title={t.events.pastTitle} flyerAlt={t.events.flyerAlt} />
+            <PastEvents past={past} locale={locale} title={t.events.pastTitle} flyerAlt={t.events.flyerAlt} onOpenFlyer={openFlyer} />
           </Stagger>
 
           {/* Right panel — sticky calendar + "Coming Up" timeline */}
@@ -309,6 +373,13 @@ export default function EventsPage() {
 
       {/* VISIT US / SERVICE TIMES — absorbed from the former /locations page */}
       <VisitUs />
+
+      <Lightbox
+        open={!!lightbox}
+        close={() => setLightbox(null)}
+        index={0}
+        slides={lightbox ? [{ src: lightbox.src, alt: lightbox.alt }] : []}
+      />
     </div>
   );
 }
