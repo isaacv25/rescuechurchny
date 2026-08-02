@@ -3,15 +3,14 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import type { ChurchEvent } from "@/data/events";
+import { eventDays, type ChurchEvent } from "@/data/events";
 import type { Locale } from "@/lib/i18n/types";
 
 /**
- * Compact month calendar — custom grid using native Date (zero dependencies;
- * chosen over date-fns since the math is trivial and events.ts already uses
- * native Date). Days with an event get a brick-red dot; today pulses subtly.
- * Clicking a day with an event smooth-scrolls to that event's card.
- * Month changes slide/fade via AnimatePresence (reduced-motion safe).
+ * Compact month calendar — custom grid. Days with an event get a brick-red dot;
+ * multi-day events dot every day across their span (via eventDays()); today
+ * pulses subtly. Clicking a day with an event smooth-scrolls to that event's
+ * card. Month changes slide/fade via AnimatePresence (reduced-motion safe).
  */
 
 const isoToday = new Date().toISOString().slice(0, 10);
@@ -31,10 +30,13 @@ export function MiniCalendar({
 }) {
   const reduced = useReducedMotion();
 
-  // Map ISO date -> first event id on that date.
+  // Map every ISO day an event occupies -> that event's id (multi-day events
+  // dot their whole span). First event on a given day wins the click target.
   const eventByDate = useMemo(() => {
     const map = new Map<string, string>();
-    for (const e of events) if (!map.has(e.date)) map.set(e.date, e.id);
+    for (const e of events) {
+      for (const day of eventDays(e)) if (!map.has(day)) map.set(day, e.id);
+    }
     return map;
   }, [events]);
 
