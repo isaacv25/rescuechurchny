@@ -1,11 +1,117 @@
 # Rescue Church Website — Change Log
 
-Branch: `feat/update-v3-media-nav`
-Last updated: 2026-07-30
+Branch: `fix/mobile-video-es-instagram`
+Last updated: 2026-08-01
 
 (Earlier history: June 2026 = initial content build; July 2026 = leader
-corrections, NC-campus removal, first gallery + events pages, motion layer —
-both merged to `main`.)
+corrections, NC-campus removal, first gallery + events pages, motion layer;
+v3 = media/nav restructure — all merged to `main`.)
+
+---
+
+## v4 — Events System + Bilingual Flyers (August 1, 2026)
+
+This PR bundles three things deployed together: mobile-video hardening, the
+Spanish main-Instagram split, and the full real events system.
+
+### Mobile hero video
+- Programmatic `play()` on mount (the `autoPlay` attribute alone is ignored by
+  some mobile browsers during scroll / Low Power Mode); rejection is swallowed
+  so the poster frame stands — never a black box.
+- Poster is the white logo (`logo-stacked-dark.png`) so it reads on the dark hero.
+- **IntersectionObserver pauses the video when the hero scrolls off-screen and
+  resumes when it returns** — saves battery/data on mobile.
+- `prefers-reduced-motion`: no autoplay, static poster.
+- Verified playing + covering with no letterboxing at 375 / 390 / 414 px.
+
+### Spanish main Instagram
+- Locale-keyed `media.instagramUrl` / `instagramHandle`. Spanish congregation's
+  Instagram (`instagram.com/iglesiaministeriorescate/`) shows in ES everywhere
+  the **main** church IG appears (Media card + contact section, footer, Events
+  sidebar). English keeps `rescuechurch.nyc`. The shared **Christ Chasers**
+  (youth) IG is untouched in both languages.
+
+### Events schema (bilingual flyers + multi-day)
+- `ChurchEvent` now has `flyerImageEN` / `flyerImageES` (was single `flyerImage`)
+  and `endDate` (for multi-day events).
+- `resolveFlyer(event, locale)` centralizes the fallback: ES viewer → ES flyer
+  else EN; EN viewer → EN else ES; nothing → branded placeholder.
+- Date math moved to **date-fns** (new dep, MIT). Upcoming/past is now
+  **endDate-aware** — a multi-day event stays "upcoming" through its last day.
+  `formatEventDate` collapses ranges (`August 3–7, 2026` same month;
+  `Aug 30 – Sep 2, 2026` cross-month). `eventDays()` expands a span so the
+  calendar dots **every** day of a multi-day event.
+
+### The real events (placeholders removed) — authored by reading each flyer
+
+| id | Title (EN / ES) | Date(s) | Time | Flyer file(s) | REVIEW |
+|----|-----------------|---------|------|---------------|--------|
+| `burn-night-2026` | Burn Night / Noche de Fuego | Fri Jul 31 2026 | 8 PM | `7-31-26` (shared/EN) | — |
+| `backpack-giveaway-2026` | Backpack Giveaway / Regalo de Mochilas | Sat Aug 1 2026 | 12–2 PM | `8-1-26_eng` + `8-1-26_esp` | — |
+| `kingdom-builders-vbs-2026` | Kingdom Builders — VBS / Constructores del Reino | **Aug 3–7 2026** | 6–8 PM | `8-3-26_to_8-7-26` (shared/EN) | ⚠ flyer art reads "VBS 2025"; filename+footer imply 2026 → dated 2026 |
+| `mens-meeting-2026` | Men's Meeting / Reunión de Hombres | Fri Aug 7 2026 | 8 PM | `8-7-26` (shared/EN) | — |
+| `rizpas-mujeres-2026` | Rizpah — Women Crying Out / Rizpas — Mujeres en Clamor | Fri Sep 4 2026 | 7 PM | `9-4-26_esp` (ES only) | ⚠ flyer typo "MUJERERES" → title uses correct "Mujeres" |
+
+**Aug 7 overlap decision:** `8-3-26_to_8-7-26` (Kingdom Builders VBS) and
+`8-7-26` (Men's Meeting) are **two distinct events**, authored separately —
+different audiences (children vs men), times (6–8 PM vs 8 PM), and contact
+numbers (347-933-5975 vs 347-882-3568). Not folded together.
+
+All event titles/descriptions are bilingual (EN + ES text) even when the flyer
+image is one language — the flyer image itself falls back per `resolveFlyer`.
+
+### Flyer optimization
+- All six flyers → WebP (sharp, max 1600 px, q80). Before → after:
+  `7-31-26` 292 KB→208 · `8-1-26_eng` 2017 KB→206 · `8-1-26_esp` 1987 KB→206 ·
+  `8-3-26_to_8-7-26` **10465 KB→236** · `8-7-26` 245 KB→168 · `9-4-26_esp` 1694 KB→169.
+  (~17 MB → ~1.2 MB total.) Text verified still crisp.
+- Optimized files: `public/events/opt/*.webp` (what `events.ts` references).
+- Full-res originals preserved at `design-assets/events-originals/` — **outside
+  `/public`**, so kept but never served/shipped. `git status` clean, no stray
+  multi-MB binaries under `/public`.
+
+### Flyer naming convention (codified)
+```
+public/events/ naming convention
+─────────────────────────────────
+Single / shared flyer:        M-D-YY.jpg            e.g. 7-31-26.jpg
+Bilingual pair:               M-D-YY_eng.png        e.g. 8-1-26_eng.png
+                              M-D-YY_esp.png             8-1-26_esp.png
+Spanish-only (EN falls back): M-D-YY_esp.jpg        e.g. 9-4-26_esp.jpg
+Multi-day range:              M-D-YY_to_M-D-YY.png  e.g. 8-3-26_to_8-7-26.png
+```
+A flyer file is **not** auto-detected into an event — a filename only encodes a
+date. Each event still needs an entry in `events.ts`.
+
+### How to add an event (updated)
+```
+1. Export the flyer(s) web-optimized (<500 KB, WebP/JPG). If bilingual,
+   make _eng and _esp versions.
+2. Name per convention, drop into public/events/ (optimized under /opt).
+3. Add an entry to /data/events.ts: id, date (+ endDate if multi-day),
+   titleEN/titleES, timeEN/timeES, location, descriptions, tags,
+   flyerImageEN / flyerImageES.
+4. Save — it appears on /events (calendar + cards + sidebar), auto-sorted,
+   in the correct language, and auto-archives after it passes.
+```
+
+### Follow-ups flagged
+- **REVIEW fields** to confirm (also `// REVIEW:` in events.ts): VBS year
+  (art says 2025, dated 2026 here); Rizpas flyer typo (title corrected).
+- **Spanish review:** the AI-written EN/ES descriptions derived from the
+  flyers — have a native speaker check the ES phrasing.
+- **Leader photos** still pending from v3 (Minister Adam, Tiffany Perry,
+  Pastor Daniel) — logo/initials fallbacks show meanwhile.
+
+### What I'd recommend next
+1. **A lightweight admin/CMS for events + flyers.** The church now has a clean
+   file-based workflow, but every event still needs a developer to edit
+   `events.ts`. A small CMS (or a Google Sheet / Airtable feeding the build)
+   would let staff add events, upload flyers, and pick EN/ES — the single
+   biggest lever for them to self-serve as event frequency grows.
+2. **Automate flyer optimization on commit** (a tiny pre-commit hook or CI step
+   running the same sharp conversion) so nobody accidentally ships a 10 MB PNG
+   again — the manual step is the one thing in this workflow that will rot.
 
 ---
 
