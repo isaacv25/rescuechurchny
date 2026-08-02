@@ -34,10 +34,6 @@ export function Footer() {
     { href: "/about/vision", label: t.nav.vision },
     { href: "/ministries", label: t.nav.ministries },
     { href: "/events", label: t.nav.events },
-    { href: "/gallery", label: t.nav.gallery },
-    { href: "/media", label: t.nav.media },
-    { href: "/events#visit", label: t.nav.locations },
-    { href: "/give", label: t.nav.give },
   ];
 
   return (
