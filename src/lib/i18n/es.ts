@@ -284,4 +284,9 @@ export const es: Dictionary = {
     followLabel: "Síguenos para novedades al instante",
     calendarTitle: "Calendario de Eventos",
   },
+  verseOfDay: {
+    label: "Versículo del Día",
+    minimizeAria: "Minimizar versículo del día",
+    expandAria: "Mostrar versículo del día",
+  },
 };

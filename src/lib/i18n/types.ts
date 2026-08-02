@@ -216,4 +216,12 @@ export interface Dictionary {
     /** Heading above the mini month calendar. */
     calendarTitle: string;
   };
+  verseOfDay: {
+    /** Small eyebrow label, e.g. "Verse of the Day". */
+    label: string;
+    /** aria-label for the minimize (×) button. */
+    minimizeAria: string;
+    /** aria-label for the pill that reopens the strip once minimized. */
+    expandAria: string;
+  };
 }
