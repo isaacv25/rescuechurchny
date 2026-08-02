@@ -1,12 +1,26 @@
 # Rescue Church Website — Change Log
 
-Branch: `feat/verse-of-the-day`
-Last updated: 2026-08-02
+Branch: `feat/verse-of-day-pdf-source`
+Last updated: 2026-08-01
 
 (Earlier history: June 2026 = initial content build; July 2026 = leader
 corrections, NC-campus removal, first gallery + events pages, motion layer;
 v3 = media/nav restructure; v4 = events system + bilingual flyers + flyer
 lightbox — all merged to `main`.)
+
+---
+
+## Verse of the Day: PDF source alignment (August 1, 2026)
+
+- Re-sourced all original 118 verses directly from the site's hosted
+  `public/bibles/erv.pdf` and `public/bibles/spanish-reina.pdf`; all 118 were
+  located successfully with no `REVIEW` flags.
+- Added 113 more standalone, bilingual verses from those same extracted PDF
+  texts, bringing the total to **231 verses** toward the ~400 target.
+- Added page-delimited PDF extraction and candidate-mapping scripts under
+  `scripts/` so future additions can be checked against the actual files.
+- Updated `VERSES.md` to document ERV / Reina Valera sourcing and the complete
+  231-reference index. `getVerseOfDay()` and `VerseOfDay.tsx` remain unchanged.
 
 ---
 

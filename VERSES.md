@@ -8,28 +8,18 @@ without opening the code.
 
 ## Translation
 
-- **English: King James Version (KJV)** — public domain.
-- **Spanish: Reina-Valera 1909 (RV1909)** — public domain.
+- **English: ERV** — extracted verbatim from the site's hosted `public/bibles/erv.pdf`.
+- **Spanish: Reina Valera** — extracted verbatim from the site's hosted `public/bibles/spanish-reina.pdf`.
 
-**Why not the site's other Bible translations (ERV / Reina Valera 1960)?**
-Those are the translations in the downloadable PDFs linked from the footer
-("Read the Bible"), and they're copyrighted (ERV by World Bible Translation
-Center; RV1960 by the United Bible Societies). Linking to a PDF someone
-chooses to download is different from reproducing scripture text as UI
-chrome shown to every visitor on every page — the safer, zero-licensing-risk
-choice for that is a public-domain translation. KJV/RV1909 read close in
-spirit and are the two classic translations most Christians recognize by
-wording, even if not the exact modern phrasing of the PDFs.
-
-**If you'd rather match the PDFs exactly:** it's possible, but requires
-sourcing verified ERV/RVR1960 text (with permission/license) rather than
-generating it from memory — flagged as a follow-up, not done here to avoid
-misquoting scripture under a translation's name.
+The feature now matches the Bible resources the church already links in the
+footer. Text was extracted from those local PDFs and cleaned only for PDF
+layout artifacts such as line-wrap whitespace; it was not paraphrased or
+reconstructed from memory.
 
 ## Current status
 
-**118 of a ~400 target.** Below 400 (really, below 365), the rotation cycles
-through the full list roughly every `118` days rather than guaranteeing zero
+**231 of a ~400 target.** Below 400 (really, below 365), the rotation cycles
+through the full list roughly every `231` days rather than guaranteeing zero
 repeats across a full calendar year — expected while the list is still
 growing. See "How to add a verse" below; it's just appending to an array, no
 code changes needed.
@@ -47,14 +37,18 @@ land on the same verse across different years.
 1. Pick a verse that reads as a **complete, standalone thought** — this
    matters more than length. Verses that only make sense mid-passage don't
    belong here even if they're short.
-2. Quote the KJV (English) / RV1909 (Spanish) text **verbatim** — no
-   paraphrasing, no modernizing the wording.
+2. Extract the ERV (English) / Reina Valera (Spanish) text from the hosted PDFs
+   **verbatim** — no paraphrasing, no modernizing the wording.
 3. Append one object to the `VERSES` array in `src/data/verses.ts`:
    `{ ref, refES, textEN, textES }`.
 4. Add a line to the table below so this file stays in sync.
 5. That's it — rotation picks up the new length automatically.
 
-## The full list (118)
+## The full list (231)
+
+The table below is generated from `src/data/verses.ts`; the verse strings are
+verbatim text extracted from `public/bibles/erv.pdf` and
+`public/bibles/spanish-reina.pdf`.
 
 | # | Reference | Theme |
 |---|-----------|-------|
@@ -176,10 +170,116 @@ land on the same verse across different years.
 | 116 | Psalm 139:7 | God's Presence |
 | 117 | Matthew 28:20 | God's Presence |
 | 118 | Isaiah 43:2 | God's Presence |
-
-## Follow-ups
-
-- Grow the list toward ~400 (append-only, no code changes needed).
-- Decide whether to eventually source exact ERV/RVR1960 text (with proper
-  licensing) to match the PDFs, or keep KJV/RV1909 as the permanent choice.
-- Have a Spanish-fluent reviewer spot-check the RV1909 transcriptions.
+| 119 | Genesis 1:27 | PDF-sourced addition |
+| 120 | Genesis 2:18 | PDF-sourced addition |
+| 121 | Genesis 12:2 | PDF-sourced addition |
+| 122 | Genesis 50:20 | PDF-sourced addition |
+| 123 | Exodus 14:14 | PDF-sourced addition |
+| 124 | Exodus 15:2 | PDF-sourced addition |
+| 125 | Judges 6:12 | PDF-sourced addition |
+| 126 | 1 Samuel 16:7 | PDF-sourced addition |
+| 127 | 2 Chronicles 7:14 | PDF-sourced addition |
+| 128 | 2 Chronicles 16:9 | PDF-sourced addition |
+| 129 | Ezra 8:22 | PDF-sourced addition |
+| 130 | Nehemiah 9:17 | PDF-sourced addition |
+| 131 | Job 19:25 | PDF-sourced addition |
+| 132 | Psalm 1:1 | PDF-sourced addition |
+| 133 | Psalm 19:14 | PDF-sourced addition |
+| 134 | Psalm 34:8 | PDF-sourced addition |
+| 135 | Psalm 37:5 | PDF-sourced addition |
+| 136 | Psalm 37:7 | PDF-sourced addition |
+| 137 | Psalm 37:23-24 | PDF-sourced addition |
+| 138 | Psalm 39:7 | PDF-sourced addition |
+| 139 | Psalm 51:10 | PDF-sourced addition |
+| 140 | Psalm 84:11 | PDF-sourced addition |
+| 141 | Psalm 90:12 | PDF-sourced addition |
+| 142 | Psalm 91:4 | PDF-sourced addition |
+| 143 | Psalm 103:1-5 | PDF-sourced addition |
+| 144 | Psalm 121:1-2 | PDF-sourced addition |
+| 145 | Psalm 139:14 | PDF-sourced addition |
+| 146 | Psalm 145:18 | PDF-sourced addition |
+| 147 | Psalm 147:3 | PDF-sourced addition |
+| 148 | Proverbs 9:10 | PDF-sourced addition |
+| 149 | Proverbs 27:17 | PDF-sourced addition |
+| 150 | Proverbs 31:25 | PDF-sourced addition |
+| 151 | Ecclesiastes 3:1 | PDF-sourced addition |
+| 152 | Ecclesiastes 4:9-10 | PDF-sourced addition |
+| 153 | Ecclesiastes 12:13 | PDF-sourced addition |
+| 154 | Isaiah 43:4 | PDF-sourced addition |
+| 155 | Isaiah 53:5 | PDF-sourced addition |
+| 156 | Isaiah 54:17 | PDF-sourced addition |
+| 157 | Isaiah 55:8-9 | PDF-sourced addition |
+| 158 | Isaiah 58:11 | PDF-sourced addition |
+| 159 | Isaiah 61:1 | PDF-sourced addition |
+| 160 | Isaiah 64:8 | PDF-sourced addition |
+| 161 | Jeremiah 1:5 | PDF-sourced addition |
+| 162 | Jeremiah 17:7-8 | PDF-sourced addition |
+| 163 | Ezekiel 36:26 | PDF-sourced addition |
+| 164 | Daniel 3:17-18 | PDF-sourced addition |
+| 165 | Daniel 6:23 | PDF-sourced addition |
+| 166 | Habakkuk 2:4 | PDF-sourced addition |
+| 167 | Habakkuk 3:17-18 | PDF-sourced addition |
+| 168 | Malachi 3:10 | PDF-sourced addition |
+| 169 | Matthew 5:14-16 | PDF-sourced addition |
+| 170 | Matthew 18:20 | PDF-sourced addition |
+| 171 | Matthew 22:37-39 | PDF-sourced addition |
+| 172 | Matthew 28:19 | PDF-sourced addition |
+| 173 | Mark 10:27 | PDF-sourced addition |
+| 174 | Mark 11:24 | PDF-sourced addition |
+| 175 | Mark 12:30 | PDF-sourced addition |
+| 176 | Luke 1:37 | PDF-sourced addition |
+| 177 | Luke 6:31 | PDF-sourced addition |
+| 178 | Luke 9:23 | PDF-sourced addition |
+| 179 | Luke 10:27 | PDF-sourced addition |
+| 180 | Luke 12:32 | PDF-sourced addition |
+| 181 | Luke 16:10 | PDF-sourced addition |
+| 182 | Luke 18:27 | PDF-sourced addition |
+| 183 | John 8:12 | PDF-sourced addition |
+| 184 | John 10:10 | PDF-sourced addition |
+| 185 | John 11:25-26 | PDF-sourced addition |
+| 186 | John 13:34-35 | PDF-sourced addition |
+| 187 | John 14:6 | PDF-sourced addition |
+| 188 | John 15:5 | PDF-sourced addition |
+| 189 | Acts 1:8 | PDF-sourced addition |
+| 190 | Acts 2:38 | PDF-sourced addition |
+| 191 | Acts 4:12 | PDF-sourced addition |
+| 192 | Acts 16:31 | PDF-sourced addition |
+| 193 | Acts 20:35 | PDF-sourced addition |
+| 194 | Romans 1:16 | PDF-sourced addition |
+| 195 | Romans 3:23-24 | PDF-sourced addition |
+| 196 | Romans 6:23 | PDF-sourced addition |
+| 197 | Romans 8:31 | PDF-sourced addition |
+| 198 | Romans 12:1-2 | PDF-sourced addition |
+| 199 | Romans 12:12 | PDF-sourced addition |
+| 200 | Romans 12:21 | PDF-sourced addition |
+| 201 | 1 Corinthians 10:13 | PDF-sourced addition |
+| 202 | 1 Corinthians 13:4-7 | PDF-sourced addition |
+| 203 | 1 Corinthians 15:58 | PDF-sourced addition |
+| 204 | 2 Corinthians 4:16-18 | PDF-sourced addition |
+| 205 | 2 Corinthians 9:8 | PDF-sourced addition |
+| 206 | Galatians 5:22-23 | PDF-sourced addition |
+| 207 | Ephesians 3:20-21 | PDF-sourced addition |
+| 208 | Ephesians 4:32 | PDF-sourced addition |
+| 209 | Ephesians 5:2 | PDF-sourced addition |
+| 210 | Ephesians 6:11-12 | PDF-sourced addition |
+| 211 | Philippians 1:6 | PDF-sourced addition |
+| 212 | Philippians 4:8 | PDF-sourced addition |
+| 213 | Colossians 3:2 | PDF-sourced addition |
+| 214 | Colossians 3:17 | PDF-sourced addition |
+| 215 | 1 Thessalonians 5:11 | PDF-sourced addition |
+| 216 | 1 Thessalonians 5:21-22 | PDF-sourced addition |
+| 217 | 2 Timothy 3:16-17 | PDF-sourced addition |
+| 218 | 2 Timothy 4:7 | PDF-sourced addition |
+| 219 | Hebrews 10:23 | PDF-sourced addition |
+| 220 | Hebrews 12:1-2 | PDF-sourced addition |
+| 221 | Hebrews 13:8 | PDF-sourced addition |
+| 222 | James 2:17 | PDF-sourced addition |
+| 223 | James 4:7-8 | PDF-sourced addition |
+| 224 | 1 Peter 5:7 | PDF-sourced addition |
+| 225 | 1 John 3:1 | PDF-sourced addition |
+| 226 | 1 John 4:7-8 | PDF-sourced addition |
+| 227 | 1 John 5:14 | PDF-sourced addition |
+| 228 | Jude 1:24-25 | PDF-sourced addition |
+| 229 | Revelation 3:20 | PDF-sourced addition |
+| 230 | Revelation 21:5 | PDF-sourced addition |
+| 231 | Revelation 22:12 | PDF-sourced addition |
